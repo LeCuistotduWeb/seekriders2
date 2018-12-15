@@ -5,10 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ *  fields={"email"},
+ *  message="Un autre utilisateur s'est déjà inscrit avec cette adresse email, merci de la modifier"
+ * )
  */
 class User implements UserInterface
 {
@@ -29,6 +36,12 @@ class User implements UserInterface
      */
     private $surname;
 
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -38,6 +51,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas correctement confirmé votre mot de passe !")
+     */
+    public $passwordConfirm;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -61,7 +79,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $location;
 
@@ -72,6 +90,7 @@ class User implements UserInterface
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
     }
 
@@ -104,6 +123,24 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     * @return User
+     */
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -125,6 +162,24 @@ class User implements UserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordConfirm()
+    {
+        return $this->passwordConfirm;
+    }
+
+    /**
+     * @param mixed $passwordConfirm
+     * @return User
+     */
+    public function setPasswordConfirm($passwordConfirm)
+    {
+        $this->passwordConfirm = $passwordConfirm;
         return $this;
     }
 
@@ -150,6 +205,14 @@ class User implements UserInterface
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \Datetime());
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -186,10 +249,6 @@ class User implements UserInterface
         $this->location = $location;
 
         return $this;
-    }
-
-    public function getUsername() {
-        return $this->email;
     }
 
     public function getRoles() {

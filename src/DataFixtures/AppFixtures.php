@@ -49,6 +49,7 @@ class AppFixtures extends Fixture
 
             $user->setSurname($faker->name)
                 ->setFirstname($faker->firstName)
+                ->setUsername($faker->userName)
                 ->setBirthdayAt($faker->dateTimeBetween($startDate = '-30 years', $endDate = '-3 years'))
                 ->setLocation($location)
                 ->setEmail($faker->email)
