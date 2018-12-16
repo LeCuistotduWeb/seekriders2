@@ -16,6 +16,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  fields={"email"},
  *  message="Un autre utilisateur s'est déjà inscrit avec cette adresse email, merci de la modifier"
  * )
+ * @UniqueEntity(
+ *  fields={"username"},
+ *  message="Un autre utilisateur s'est déjà inscrit avec ce nom d'utilisateur, merci de le modifier"
+ * )
  */
 class User implements UserInterface
 {
@@ -36,14 +40,15 @@ class User implements UserInterface
      */
     private $surname;
 
-
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez renseigner un nom d'utilisateur !")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner un email valide !")
      */
     private $email;
 
@@ -64,16 +69,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
      */
     private $birthdayAt;
 
