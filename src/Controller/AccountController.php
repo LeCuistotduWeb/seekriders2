@@ -22,11 +22,11 @@ class AccountController extends AbstractController
     public function login(AuthenticationUtils $utils)
     {
         $error = $utils->getLastAuthenticationError();
-        $username = $utils->getLastUsername();
+        $lastUsername = $utils->getLastUsername();
 
         return $this->render('account/login.html.twig', [
-            'hasError' => $error !== null,
-            'username' => $username
+            'error' => $error,
+            'lastUsername' => $lastUsername
         ]);
     }
 
@@ -68,7 +68,27 @@ class AccountController extends AbstractController
      * @Route("/logout", name="account_logout")
      * @return void
      */
-    public function logout() {
-        // .. rien !
+    public function logout() {}
+
+    /**
+     *
+     */
+    public function accountInfo()
+    {
+        // allow any authenticated user - we don't care if they just
+        // logged in, or are logged in via a remember me cookie
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+    }
+
+    /**
+     *
+     */
+    public function resetPassword()
+    {
+        // require the user to log in during *this* session
+        // if they were only logged in via a remember me cookie, they
+        // will be redirected to the login page
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        // ...
     }
 }

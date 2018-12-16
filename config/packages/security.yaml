@@ -23,10 +23,16 @@ security:
             form_login:
                 login_path: account_login
                 check_path: account_login
+                csrf_token_generator: security.csrf.token_manager
 
             logout:
                 path: account_logout
                 target: account_login
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     account_login
 
             # activate different ways to authenticate
 
