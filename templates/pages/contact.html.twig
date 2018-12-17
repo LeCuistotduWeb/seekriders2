@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}contact{% endblock %}
+
+{% block body %}
+
+    <!-- Navigation -->
+    {% include('partials/navbar.twig.html') %}
+
+    <div class="container">
+        <div class="row">
+            <h1>Contact</h1>
+        </div>
+        <div class="row">
+            <p class="">Vous pouvez nous contactez à l'aide du formulaire ci dessous. Nous vous répondrons dans les plus brefs délais</p>
+        </div>
+
+        <div class="row">
+            <form action="" method="POST"></form>
+                <div class="form-group my-5">
+                    <div class="form-row mb-3">
+                        <div class="col-md-4">
+                            <input type="text" placeholder="Entrez votre nom">
+                        </div>
+                        <div class="col-md-8">
+                            <input type="email" name="email" id="" placeholder="Entrez votre email">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <input type="text" placeholder="Sujet de votre message">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <textarea name="message" id="" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                    <div class="form-row mb-3">
+                        <div class="col">
+                            <button class="btn btn-primary" type="submit">Envoyer !</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include('partials/footer.html.twig') %}
+
+{% endblock %}
