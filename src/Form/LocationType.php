@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Location;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,14 +14,14 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('country')
-            ->add('region')
-            ->add('department')
-            ->add('city')
-            ->add('address')
-            ->add('postCode')
-            ->add('longitude')
-            ->add('latitude')
+            ->add('country', HiddenType::class, [])
+            ->add('region', HiddenType::class, [])
+            ->add('department', HiddenType::class, [])
+            ->add('city', TextType::class , [])
+            ->add('address', TextType::class, [])
+            ->add('postCode', TextType::class, [])
+            ->add('longitude', HiddenType::class, [])
+            ->add('latitude', HiddenType::class, [])
         ;
     }
 

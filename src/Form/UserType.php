@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -23,10 +24,10 @@ class UserType extends AbstractType
             ->add('email',      EmailType::class, [])
             ->add('password',   PasswordType::class, [])
             ->add('biography',  TextareaType::class, [])
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('createdAt', DateType::class, [])
+            ->add('updatedAt', DateType::class, [])
             ->add('birthdayAt', DateTimeType::class, [])
-            ->add('location')
+            ->add('location', LocationType::class, [])
         ;
     }
 
