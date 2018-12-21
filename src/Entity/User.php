@@ -86,13 +86,13 @@ class User implements UserInterface
     private $birthdayAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Location")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $location;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
      */
     private $userRoles;
 

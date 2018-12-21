@@ -17,17 +17,25 @@ class AccountType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class, [])
-            ->add('surname', TextType::class, [])
-            ->add('username', TextType::class, [])
+            ->add('firstname', TextType::class, [
+                'required' => false,
+            ])
+            ->add('surname', TextType::class, [
+                'required' => false,
+            ])
+            ->add('username', TextType::class, [
+                'required' => false,
+            ])
             ->add('email', EmailType::class, [])
-            ->add('biography', TextareaType::class, [])
+            ->add('biography', TextareaType::class, ['required' => false,])
+
             ->add('birthdayAt', DateType::class, [
+                'required' => false,
                 'widget' => 'single_text',
 //                'html5'  => false,
                 'attr'   => ['class' => 'js-datepicker'],
             ])
-            ->add('location', LocationType::class, [])
+            ->add('location', LocationType::class, ['required' => false,])
         ;
     }
 
