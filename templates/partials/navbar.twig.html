@@ -7,16 +7,25 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
-                    <li class="nav-item"><a  class="nav-link js-scroll-trigger" href="{{ path('account_profile') }}">mon profile</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('account_logout') }}">Se déconnecter</a>
+                    <!-- dropdown account -->
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown">
+                            <img src="https://picsum.photos/24" class="avatar mb-3 rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
+                            {{ app.user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="accountDropdownLink">
+                            <a href="{{ path('account_index') }}" class="dropdown-item">mon profile</a>
+                            <a href="{{ path('account_profile') }}" class="dropdown-item">modifier mon profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ path('account_logout') }}" class="dropdown-item">Se déconnecter</a>
+                        </div>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('account_login') }}">Se connecter</a>
+                        <a class="nav-link" href="{{ path('account_login') }}">Se connecter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{{ path('account_register') }}">S'enregistrer</a>
+                        <a class="nav-link" href="{{ path('account_register') }}">S'enregistrer</a>
                     </li>
                 {% endif %}
             </ul>

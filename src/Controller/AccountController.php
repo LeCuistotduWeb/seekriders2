@@ -8,6 +8,7 @@ use App\Form\AccountType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,20 @@ class AccountController extends AbstractController
         return $this->render('account/login.html.twig', [
             'error' => $error,
             'lastUsername' => $lastUsername
+        ]);
+    }
+
+    /**
+     * Permet d'afficher le profil de l'utilisateur connecté
+     *
+     * @Route("/account", name="account_index")
+     * @IsGranted("ROLE_USER")
+     *
+     * @return Response
+     */
+    public function myAccount() {
+        return $this->render('user/show.html.twig', [
+            'user' => $this->getUser()
         ]);
     }
 
