@@ -43,7 +43,7 @@ class Location
     private $address;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $postCode;
 

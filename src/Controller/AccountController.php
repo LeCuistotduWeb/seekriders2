@@ -17,11 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Class AccountController
+ * @package App\Controller
+ */
 class AccountController extends AbstractController
 {
     /**
      * Permet d'afficher et de gérer le formulaire de connexion
      * @Route("/login", name="account_login")
+     *
      * @return Response
      */
     public function login(AuthenticationUtils $utils)
@@ -52,6 +57,8 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher le formulaire de modification de profile
      * @Route("/account/profile", name="account_profile")
+     * @IsGranted("ROLE_USER")
+     *
      * @return Response
      */
     public function profile(Request $request, ObjectManager $manager){
@@ -79,6 +86,7 @@ class AccountController extends AbstractController
     /**
      * Permet d'afficher le formulaire d'inscription
      * @Route("/register", name="account_register")
+     *
      * @return Response
      */
     public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
@@ -112,6 +120,8 @@ class AccountController extends AbstractController
     /**
      * Permet de modifier le mot de passe
      * @Route("/account/password-update", name="account_password")
+     * @IsGranted("ROLE_USER")
+     *
      * @return Response
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager){
@@ -151,6 +161,7 @@ class AccountController extends AbstractController
     /**
      * Permet de se déconnecter
      * @Route("/logout", name="account_logout")
+     *
      * @return void
      */
     public function logout() {}
