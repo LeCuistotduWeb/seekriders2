@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Location;
 use App\Entity\Role;
+use App\Entity\Spot;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -38,8 +39,12 @@ class AppFixtures extends Fixture
 
         $users = [];
         $locations = [];
+        $spots = [];
+        $types = ['Skatepark', 'Street'];
+        $prices = ['Nc', 'Payant', 'Gratuit'];
+
         /* creation des adresses*/
-        for ($i=0; $i < 50; $i++){
+        for ($i=0; $i < 100; $i++){
             $location = new Location();
 
             $location->setDepartment($faker->departmentName)
@@ -55,11 +60,11 @@ class AppFixtures extends Fixture
             $locations[] = $location;
         }
 
-        /* creation des utilisateurs*/
-        for ($i=0; $i < 50; $i++){
-            $user = new User();
+        $location = $locations[mt_rand(0, count($locations) - 1)];
 
-            $location = $locations[mt_rand(0, count($locations) - 1)];
+        /* creation des utilisateurs*/
+        for ($i=0; $i < 10; $i++) {
+            $user = new User();
 
             $user->setSurname($faker->name)
                 ->setFirstname($faker->firstName)
@@ -69,10 +74,26 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setCreatedAt($faker->dateTime($max = 'now', $timezone = null))
                 ->setBiography($faker->text)
-                ->setPassword($this->encoder->encodePassword($user, 'password'))
-            ;
+                ->setPassword($this->encoder->encodePassword($user, 'password'));
             $manager->persist($user);
             $users[] = $user;
+
+            $type = $types[mt_rand(0, count($types) - 1)];
+            $price = $prices[mt_rand(0, count($prices) - 1)];
+            $location = $locations[mt_rand(0, count($locations) - 1)];
+            /* creation des spots*/
+
+            $spot = new Spot();
+
+            $spot->setTitle($faker->title)
+                ->setDescription($faker->sentence($nb = 3, $asText = false))
+                ->setLocation($location)
+                ->setType($type)
+                ->setPaying($price)
+                ->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days'))
+                ->setAuthor($user);
+            $manager->persist($spot);
+            $spots[] = $spot;
         }
 
         $manager->flush();

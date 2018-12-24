@@ -96,10 +96,16 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Spot", mappedBy="author", orphanRemoval=true)
+     */
+    private $spotsCreated;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
+        $this->spotsCreated = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -297,6 +303,37 @@ class User implements UserInterface
         if ($this->userRoles->contains($userRole)) {
             $this->userRoles->removeElement($userRole);
             $userRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Spot[]
+     */
+    public function getSpotsCreated(): Collection
+    {
+        return $this->spotsCreated;
+    }
+
+    public function addSpotsCreated(Spot $spotsCreated): self
+    {
+        if (!$this->spotsCreated->contains($spotsCreated)) {
+            $this->spotsCreated[] = $spotsCreated;
+            $spotsCreated->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpotsCreated(Spot $spotsCreated): self
+    {
+        if ($this->spotsCreated->contains($spotsCreated)) {
+            $this->spotsCreated->removeElement($spotsCreated);
+            // set the owning side to null (unless already changed)
+            if ($spotsCreated->getAuthor() === $this) {
+                $spotsCreated->setAuthor(null);
+            }
         }
 
         return $this;

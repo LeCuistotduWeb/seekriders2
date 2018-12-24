@@ -57,6 +57,11 @@ class Location
      */
     private $latitude;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Spot", mappedBy="Location", cascade={"persist", "remove"})
+     */
+    private $spot;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,23 @@ class Location
     public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getSpot(): ?Spot
+    {
+        return $this->spot;
+    }
+
+    public function setSpot(Spot $spot): self
+    {
+        $this->spot = $spot;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $spot->getLocation()) {
+            $spot->setLocation($this);
+        }
 
         return $this;
     }

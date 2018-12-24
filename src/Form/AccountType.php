@@ -33,7 +33,6 @@ class AccountType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
 //                'html5'  => false,
-                'attr'   => ['class' => 'js-datepicker'],
             ])
             ->add('location', LocationType::class, ['required' => false,])
         ;

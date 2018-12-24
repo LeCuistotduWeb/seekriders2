@@ -20,6 +20,19 @@ class UserRepository extends ServiceEntityRepository
     }
 
     // /**
+    //  * @return Spot[] Returns an array of Spot objects
+    //  */
+    public function findLastUsersCreatedWidthLimit($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.createdAt', 'ASC')
+            ->setMaxResults($value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    // /**
     //  * @return User[] Returns an array of User objects
     //  */
     /*

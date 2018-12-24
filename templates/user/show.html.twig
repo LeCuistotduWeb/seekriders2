@@ -8,35 +8,78 @@
 
     <div class="container mt-5">
         <div class="row mb-5">
-            <div class="col-3 text-center">
+            <div class="col-sm-3 col-xs-12 text-center">
                 <img src="https://picsum.photos/128" class="avatar mb-3 rounded-circle img-fluid" alt="Avatar de {{user.username}}">
             </div>
+
             <div class="col">
-                <h1>{{user.username}}</h1>
-                {% if user is same as(app.user) %}
-                    <div class="mt-3">
-                        <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-2">Modifier mes informations</a>
-                        <a href="{{ path('account_password') }}" class="btn btn-primary mb-2">Modifier mon mot de passe</a>
+                <div class="container">
+                    <h1 class="mb-2">{{user.username}}</h1>
+                    {% if user.location %}
+                        <p>{{ user.location.department }} / {{ user.location.city }}</p>
+                    {% endif %}
+
+                    <p><strong>Inscris depuis le : </strong>{{ user.createdAt | date('d M Y') }}</p>
+
+                    <div class="content mt-3">
+                        <strong>Descirption : </strong> <br>
+                        {% if user.biography == null %} aucune {% else  %}{{ user.biography }}{% endif %}
                     </div>
-                {% endif %}
 
-                {% if user.location %}
-                <p>{{ user.location.department }} / {{ user.location.city }}</p>
-                {% endif %}
-
-                <div class="content mt-3">
-                    Descirption : {% if user.biography == null %} aucune {% else  %}{{ user.biography }}{% endif %}
+                    {% if user is same as(app.user) %}
+                        <div class="mt-3">
+                            <a href="{{ path('account_profile') }}" class="btn btn-sm btn-primary mr-2 mb-2">Modifier mes informations</a>
+                            <a href="{{ path('account_password') }}" class="btn btn-sm btn-danger mb-2">Modifier mon mot de passe</a>
+                        </div>
+                    {% endif %}
                 </div>
-                <p class="mt-3">Niveau : Intermedaire</p>
-                <p>Inscris depuis {{ user.createdAt | date('d M Y') }}</p>
+                <hr>
+                <!-- friends list -->
+                <div class="container">
+                    <div class="row">
+                        <h3>Liste d'amis : </h3>
+                    </div>
+                    <div class="row">
+                        <ul class="list-unstyled d-flex flex-row flex-wrap">
+                            {% for i in 0..10 %}
+                                <li class="mr-2"><img src="http://placehold.it/50" alt="" class="image-profile img-fluid rounded-circle"></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- last session -->
+                <div class="container">
+                    <div class="row">
+                        <h3>Dernières session : </h3>
+                    </div>
+                    <div class="row">
+                        <p>vous n'avez participé a aucun session </p>
+                    </div>
+                </div>
+
+                <!-- spots list -->
+                <div class="container">
+                    <div class="row">
+                        <h3 class="my-4">Spots ajoutés :</h3>
+                    </div>
+                    <div class="row">
+                        {% for i in (1..8) %}
+                            <div class="col-md-2 col-xs-6 mb-4 pl-0">
+                                <a href="#">
+                                    <img src="https://picsum.photos/150" class="avatar mb-3 img-fluid" alt="">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-
-        <section>
-
-        </section>
-
     </div>
+
+
+
+
 
     <!-- Footer -->
     {% include('partials/footer.html.twig') %}
