@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Modification du profil utilisateur{% endblock %}
+{% block title %}{{ parent() }} Modification du spot {{ spot.title }}{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
 
     <div class="container">
         <h1>
-            Modification du profile utilisateur
+            Modification du spot {{ spot.title }}
         </h1>
 
         {{ form_start(form) }}
@@ -19,6 +19,7 @@
         {{ form_end(form) }}
     </div>
     {% block javascripts %}
+        <!-- algoliaPlaces -->
         <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
         {{ encore_entry_script_tags('algoliaPlaces') }}
     {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Les spots{% endblock %}
+
+{% block body %}
+    <!-- Navigation -->
+    {% include('partials/navbar.twig.html') %}
+
+    <div class="container mt-5">
+        <h1 class="my-5">Liste des spots dispo</h1>
+
+        <div class="row">
+            <ul>
+            {% for spot in spots %}
+                <li>
+                    <a href="{{ path('spot_show', {'id': spot
+                        .id}) }}">
+                        <h3>{{ spot.title }}</h3>
+                        <p>{{ spot.description }}</p>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include('partials/footer.html.twig') %}
+{% endblock %}

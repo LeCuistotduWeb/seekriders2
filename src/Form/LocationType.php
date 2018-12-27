@@ -17,9 +17,9 @@ class LocationType extends AbstractType
             ->add('country', HiddenType::class, [])
             ->add('region', HiddenType::class, [])
             ->add('department', HiddenType::class, [])
-            ->add('city', TextType::class , [])
+            ->add('city', HiddenType::class, [])
             ->add('address', TextType::class, [])
-            ->add('postCode', TextType::class, [])
+            ->add('postCode', HiddenType::class, [])
             ->add('longitude', HiddenType::class, [])
             ->add('latitude', HiddenType::class, [])
         ;

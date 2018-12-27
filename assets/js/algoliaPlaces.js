@@ -12,6 +12,7 @@
         type: 'address'
     });
     placesAutocomplete.on('change', function resultSelected(e) {
+        document.querySelector('#account_location_address').value = e.query || '';
         document.querySelector('#account_location_country').value = e.suggestion.country || '';
         document.querySelector('#account_location_region').value = e.suggestion.administrative || '';
         document.querySelector('#account_location_department').value = e.suggestion.county || '';

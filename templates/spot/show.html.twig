@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} {{ spot.title }}{% endblock %}
+
+{% block body %}
+    <!-- Navigation -->
+    {% include('partials/navbar.twig.html') %}
+
+    <div class="container mt-3">
+        <h1>{{ spot.title }}</h1>
+        <p>{{ spot.description }}</p>
+    </div>
+
+    <!-- Footer -->
+    {% include('partials/footer.html.twig') %}
+{% endblock %}

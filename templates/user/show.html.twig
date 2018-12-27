@@ -64,7 +64,7 @@
                         <h3 class="my-4">Spots ajoutés :</h3>
                     </div>
                     <div class="row">
-                        {% for i in (1..8) %}
+                        {% for spot in user.spotsCreated %}
                             <div class="col-md-2 col-xs-6 mb-4 pl-0">
                                 <a href="#">
                                     <img src="https://picsum.photos/150" class="avatar mb-3 img-fluid" alt="">
