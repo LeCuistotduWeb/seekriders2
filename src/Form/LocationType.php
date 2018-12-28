@@ -14,14 +14,30 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('country', HiddenType::class, [])
-            ->add('region', HiddenType::class, [])
-            ->add('department', HiddenType::class, [])
-            ->add('city', HiddenType::class, [])
-            ->add('address', TextType::class, [])
-            ->add('postCode', HiddenType::class, [])
-            ->add('longitude', HiddenType::class, [])
-            ->add('latitude', HiddenType::class, [])
+            ->add('country', HiddenType::class, [
+                'attr' => ['class'=> 'js-country']
+            ])
+            ->add('region', HiddenType::class, [
+                'attr' => ['class'=> 'js-region']
+            ])
+            ->add('department', HiddenType::class, [
+                'attr' => ['class'=> 'js-department']
+            ])
+            ->add('city', HiddenType::class, [
+                'attr' => ['class'=> 'js-city']
+            ])
+            ->add('address', TextType::class, [
+                'attr' => ['class'=> 'js-address']
+            ])
+            ->add('postCode', HiddenType::class, [
+                'attr' => ['class'=> 'js-postcode']
+            ])
+            ->add('longitude', HiddenType::class, [
+                'attr' => ['class'=> 'js-lng']
+            ])
+            ->add('latitude', HiddenType::class, [
+                'attr' => ['class'=> 'js-lat']
+            ])
         ;
     }
 
