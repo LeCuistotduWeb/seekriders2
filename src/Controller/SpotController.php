@@ -37,7 +37,7 @@ class SpotController extends AbstractController
     /**
      * Permet de créer une annonce
      *
-     * @Route("/new", name="spot_new")
+     * @Route("/new", name="spot_new", methods="GET|POST")
      * @IsGranted("ROLE_USER")
      *
      * @return Response
@@ -62,11 +62,22 @@ class SpotController extends AbstractController
 
             return $this->redirectToRoute('spot_show', [
                 'spot' => $spot,
+                'id' => $spot->getId(),
             ]);
         }
 
         return $this->render('spot/new.html.twig', [
             'form' => $form->createView(),
+            'spot' => $spot,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="spot_show", methods="GET")
+     */
+    public function show(Spot $spot): Response
+    {
+        return $this->render('spot/show.html.twig', [
             'spot' => $spot,
         ]);
     }
@@ -92,16 +103,6 @@ class SpotController extends AbstractController
 
         return $this->render('spot/edit.html.twig', [
             'form' => $form->createView(),
-            'spot' => $spot,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="spot_show", methods="GET")
-     */
-    public function show(Spot $spot): Response
-    {
-        return $this->render('spot/show.html.twig', [
             'spot' => $spot,
         ]);
     }

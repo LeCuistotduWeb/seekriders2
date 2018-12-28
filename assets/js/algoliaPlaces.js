@@ -20,7 +20,7 @@
         document.querySelector('.js-department').value = e.suggestion.county || '';
         document.querySelector('.js-city').value = e.suggestion.city || '';
         document.querySelector('.js-postcode').value = e.suggestion.postcode || '';
-        document.querySelector('.js-lng').value = e.suggestion.latlng.lng|| '';
-        document.querySelector('js-lat').value = e.suggestion.latlng.lat || '';
+        document.querySelector('.js-lng').value = e.suggestion.latlng.lng || '';
+        document.querySelector('.js-lat').value = e.suggestion.latlng.lat || '';
     });
 })();
