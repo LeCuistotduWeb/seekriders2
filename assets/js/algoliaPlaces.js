@@ -13,7 +13,8 @@
     });
 
     placesAutocomplete.on('change', function resultSelected(e) {
-        document.querySelector('.js-address').value = e.value || '';
+        console.log(e);
+        document.querySelector('.js-address').value = e.suggestion.name || '';
         document.querySelector('.js-country').value = e.suggestion.country || '';
         document.querySelector('.js-region').value = e.suggestion.administrative || '';
         document.querySelector('.js-department').value = e.suggestion.county || '';

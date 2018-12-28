@@ -1,0 +1,18 @@
+<div class="card">
+    <a href="">
+        <img class="card-img-top img-fluid" src="https://via.placeholder.com/250x160" alt="Card image cap">
+    </a>
+    <div class="card-body">
+        <h5 class="card-title"><a href="">{{ spot.title }}</a></h5>
+        <p class="card-text">{{ spot.location.region }} / {{ spot.location.city }}</p>
+        <p class="card-text">{{ spot.description }}</p>
+        {#<span class="rating">#}
+            {#<i class="fas fa-star"></i>#}
+            {#<i class="fas fa-star"></i>#}
+            {#<i class="fas fa-star"></i>#}
+            {#<i class="fas fa-star"></i>#}
+            {#<i class="fas fa-star"></i>#}
+        {#</span>#}
+        <a href="{{path('spot_show', {'id': spot.id})}}">Voir plus</a>
+    </div>
+</div>

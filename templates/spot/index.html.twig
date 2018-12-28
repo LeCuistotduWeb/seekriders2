@@ -8,20 +8,33 @@
 
     <div class="container mt-5">
         <h1 class="my-5">Liste des spots dispo</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <td>Titre</td>
+                    <td>Description</td>
+                    <td>Action</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for spot in spots %}
+                    <tr>
+                        <td><h3><a href="{{ path('spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></h3></td>
+                        <td><p>{{ spot.description }}</p></td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('spot_delete', {'id': spot.id}) }}" class="btn btn-danger">Suprimer</a>
+                                <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
+                            {% elseif app.user == spot.author %}
+                                <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
+                            {%endif%}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-        <div class="row">
-            <ul>
-            {% for spot in spots %}
-                <li>
-                    <a href="{{ path('spot_show', {'id': spot
-                        .id}) }}">
-                        <h3>{{ spot.title }}</h3>
-                        <p>{{ spot.description }}</p>
-                    </a>
-                </li>
-            {% endfor %}
-            </ul>
-        </div>
+        <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
     </div>
 
     <!-- Footer -->

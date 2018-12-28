@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Modification du spot {{ spot.title }}{% endblock %}
+{% block title %}{{ parent() }} Création d'un nouveau spot{% endblock %}
 
 {% block body %}
 
@@ -9,18 +9,14 @@
 
     <div class="container mt-5">
         <h1>
-            Modification du spot {{ spot.title }}
+            Création d'un nouveau spot
         </h1>
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
 
-        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        <button type="submit" class="btn btn-primary">Enregistrer le nouveau spot</button>
         {{ form_end(form) }}
-
-        {% if is_granted('ROLE_ADMIN') %}
-            {{ include('spot/_delete_form.html.twig') }}
-        {%endif%}
     </div>
     {% block javascripts %}
         <!-- algoliaPlaces -->

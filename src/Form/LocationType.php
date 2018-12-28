@@ -23,11 +23,11 @@ class LocationType extends AbstractType
             ->add('department', HiddenType::class, [
                 'attr' => ['class'=> 'js-department']
             ])
-            ->add('city', HiddenType::class, [
-                'attr' => ['class'=> 'js-city']
-            ])
             ->add('address', TextType::class, [
                 'attr' => ['class'=> 'js-address']
+            ])
+            ->add('city', TextType::class, [
+                'attr' => ['class'=> 'js-city']
             ])
             ->add('postCode', HiddenType::class, [
                 'attr' => ['class'=> 'js-postcode']

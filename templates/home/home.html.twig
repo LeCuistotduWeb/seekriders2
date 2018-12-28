@@ -36,25 +36,8 @@
                 </div>
                 <div class="row">
                     {% for spot in spots %}
-                        <div class="col-lg-3 col-xs-6 mb-3">
-                            <div class="card">
-                                <a href="">
-                                    <img class="card-img-top img-fluid" src="https://via.placeholder.com/250x160" alt="Card image cap">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="">{{ spot.title }}</a></h5>
-                                    <p class="card-text">{{ spot.location.region }} / {{ spot.location.city }}</p>
-                                    <p class="card-text">{{ spot.description }}</p>
-                                    {#<span class="rating">#}
-                                        {#<i class="fas fa-star"></i>#}
-                                        {#<i class="fas fa-star"></i>#}
-                                        {#<i class="fas fa-star"></i>#}
-                                        {#<i class="fas fa-star"></i>#}
-                                        {#<i class="fas fa-star"></i>#}
-                                    {#</span>#}
-                                    <a href="">Voir plus</a>
-                                </div>
-                            </div>
+                        <div class="col-lg-3 col-sm-6 col-xs-6 mb-3">
+                            {{ include('partials/spot-card.html') }}
                         </div>
                     {% endfor %}
                 </div>
