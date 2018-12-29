@@ -98,7 +98,7 @@ class SpotController extends AbstractController
                 "success",
                 "Les données du spot ont été modifiés avec succèes !"
             );
-//            return $this->redirectToRoute('spot_show');
+            return $this->redirectToRoute('spot_show', ['id'=> $spot->getId()]);
         }
 
         return $this->render('spot/edit.html.twig', [

@@ -32,7 +32,8 @@ class AccountType extends AbstractType
             ->add('birthdayAt', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
-//                'html5'  => false,
+                'html5'  => false,
+                'attr' => ['class'=> 'datepicker'],
             ])
             ->add('location', LocationType::class, ['required' => false,])
         ;

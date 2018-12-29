@@ -19,6 +19,7 @@ class Location
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Country
      */
     private $country;
 
@@ -61,6 +62,10 @@ class Location
      * @ORM\OneToOne(targetEntity="App\Entity\Spot", mappedBy="Location", cascade={"persist", "remove"})
      */
     private $spot;
+
+    public function getFullAddress(){
+        return $this->getAddress() . ' - ' . $this->getCity() . ' ' . $this->getPostCode();
+    }
 
     public function getId(): ?int
     {

@@ -1,13 +1,27 @@
 // any CSS you require will output into a single css file (app.scss in this case)
-require('../css/bootstrap.min.css');
 require('../css/app.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 let $ = require('jquery');
 require('popper.js');
 require('bootstrap');
+require('bootstrap-datepicker');
 
+// active alert bootstrap
 $(function() {
-    // active alert bootstrap
-    $(".alert").alert();
+    $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#success-alert").slideUp(500);
+    });
+});
+
+// datepicker birthday
+$( function() {
+    $( "#account_birthdayAt" ).datepicker({
+        startDate: "-100y",
+        endDate: "-14y",
+        language: "fr",
+        forceParse: false,
+        autoclose: true,
+        todayHighlight: true
+    });
 });

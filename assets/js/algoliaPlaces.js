@@ -1,3 +1,5 @@
+var places = require('places.js');
+
 (function() {
     var placesAutocomplete = places({
         appId: 'plEON2OM6ISI',

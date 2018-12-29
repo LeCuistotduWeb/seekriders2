@@ -76,6 +76,9 @@ class AccountController extends AbstractController
                 "success",
                 "Les données du profile ont été enregistrée avec succèes !"
             );
+            return $this->render('user/show.html.twig', [
+                'user' => $this->getUser(),
+            ]);
         }
 
         return $this->render('account/profile.html.twig', [
