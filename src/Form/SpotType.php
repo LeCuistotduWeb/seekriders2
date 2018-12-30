@@ -18,21 +18,12 @@ class SpotType extends AbstractType
             ->add('title', TextType::class, [])
             ->add('description', TextareaType::class, [])
             ->add('type', ChoiceType::class, [
-                'choices'  => [
-                    'Skatepark' => 'skatepark',
-                    'Street' => 'street',
-                ]
+                'choices' => $this->getChoices(Spot::SPOT_TYPE),
             ])
             ->add('paying', ChoiceType::class, [
-                'choices'  => [
-                    'Nc' => null,
-                    'Gratuit' => 'free',
-                    'Payant' => 'paid',
-                ]
+                'choices' => $this->getChoices(Spot::PRICE),
             ])
             ->add('Location', LocationType::class, [])
-//            ->add('createdAt')
-//            ->add('author')
         ;
     }
 
@@ -41,5 +32,14 @@ class SpotType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Spot::class,
         ]);
+    }
+
+    private function getChoices($choices)
+    {
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 }

@@ -16,7 +16,7 @@
 
                     <div class="call-to-action mt-3">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a class="btn btn-secondary btn-lg" href="{{ path('home') }}" role="button">Acceder au site</a>
+                            <a class="btn btn-secondary btn-lg" href="{{ path('spot_index') }}" role="button">Acceder au site</a>
                         {% else %}
                             <a class="btn btn-primary btn-lg mr-3" href="{{ path('account_login') }}" role="button">Se connecter</a>
                             <a class="btn  btn-secondary btn-lg" href="{{ path('account_register') }}" role="button">Créer un compte</a>
@@ -88,11 +88,14 @@
                 {% for user in users  %}
                     <div class="col-sm-3 mb-3">
                         <div class="card">
-                            <img class="img-fluid" src="https://via.placeholder.com/150" alt="Avatar de paul92">
+                            <a href="{{ path('user_show', {'id': user.id}) }}">
+                                <img class="img-fluid" src="https://via.placeholder.com/255x150" alt="Avatar de paul92">
+                            </a>
                             <div class="card-body">
-                                <h4 class="mt-2">{{  user.username }}</h4>
+                                <h4 class="mt-2"><a href="{{ path('user_show', {'id': user.id}) }}">{{  user.username }}</a></h4>
                                 <p>{{ user.location.region }} / {{ user.location.city }}</p>
                             </div>
+
                         </div>
                     </div>
                 {% endfor %}

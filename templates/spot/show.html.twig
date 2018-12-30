@@ -11,19 +11,22 @@
         <!-- Row -->
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-7">
                 <h1>{{ spot.title }}</h1>
+
                 <address>
                     {{ spot.location.fullAddress }}
                 </address>
-                <p>{{ spot.description }}</p>
-                <h3 class="my-3">Infos :</h3>
 
+                <h3>Description : </h3>
+                <p>{{ spot.description }}</p>
+
+                <h3 class="my-3">Infos :</h3>
                 <ul class="list-unstyled">
-                    <li>Type : {{ spot.type }}</li>
-                    <li>Tarifs : {{ spot.paying }}</li>
-                    <li>Ajouté par : {{ spot.author.username }}</li>
-                    <li>Date d'ajout : {{ spot.createdAt | date('d-M-Y')}}</li>
+                    <li>Type : {{ spot.spotType }}</li>
+                    <li>Tarifs : {{ spot.spotPrice }}</li>
+                    <li>Auteur :  <a href="{{ path('user_show', {'id': spot.author.id}) }}">{{ spot.author.username }}</a></li>
+                    <li>Ajouté le : {{ spot.createdAt | date('d-M-Y')}}</li>
                 </ul>
 
                 {% if is_granted('ROLE_ADMIN') %}
@@ -34,9 +37,10 @@
                 {% elseif app.user == spot.author %}
                     <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
                 {%endif%}
+
             </div>
 
-            <div class="col-md-8">
+            <div class="col">
 
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">

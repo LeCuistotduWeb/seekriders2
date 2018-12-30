@@ -29,7 +29,7 @@ class LocationType extends AbstractType
             ->add('city', TextType::class, [
                 'attr' => ['class'=> 'js-city']
             ])
-            ->add('postCode', HiddenType::class, [
+            ->add('postCode', TextType::class, [
                 'attr' => ['class'=> 'js-postcode']
             ])
             ->add('longitude', HiddenType::class, [

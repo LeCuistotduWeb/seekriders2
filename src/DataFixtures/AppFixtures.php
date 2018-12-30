@@ -40,15 +40,13 @@ class AppFixtures extends Fixture
         $users = [];
         $locations = [];
         $spots = [];
-        $types = ['Skatepark', 'Street'];
-        $prices = ['Nc', 'Payant', 'Gratuit'];
 
         /* creation des adresses*/
         for ($i=0; $i < 100; $i++){
             $location = new Location();
 
             $location->setDepartment($faker->departmentName)
-                ->setPostCode($faker->postcode)
+                ->setPostCode(str_replace(' ', '', $faker->postcode))
                 ->setRegion($faker->region)
                 ->setCountry($faker->country)
                 ->setCity($faker->city)
@@ -78,18 +76,16 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $users[] = $user;
 
-            $type = $types[mt_rand(0, count($types) - 1)];
-            $price = $prices[mt_rand(0, count($prices) - 1)];
             $location = $locations[mt_rand(0, count($locations) - 1)];
             /* creation des spots*/
 
             $spot = new Spot();
 
-            $spot->setTitle($faker->title)
-                ->setDescription($faker->sentence($nb = 3, $asText = false))
+            $spot->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
+                ->setDescription($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
                 ->setLocation($location)
-                ->setType($type)
-                ->setPaying($price)
+                ->setType(mt_rand(0, count(Spot::SPOT_TYPE) -1))
+                ->setPaying(mt_rand(0, count(Spot::PRICE) -1))
                 ->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days'))
                 ->setAuthor($user);
             $manager->persist($spot);

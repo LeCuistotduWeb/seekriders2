@@ -8,16 +8,30 @@
     {% include('partials/navbar.twig.html') %}
 
     <div class="container mt-5">
-        <h1>
-            Création d'un nouveau spot
-        </h1>
+
+        <h1>Création d'un nouveau spot</h1>
 
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+        <div class="row">
 
-        <button type="submit" class="btn btn-primary">Enregistrer le nouveau spot</button>
-        {{ form_end(form) }}
+            <div class="col-lg-8">
+                {{ form_row(form.title) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.type) }}
+                {{ form_row(form.paying) }}
+            </div>
+
+            <div class="col">
+                {{ form_row(form.Location) }}
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Enregistrer le nouveau spot</button>
+
     </div>
+    {{ form_end(form) }}
+
     {% block javascripts %}
         <!-- algoliaPlaces -->
         <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>

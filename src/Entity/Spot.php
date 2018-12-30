@@ -9,6 +9,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Spot
 {
+    const SPOT_TYPE = [
+        0 => 'Street',
+        1 => 'Skatepark'
+    ];
+    const PRICE = [
+        0 => 'Nc',
+        1 => 'Gratuit',
+        2 => 'Payant',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,7 +37,7 @@ class Spot
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $paying;
 
@@ -44,7 +54,7 @@ class Spot
     private $Location;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $type;
 
@@ -145,5 +155,15 @@ class Spot
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    public function getSpotType(): string
+    {
+        return self::SPOT_TYPE[$this->type];
+    }
+
+    public function getSpotPrice(): string
+    {
+        return self::PRICE[$this->paying];
     }
 }

@@ -5,14 +5,7 @@
     <div class="card-body">
         <h5 class="card-title"><a href="">{{ spot.title }}</a></h5>
         <p class="card-text">{{ spot.location.region }} / {{ spot.location.city }}</p>
-        <p class="card-text">{{ spot.description }}</p>
-        {#<span class="rating">#}
-            {#<i class="fas fa-star"></i>#}
-            {#<i class="fas fa-star"></i>#}
-            {#<i class="fas fa-star"></i>#}
-            {#<i class="fas fa-star"></i>#}
-            {#<i class="fas fa-star"></i>#}
-        {#</span>#}
+        <!--<p class="card-text">{{ spot.description }}</p>-->
         <a href="{{path('spot_show', {'id': spot.id})}}">Voir plus</a>
     </div>
 </div>
