@@ -25,7 +25,7 @@ class SpotRepository extends ServiceEntityRepository
     public function findLastSpotsCreatedWidthLimit($value)
     {
         return $this->createQueryBuilder('s')
-            ->orderBy('s.createdAt', 'ASC')
+            ->orderBy('s.createdAt', 'DESC')
             ->setMaxResults($value)
             ->getQuery()
             ->getResult()

@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
     public function findLastUsersCreatedWidthLimit($value)
     {
         return $this->createQueryBuilder('u')
-            ->orderBy('u.createdAt', 'ASC')
+            ->orderBy('u.createdAt', 'DESC')
             ->setMaxResults($value)
             ->getQuery()
             ->getResult()

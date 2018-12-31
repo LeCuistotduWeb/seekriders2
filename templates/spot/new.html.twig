@@ -11,26 +11,9 @@
 
         <h1>Création d'un nouveau spot</h1>
 
-        {{ form_start(form) }}
-        <div class="row">
-
-            <div class="col-lg-8">
-                {{ form_row(form.title) }}
-                {{ form_row(form.description) }}
-                {{ form_row(form.type) }}
-                {{ form_row(form.paying) }}
-            </div>
-
-            <div class="col">
-                {{ form_row(form.Location) }}
-            </div>
-
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-2">Enregistrer le nouveau spot</button>
+        {{ include('spot/_form.html.twig', {button: 'Enregistrer le nouveau spot'}) }}
 
     </div>
-    {{ form_end(form) }}
 
     {% block javascripts %}
         <!-- algoliaPlaces -->

@@ -83,6 +83,7 @@ class AccountController extends AbstractController
 
         return $this->render('account/profile.html.twig', [
             'form' => $form->createView(),
+            'user' => $this->getUser(),
         ]);
     }
 

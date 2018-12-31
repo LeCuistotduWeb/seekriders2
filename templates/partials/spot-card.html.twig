@@ -1,0 +1,15 @@
+<div class="card">
+    <a href="{{path('spot_show', {'id': spot.id})}}">
+        {% if spot.picture %}
+            <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(spot.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo du spot {{ spot.title }}">
+        {% else %}
+            <img class="card-img-top img-fluid" src="https://picsum.photos/255/150" alt="Card image cap">
+        {% endif %}
+    </a>
+    <div class="card-body">
+        <h5 class="card-title"><a href="{{path('spot_show', {'id': spot.id})}}">{{ spot.title }}</a></h5>
+        <p class="card-text">{{ spot.location.region }} / {{ spot.location.city }}</p>
+
+        <a href="{{path('spot_show', {'id': spot.id})}}">Voir plus</a>
+    </div>
+</div>

@@ -3,7 +3,15 @@ vich_uploader:
     mappings:
         spot_image:
             uri_prefix: /images/spots
-            upload_destination: '%kernel.project_dir%/public/image/spots'
+            upload_destination: '%kernel.project_dir%/public/images/spots'
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+        user_image:
+            uri_prefix: /images/users
+            upload_destination: '%kernel.project_dir%/public/images/users'
 
             inject_on_load: false
             delete_on_update: true

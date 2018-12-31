@@ -101,11 +101,24 @@ class User implements UserInterface
      */
     private $spotsCreated;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserPicture", mappedBy="userPictures", orphanRemoval=true, cascade={"persist"})
+     */
+    private $gallery;
+
+    /**
+     * @Assert\All({
+     *  @Assert\Image(mimeTypes="image/jpeg")
+     *})
+     */
+    private $picturesFiles;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
         $this->spotsCreated = new ArrayCollection();
+        $this->gallery = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -336,6 +349,68 @@ class User implements UserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getPicture(): ?UserPicture
+    {
+        if($this->gallery->isEmpty()){
+            return null;
+        }
+        return $this->gallery->first();
+    }
+
+    /**
+     * @return Collection|UserPicture[]
+     */
+    public function getGallery(): Collection
+    {
+        return $this->gallery;
+    }
+
+    public function addGallery(UserPicture $gallery): self
+    {
+        if (!$this->gallery->contains($gallery)) {
+            $this->gallery[] = $gallery;
+            $gallery->setUserPictures($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(UserPicture $gallery): self
+    {
+        if ($this->gallery->contains($gallery)) {
+            $this->gallery->removeElement($gallery);
+            // set the owning side to null (unless already changed)
+            if ($gallery->getUserPictures() === $this) {
+                $gallery->setUserPictures(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicturesFiles()
+    {
+        return $this->picturesFiles;
+    }
+
+    /**
+     * @param mixed $picturesFiles
+     * @return User
+     */
+    public function setPicturesFiles($picturesFiles): self
+    {
+        foreach ($picturesFiles as $picturesFile) {
+            $picture = New UserPicture();
+            $picture->setImageFile($picturesFile);
+            $this->addGallery($picture);
+        }
+        $this->picturesFiles = $picturesFiles;
         return $this;
     }
 

@@ -36,8 +36,8 @@
                 </div>
                 <div class="row">
                     {% for spot in spots %}
-                        <div class="col-lg-3 col-sm-6 col-xs-6 mb-3">
-                            {{ include('partials/spot-card.html') }}
+                        <div class="col-lg-4 col-sm-6 col-xs-6 mb-3">
+                            {{ include('partials/spot-card.html.twig') }}
                         </div>
                     {% endfor %}
                 </div>
@@ -93,7 +93,9 @@
                             </a>
                             <div class="card-body">
                                 <h4 class="mt-2"><a href="{{ path('user_show', {'id': user.id}) }}">{{  user.username }}</a></h4>
-                                <p>{{ user.location.region }} / {{ user.location.city }}</p>
+                                {% if user.location %}
+                                    <p>{{ user.location.region }} / {{ user.location.city }}</p>
+                                {% endif %}
                             </div>
 
                         </div>

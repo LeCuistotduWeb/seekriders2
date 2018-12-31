@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Spot;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +25,10 @@ class SpotType extends AbstractType
                 'choices' => $this->getChoices(Spot::PRICE),
             ])
             ->add('Location', LocationType::class, [])
+            ->add('picturesFiles', FileType::class, [
+                'required' => false,
+                'multiple' => true,
+            ])
         ;
     }
 

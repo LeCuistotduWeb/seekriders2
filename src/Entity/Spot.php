@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpotRepository")
@@ -63,9 +66,22 @@ class Spot
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SpotPicture", mappedBy="spotPictures", orphanRemoval=true, cascade={"persist"})
+     */
+    private $pictures;
+
+    /**
+     * @Assert\All({
+     *  @Assert\Image(mimeTypes="image/jpeg")
+     *})
+     */
+    private $picturesFiles;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,4 +182,68 @@ class Spot
     {
         return self::PRICE[$this->paying];
     }
+
+    public function getPicture(): ?SpotPicture
+    {
+        if($this->pictures->isEmpty()){
+            return null;
+        }
+        return $this->pictures->first();
+    }
+
+    /**
+     * @return Collection|SpotPicture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(SpotPicture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setSpotPictures($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(SpotPicture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getSpotPictures() === $this) {
+                $picture->setSpotPictures(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicturesFiles()
+    {
+        return $this->picturesFiles;
+    }
+
+    /**
+     * @param mixed $picturesFiles
+     * @return Spot
+     */
+    public function setPicturesFiles($picturesFiles): self
+    {
+        foreach ($picturesFiles as $picturesFile) {
+            $picture = New SpotPicture();
+            $picture->setImageFile($picturesFile);
+            $this->addPicture($picture);
+        }
+        $this->picturesFiles = $picturesFiles;
+        return $this;
+    }
+
+
 }

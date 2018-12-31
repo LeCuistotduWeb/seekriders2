@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,6 +37,10 @@ class AccountType extends AbstractType
                 'attr' => ['class'=> 'datepicker'],
             ])
             ->add('location', LocationType::class, ['required' => false,])
+            ->add('picturesFiles', FileType::class, [
+                'required' => false,
+                'multiple' => true,
+            ])
         ;
     }
 

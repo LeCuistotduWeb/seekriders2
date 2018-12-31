@@ -14,7 +14,7 @@ class HomeController extends AbstractController
      */
     public function home(SpotRepository $spotRepository, UserRepository $userRepository)
     {
-        $spots = $spotRepository->findLastSpotsCreatedWidthLimit(4);
+        $spots = $spotRepository->findLastSpotsCreatedWidthLimit(3);
         $users = $userRepository->findLastUsersCreatedWidthLimit(8);
         return $this->render('home/home.html.twig', [
             'spots' => $spots,
