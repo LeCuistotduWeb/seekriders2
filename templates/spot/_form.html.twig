@@ -19,7 +19,24 @@
         </div>
 
         <div class="form-group">
-            {{ form_row(form.Location) }}
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.Location.address) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.Location.city) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.Location.postCode) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.Location) }}
+                </div>
+            </div>
         </div>
     </div>
 
