@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  message="Un autre utilisateur s'est déjà inscrit avec ce nom d'utilisateur, merci de le modifier"
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -102,23 +102,16 @@ class User implements UserInterface
     private $spotsCreated;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserPicture", mappedBy="userPictures", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="App\Entity\UserPicture", inversedBy="userAvatar", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $gallery;
-
-    /**
-     * @Assert\All({
-     *  @Assert\Image(mimeTypes="image/jpeg")
-     *})
-     */
-    private $picturesFiles;
+    private $avatar;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
         $this->spotsCreated = new ArrayCollection();
-        $this->gallery = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,6 +286,30 @@ class User implements UserInterface
 
     public function eraseCredentials() {}
 
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
     /**
      * @return Collection|Role[]
      */
@@ -352,65 +369,15 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPicture(): ?UserPicture
+    public function getAvatar(): ?userPicture
     {
-        if($this->gallery->isEmpty()){
-            return null;
-        }
-        return $this->gallery->first();
+        return $this->avatar;
     }
 
-    /**
-     * @return Collection|UserPicture[]
-     */
-    public function getGallery(): Collection
+    public function setAvatar(userPicture $avatar): self
     {
-        return $this->gallery;
-    }
+        $this->avatar = $avatar;
 
-    public function addGallery(UserPicture $gallery): self
-    {
-        if (!$this->gallery->contains($gallery)) {
-            $this->gallery[] = $gallery;
-            $gallery->setUserPictures($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGallery(UserPicture $gallery): self
-    {
-        if ($this->gallery->contains($gallery)) {
-            $this->gallery->removeElement($gallery);
-            // set the owning side to null (unless already changed)
-            if ($gallery->getUserPictures() === $this) {
-                $gallery->setUserPictures(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPicturesFiles()
-    {
-        return $this->picturesFiles;
-    }
-
-    /**
-     * @param mixed $picturesFiles
-     * @return User
-     */
-    public function setPicturesFiles($picturesFiles): self
-    {
-        foreach ($picturesFiles as $picturesFile) {
-            $picture = New UserPicture();
-            $picture->setImageFile($picturesFile);
-            $this->addGallery($picture);
-        }
-        $this->picturesFiles = $picturesFiles;
         return $this;
     }
 

@@ -4,6 +4,8 @@ namespace App\Form;
 
 
 use App\Entity\User;
+use App\Entity\UserPicture;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -36,10 +38,13 @@ class AccountType extends AbstractType
                 'html5'  => false,
                 'attr' => ['class'=> 'datepicker'],
             ])
-            ->add('location', LocationType::class, ['required' => false,])
-            ->add('picturesFiles', FileType::class, [
+            ->add('location', LocationType::class, [
                 'required' => false,
-                'multiple' => true,
+                'label' => false,
+                ])
+            ->add('avatar', UserPictureType::class,[
+                'required' => false,
+                'label' => false,
             ])
         ;
     }

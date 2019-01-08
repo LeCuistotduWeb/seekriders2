@@ -34,10 +34,9 @@ class UserPicture
     private $filename;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="gallery")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="avatar", cascade={"persist", "remove"})
      */
-    private $userPictures;
+    private $userAvatar;
 
     public function getId(): ?int
     {
@@ -74,14 +73,19 @@ class UserPicture
         return $this;
     }
 
-    public function getUserPictures(): ?User
+    public function getUserAvatar(): ?User
     {
-        return $this->userPictures;
+        return $this->userAvatar;
     }
 
-    public function setUserPictures(?User $userPictures): self
+    public function setUserAvatar(User $userAvatar): self
     {
-        $this->userPictures = $userPictures;
+        $this->userAvatar = $userAvatar;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $userAvatar->getAvatar()) {
+            $userAvatar->setAvatar($this);
+        }
 
         return $this;
     }
