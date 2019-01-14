@@ -14,8 +14,14 @@
                     <!-- dropdown account -->
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown">
-                            <img src="https://picsum.photos/24" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
-                            {{ app.user.username }}
+                            {% if app.user.avatar %}
+                                <img src="{{ vich_uploader_asset(user.avatar, 'imageFile') | imagine_filter('avatarMin') }}" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
+                                {{ app.user.username }}
+
+                            {% else %}
+                                <img src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatarMin') }}" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
+                                {{ app.user.username }}
+                            {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdownLink">
                             <a href="{{ path('account_index') }}" class="dropdown-item">mon profile</a>

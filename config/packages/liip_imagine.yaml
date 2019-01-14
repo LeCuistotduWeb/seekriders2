@@ -29,6 +29,13 @@ liip_imagine:
                     size:          [128, 128]
                     mode:          outbound
                     allow_upscale: true
+        avatarMin:
+            quality: 75
+            filters:
+                thumbnail:
+                    size:          [30, 30]
+                    mode:          outbound
+                    allow_upscale: true
 
 
 #liip_imagine:

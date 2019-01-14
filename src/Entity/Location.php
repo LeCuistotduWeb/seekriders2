@@ -59,7 +59,7 @@ class Location
     private $latitude;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Spot", mappedBy="Location", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Spot", mappedBy="location", cascade={"persist", "remove"})
      */
     private $spot;
 

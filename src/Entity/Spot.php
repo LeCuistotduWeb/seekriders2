@@ -54,7 +54,7 @@ class Spot
      * @ORM\OneToOne(targetEntity="App\Entity\Location", inversedBy="spot", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Location;
+    private $location;
 
     /**
      * @ORM\Column(type="integer")
@@ -139,12 +139,12 @@ class Spot
 
     public function getLocation(): ?Location
     {
-        return $this->Location;
+        return $this->location;
     }
 
-    public function setLocation(Location $Location): self
+    public function setLocation(Location $location): self
     {
-        $this->Location = $Location;
+        $this->location = $location;
 
         return $this;
     }

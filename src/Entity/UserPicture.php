@@ -34,7 +34,7 @@ class UserPicture
     private $filename;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="avatar", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="avatar", cascade={"persist"})
      */
     private $userAvatar;
 
@@ -78,13 +78,14 @@ class UserPicture
         return $this->userAvatar;
     }
 
-    public function setUserAvatar(User $userAvatar): self
+    public function setUserAvatar(?User $userAvatar): self
     {
         $this->userAvatar = $userAvatar;
 
-        // set the owning side of the relation if necessary
-        if ($this !== $userAvatar->getAvatar()) {
-            $userAvatar->setAvatar($this);
+        // set (or unset) the owning side of the relation if necessary
+        $newAvatar = $userAvatar === null ? null : $this;
+        if ($newAvatar !== $userAvatar->getAvatar()) {
+            $userAvatar->setAvatar($newAvatar);
         }
 
         return $this;

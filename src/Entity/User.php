@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  message="Un autre utilisateur s'est déjà inscrit avec ce nom d'utilisateur, merci de le modifier"
  * )
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -102,8 +102,13 @@ class User implements UserInterface, \Serializable
     private $spotsCreated;
 
     /**
+     * @var string le token qui servira lors de l'oubli de mot de passe
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $resetToken;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\UserPicture", inversedBy="userAvatar", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
      */
     private $avatar;
 
@@ -286,30 +291,6 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials() {}
 
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt
-            ) = unserialize($serialized);
-    }
-
     /**
      * @return Collection|Role[]
      */
@@ -369,16 +350,30 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getAvatar(): ?userPicture
+    /**
+     * @return string
+     */
+    public function getResetToken(): string
+    {
+        return $this->resetToken;
+    }
+    /**
+     * @param string $resetToken
+     */
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
+    public function getAvatar(): ?UserPicture
     {
         return $this->avatar;
     }
 
-    public function setAvatar(userPicture $avatar): self
+    public function setAvatar(?UserPicture $avatar): self
     {
         $this->avatar = $avatar;
 
         return $this;
     }
-
 }

@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <form method="post" action="{{ path('account_login') }}">
                         {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            <div class="alert alert-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
                         {% endif %}
                         <div class="form-group">
                             <label for="username">Nom d'utilisateur : </label>
@@ -24,6 +24,10 @@
                             <input class="form-control" id="password" type="password" placeholder="Mot de pass ..." required name="_password">
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         </div>
+                        <hr>
+                        <div class="form-group">
+                            <a href="{{ path('connect_facebook_start') }}" scope="public_profile,email" onlogin="checkLoginState();" class="btn btn-primary">Connection avec facebook</a>
+                        </div>
                         <div class="form-group">
                             <input class="" type="checkbox" id="remember_me" name="_remember_me" />
                             <label for="remember_me">Rester connecté</label>
@@ -32,11 +36,35 @@
                     </form>
                     <div class="text-center">
                         <a class="d-block small mt-3" href="{{ path('account_register') }}">Créer un nouveau compte</a>
-                        <a class="d-block small" href="#">Mot de passe oublié ?</a>
+                        <a class="d-block small" href="{{ path('account_forgot_password') }}">Mot de passe oublié ?</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '301961630669636',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v3.2'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 {% endblock %}

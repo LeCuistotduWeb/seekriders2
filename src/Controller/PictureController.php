@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PictureController extends AbstractController
 {
     /**
-     * @Route("/picture/spot/{id}", name="spot_picture_delete", methods="DELETE")
+     * @Route("/spot/picture/{id}", name="spot_picture_delete", methods="DELETE")
      */
     public function spotPictureDelete(SpotPicture $picture, Request $request) {
         $data = json_decode($request->getContent(), true);
@@ -27,7 +27,7 @@ class PictureController extends AbstractController
     }
 
     /**
-     * @Route("/picture/user/{id}", name="user_picture_delete", methods="DELETE")
+     * @Route("/user/avatar/{id}", name="user_picture_delete", methods="DELETE")
      */
     public function userPictureDelete(UserPicture $picture, Request $request) {
         $data = json_decode($request->getContent(), true);

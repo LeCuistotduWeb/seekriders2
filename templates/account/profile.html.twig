@@ -56,11 +56,11 @@
                         {{ form_row(form.avatar) }}
                     </div>
 
-                    {% if user.avatar  %}
+                    {% if app.user.avatar %}
                         <div class="col col-6">
                             <div class="form-group">
                                 <img src="{{ vich_uploader_asset(user.avatar, 'imageFile') | imagine_filter('square') }}" class="img-fluid " alt="image/photo de {{ user.username }}">
-                                <a href="{{ path('user_picture_delete', { id: user.avatar.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.avatar.id) }}">supprimer</a>
+                                <a href="{{ path('user_picture_delete', { id: user.avatar.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.avatar.id ) }}">supprimer</a>
                             </div>
                         </div>
                     {% endif %}

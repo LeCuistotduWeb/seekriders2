@@ -27,7 +27,7 @@ $( function() {
     });
 });
 
-// DELETE  picture in edit and new
+// DELETE  picture
 document.querySelectorAll('[data-delete]').forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault()
@@ -43,7 +43,7 @@ document.querySelectorAll('[data-delete]').forEach(a => {
                 if (data.success) {
                     a.parentNode.parentNode.removeChild(a.parentNode)
                 } else {
-                    console.log(data.error)
+                    console.log('Une erreur s\'est produite')
                 }
             })
             .catch(e => alert(e))
