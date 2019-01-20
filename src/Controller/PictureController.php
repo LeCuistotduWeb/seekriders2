@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\SpotPicture;
+use App\Entity\User;
 use App\Entity\UserPicture;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,12 +31,12 @@ class PictureController extends AbstractController
     /**
      * @Route("/user/avatar/{id}", name="user_picture_delete", methods="DELETE")
      */
-    public function userPictureDelete(UserPicture $picture, Request $request) {
+    public function userPictureDelete(User $user, Request $request, EntityManagerInterface $manager) {
         $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($picture);
-            $em->flush();
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $data['_token'])) {
+            $user->setAvatar(null);
+            $manager->persist($user);
+            $manager->flush();
             return new JsonResponse(['success' => 1]);
         }
 

@@ -4,8 +4,6 @@ namespace App\Form;
 
 
 use App\Entity\User;
-use App\Entity\UserPicture;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -42,9 +40,10 @@ class AccountType extends AbstractType
                 'required' => false,
                 'label' => false,
                 ])
-            ->add('avatar', UserPictureType::class,[
+
+            ->add('avatarFile', FileType::class, [
+                'label' => 'Ajouter/modifier votre avatar',
                 'required' => false,
-                'label' => false,
             ])
         ;
     }

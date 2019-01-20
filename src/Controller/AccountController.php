@@ -7,7 +7,9 @@ use App\Entity\User;
 use App\Form\AccountType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\UserRepository;
+use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -63,7 +65,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function profile(Request $request, ObjectManager $manager){
+    public function profile(Request $request, EntityManagerInterface $manager){
         $user = $this->getUser();
 
         $form = $this->createForm(AccountType::class, $user);
@@ -71,12 +73,13 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             $manager->persist($user);
             $manager->flush();
 
             $this->addFlash(
                 "success",
-                "Les données du profile ont été enregistrée avec succèes !"
+                "Les données du profil ont été enregistré avec succès !"
             );
             return $this->render('user/show.html.twig', [
                 'user' => $this->getUser(),
@@ -95,7 +98,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
 
@@ -130,7 +133,7 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, ObjectManager $manager){
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder,EntityManagerInterface $manager){
         $passwordUpdate = New PasswordUpdate();
         $user = $this->getUser();
 
@@ -167,14 +170,13 @@ class AccountController extends AbstractController
     /**
      * @Route("/forgotPassword", name="account_forgot_password")
      */
-    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function forgottenPassword(Request $request, UserPasswordEncoderInterface $encoder,EntityManagerInterface $manager, UserRepository $userRepository, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         if ($request->isMethod('POST')) {
 
             $email = $request->request->get('email');
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
+            $user = $userRepository->findOneByEmail($email);
             /* @var $user User */
 
             if ($user === null) {
@@ -185,7 +187,7 @@ class AccountController extends AbstractController
 
             try{
                 $user->setResetToken($token);
-                $entityManager->flush();
+                $manager->flush();
             } catch (\Exception $e) {
                 $this->addFlash('warning', $e->getMessage());
                 return $this->redirectToRoute('account_forgot_password');

@@ -15,9 +15,8 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="accountDropdownLink" data-toggle="dropdown">
                             {% if app.user.avatar %}
-                                <img src="{{ vich_uploader_asset(user.avatar, 'imageFile') | imagine_filter('avatarMin') }}" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
+                                <img src="{{ vich_uploader_asset(app.user, 'avatarFile') | imagine_filter('avatarMin') }}" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
                                 {{ app.user.username }}
-
                             {% else %}
                                 <img src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatarMin') }}" class="avatar rounded-circle img-fluid" alt="Avatar de {{ app.user.username }}">
                                 {{ app.user.username }}

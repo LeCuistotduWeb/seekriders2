@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  * @UniqueEntity(
  *  fields={"email"},
  *  message="Un autre utilisateur s'est déjà inscrit avec cette adresse email, merci de la modifier"
@@ -21,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  message="Un autre utilisateur s'est déjà inscrit avec ce nom d'utilisateur, merci de le modifier"
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -108,9 +111,15 @@ class User implements UserInterface
     protected $resetToken;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\UserPicture", inversedBy="userAvatar", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
+
+    /**
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="avatar")
+     * @var File
+     */
+    private $avatarFile;
 
     public function __construct()
     {
@@ -365,15 +374,47 @@ class User implements UserInterface
         $this->resetToken = $resetToken;
     }
 
-    public function getAvatar(): ?UserPicture
+    public function setAvatarFile(?File $avatarFile = null): void
+    {
+        $this->avatarFile = $avatarFile;
+
+        if (null !== $avatarFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getAvatarFile(): ?File
+    {
+        return $this->avatarFile;
+    }
+
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    public function setAvatar(?UserPicture $avatar): self
+    // Update attributes with yours
+    public function serialize()
     {
-        $this->avatar = $avatar;
-
-        return $this;
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 }

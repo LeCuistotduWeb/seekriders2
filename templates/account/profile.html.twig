@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.location) }}
+                    {{ form_row(form.birthdayAt) }}
                 </div>
 
                 <div class="form-group">
@@ -41,26 +41,35 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.birthdayAt) }}
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(form.location.address) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.location.city) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.location.postCode) }}
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    {{ form_row(form.location) }}
-                </div>
             </div>
 
             <div class="col">
                 <div class="row flex justify-content-start flex-wrap">
 
                     <div class="form-group">
-                        {{ form_row(form.avatar) }}
+                        {{ form_row(form.avatarFile) }}
                     </div>
 
-                    {% if app.user.avatar %}
+                    {% if user.avatar %}
                         <div class="col col-6">
                             <div class="form-group">
-                                <img src="{{ vich_uploader_asset(user.avatar, 'imageFile') | imagine_filter('square') }}" class="img-fluid " alt="image/photo de {{ user.username }}">
-                                <a href="{{ path('user_picture_delete', { id: user.avatar.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.avatar.id ) }}">supprimer</a>
+                                <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('square') }}" class="img-fluid " alt="image/photo de {{ user.username }}">
+                                <a href="{{ path('user_picture_delete', { id: user.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.id ) }}">supprimer</a>
                             </div>
                         </div>
                     {% endif %}
@@ -70,7 +79,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary mt-2">{{ button|default('Enregistrer') }}</button>
+        <button type="submit" class="btn btn-primary">{{ button|default('Enregistrer') }}</button>
 
         {{ form_end(form) }}
 
