@@ -24,10 +24,13 @@ class SpotType extends AbstractType
             ->add('paying', ChoiceType::class, [
                 'choices' => $this->getChoices(Spot::PRICE),
             ])
-            ->add('location', LocationType::class, [])
+            ->add('location', LocationType::class, [
+                'label' => false,
+            ])
             ->add('picturesFiles', FileType::class, [
                 'required' => false,
                 'multiple' => true,
+                'label' => 'Ajouter des photos',
             ])
         ;
     }

@@ -17,6 +17,7 @@ Encore
      * and one CSS file (e.g. app.scss) if you JavaScript imports CSS.
      */
     .addEntry('app/app', './assets/js/app.js')
+    .addEntry('app/admin', './assets/js/admin/app.js')
     .addEntry('app/algoliaPlaces', './assets/js/algoliaPlaces.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
     //.addEntry('page1', './assets/js/page1.js')

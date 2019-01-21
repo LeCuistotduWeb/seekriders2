@@ -51,7 +51,7 @@ class Spot
     private $author;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Location", inversedBy="spot", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Location", inversedBy="spot", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $location;

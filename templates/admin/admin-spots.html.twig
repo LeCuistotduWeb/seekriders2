@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Dashboard{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app/app') }}
+    {{ encore_entry_link_tags('app/admin') }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- navbar -->
+    {% include('admin/partials/admin-navbar.html.twig') %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            {% include('admin/partials/admin-sidebar.html.twig') %}
+
+            <!-- main content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Spots :</h1>
+                </div>
+                <div class="row my-2">
+                    <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
+                </div>
+
+                <div class="row table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Date</td>
+                                <td>Nom du spot</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for spot in spots %}
+                            <tr>
+                                <td><p>{{ spot.createdAt | date('d-m-Y') }}</p></td>
+                                <td><a href="{{ path('spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></td>
+                                <td class="d-flex">
+                                    <a href="{{ path('spot_show', {'id': spot.id}) }}" class="btn btn-primary">Voir</a>
+                                    {% if app.user == spot.author or is_granted('ROLE_ADMIN')  %}
+                                        <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
+                                    {%endif%}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        {{ include('spot/_delete_form.html.twig') }}
+                                    {%endif%}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app/app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        {{ encore_entry_script_tags('app/admin') }}
+    {% endblock %}
+{% endblock %}

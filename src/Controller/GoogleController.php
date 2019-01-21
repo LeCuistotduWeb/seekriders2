@@ -12,7 +12,7 @@ class GoogleController extends AbstractController
      */
     public function index()
     {
-        return $this->render('google/index.html.twig', [
+        return $this->render('google/admin-dashboard.html.twig', [
             'controller_name' => 'GoogleController',
         ]);
     }

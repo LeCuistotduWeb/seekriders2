@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Utilisateurs{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app/app') }}
+    {{ encore_entry_link_tags('app/admin') }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- navbar -->
+    {% include('admin/partials/admin-navbar.html.twig') %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            {% include('admin/partials/admin-sidebar.html.twig') %}
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Utilisateurs</h1>
+                </div>
+
+                <div class="row my-2">
+                    <a href="{{ path('admin_user_new') }}" class="btn btn-primary">Ajouter un utilisateur</a>
+                </div>
+
+                <div class="row table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Username</td>
+                            <td>Email</td>
+                            <td>Département / Ville </td>
+                            <td>Date création</td>
+                            <td>Action</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td><a href="{{ path('user_show', {'id': user.id}) }}">{{ user.username }}</a></td>
+                                <td><p>{{ user.email }}</p></td>
+                                <td><p>{{ user.location.department }} / {{ user.location.city }}</p></td>
+                                <td><p>{{ user.createdAt| date('d-m-Y') }}</p></td>
+                                <td class="d-flex">
+                                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-primary">Voir</a>
+                                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-warning">Editer</a>
+                                    {{ include('user/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app/app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        {{ encore_entry_script_tags('app/admin') }}
+    {% endblock %}
+{% endblock %}

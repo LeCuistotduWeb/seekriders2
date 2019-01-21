@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Dashboard{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app/app') }}
+    {{ encore_entry_link_tags('app/admin') }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- navbar -->
+    {% include('admin/partials/admin-navbar.html.twig') %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            {% include('admin/partials/admin-sidebar.html.twig') %}
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                </div>
+
+                <!-- Icon Cards-->
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-primary o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-map-pin"></i>
+                                </div>
+                                <div class="mr-5">{{ spots | length }} Spots</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="{{ path('admin_spots') }}">
+                                <span class="float-left">Afficher</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-warning o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-list"></i>
+                                </div>
+                                <div class="mr-5">15 Sessions!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">Afficher</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-success o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-users"></i>
+                                </div>
+                                <div class="mr-5">{{ users | length }} Utilisateurs</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="{{ path('admin_users') }}">
+                                <span class="float-left">Afficher</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 mb-3">
+                        <div class="card text-white bg-danger o-hidden h-100">
+                            <div class="card-body">
+                                <div class="card-body-icon">
+                                    <i class="fas fa-fw fa-life-ring"></i>
+                                </div>
+                                <div class="mr-5">13 Report!</div>
+                            </div>
+                            <a class="card-footer text-white clearfix small z-1" href="#">
+                                <span class="float-left">Afficher</span>
+                                <span class="float-right">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app/app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        {{ encore_entry_script_tags('app/admin') }}
+    {% endblock %}
+{% endblock %}

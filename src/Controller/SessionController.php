@@ -12,7 +12,7 @@ class SessionController extends AbstractController
      */
     public function index()
     {
-        return $this->render('session/index.html.twig', [
+        return $this->render('session/admin-dashboard.html.twig', [
             'controller_name' => 'SessionController',
         ]);
     }
