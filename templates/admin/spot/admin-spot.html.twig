@@ -23,7 +23,7 @@
                     <h1 class="h2">Spots :</h1>
                 </div>
                 <div class="row my-2">
-                    <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
+                    <a href="{{ path('admin_spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
                 </div>
 
                 <div class="row table-responsive">
@@ -32,6 +32,7 @@
                             <tr>
                                 <td>Date</td>
                                 <td>Nom du spot</td>
+                                <td>Département / ville</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
@@ -39,15 +40,12 @@
                             {% for spot in spots %}
                             <tr>
                                 <td><p>{{ spot.createdAt | date('d-m-Y') }}</p></td>
-                                <td><a href="{{ path('spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></td>
+                                <td><a href="{{ path('admin_spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></td>
+                                <td>{{ spot.location.department }} / {{ spot.location.city }}</td>
                                 <td class="d-flex">
-                                    <a href="{{ path('spot_show', {'id': spot.id}) }}" class="btn btn-primary">Voir</a>
-                                    {% if app.user == spot.author or is_granted('ROLE_ADMIN')  %}
-                                        <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
-                                    {%endif%}
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        {{ include('spot/_delete_form.html.twig') }}
-                                    {%endif%}
+                                    <a href="{{ path('admin_spot_show', {'id': spot.id}) }}" class="btn btn-primary mr-1">Voir</a>
+                                    <a href="{{ path('admin_spot_edit', {'id': spot.id}) }}" class="btn btn-warning mr-1">Editer</a>
+                                    {{ include('spot/_delete_form.html.twig') }}
                                 </td>
                             </tr>
                             {% endfor %}
@@ -55,7 +53,7 @@
                     </table>
                 </div>
 
-            <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
+            <a href="{{ path('admin_spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>
             </main>
         </div>
     </div>

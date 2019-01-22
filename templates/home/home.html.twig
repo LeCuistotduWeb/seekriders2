@@ -89,7 +89,11 @@
                     <div class="col-sm-3 mb-3">
                         <div class="card">
                             <a href="{{ path('user_show', {'id': user.id}) }}">
-                                <img class="img-fluid" src="https://via.placeholder.com/255x150" alt="Avatar de paul92">
+                                {% if user.avatar %}
+                                    <img class="img-fluid" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('thumb') }}" alt="image/photo de {{ user.username }}">
+                                {% else %}
+                                    <img class="img-fluid" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('thumb') }}" alt="image/photo de {{ user.username }}">
+                                {% endif %}
                             </a>
                             <div class="card-body">
                                 <h4 class="mt-2"><a href="{{ path('user_show', {'id': user.id}) }}">{{  user.username }}</a></h4>

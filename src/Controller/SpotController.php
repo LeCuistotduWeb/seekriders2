@@ -84,7 +84,7 @@ class SpotController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="spot_edit", methods="GET|POST")
-     * @Security("is_granted('ROLE_USER') and user === spot.getAuthor() or is_granted('ROLE_ADMIN') ", message="Vous ne pouvez pas modifier un spot qui ne vous appartient pas.")
+     * @Security("is_granted('ROLE_USER') and user === spot.getAuthor()", message="Vous ne pouvez pas modifier un spot qui ne vous appartient pas.")
      */
     public function edit(Request $request, Spot $spot): Response
     {
@@ -105,20 +105,5 @@ class SpotController extends AbstractController
             'form' => $form->createView(),
             'spot' => $spot,
         ]);
-    }
-
-    /**
-     * @Route("/{id}", name="spot_delete", methods="DELETE")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function delete(Request $request, Spot $spot): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$spot->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($spot);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('spot_index');
     }
 }

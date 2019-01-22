@@ -26,46 +26,4 @@ class AdminDashboardController extends AbstractController
             'users'=> $userRepository->findAll(),
         ]);
     }
-
-    /**
-     * @Route("/spots", name="admin_spots")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function spots(SpotRepository $spotRepository)
-    {
-        return $this->render('admin/admin-spots.html.twig', [
-            'spots'=> $spotRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/sessions", name="admin_sessions")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function sessions()
-    {
-        return $this->render('admin/admin-sessions.html.twig', [
-        ]);
-    }
-
-    /**
-     * @Route("/users", name="admin_users")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function users(UserRepository $userRepository)
-    {
-        return $this->render('admin/admin-users.html.twig', [
-            'users'=> $userRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/reports", name="admin_reports")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function reports(UserRepository $userRepository)
-    {
-        return $this->render('admin/admin-reports.html.twig', [
-        ]);
-    }
 }

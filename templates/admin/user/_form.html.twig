@@ -1,0 +1,81 @@
+{{ form_start(form) }}
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            {{ form_row(form.username) }}
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.firstname) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_row(form.surname) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.birthdayAt) }}
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.location.address) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.location.city) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.location.postCode) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_row(form.biography) }}
+        </div>
+
+    </div>
+
+    <div class="col">
+        <div class="row flex justify-content-start flex-wrap">
+            <div class="col">
+                <div class="form-group">
+                    {{ form_row(form.avatarFile) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if user.avatar %}
+                <div class="col-4">
+                    <div class="form-group">
+                        <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('square') }}" class="img-fluid " alt="image/photo de {{ user.username }}">
+                        <a href="{{ path('user_picture_delete', { id: user.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.id ) }}">supprimer</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+            <a href="{{ path('admin_user') }}" class="btn btn-danger">Retour</a>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
