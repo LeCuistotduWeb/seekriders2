@@ -26,6 +26,10 @@
                             <a href="{{ path('account_index') }}" class="dropdown-item">mon profile</a>
                             <a href="{{ path('account_profile') }}" class="dropdown-item">modifier mon profile</a>
                             <div class="dropdown-divider"></div>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('admin_dashboard') }}" class="dropdown-item">Administration</a>
+                            {% endif %}
+                            <div class="dropdown-divider"></div>
                             <a href="{{ path('account_logout') }}" class="dropdown-item">Se déconnecter</a>
                         </div>
                     </li>
