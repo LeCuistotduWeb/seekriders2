@@ -84,7 +84,7 @@ class SpotController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="spot_edit", methods="GET|POST")
-     * @Security("is_granted('ROLE_USER') and user === spot.getAuthor()", message="Vous ne pouvez pas modifier un spot qui ne vous appartient pas.")
+     * @Security("is_granted('ROLE_USER') and user === spot.getAuthor() or is_granted('ROLE_ADMIN') ", message="Vous ne pouvez pas modifier un spot qui ne vous appartient pas.")
      */
     public function edit(Request $request, Spot $spot): Response
     {
