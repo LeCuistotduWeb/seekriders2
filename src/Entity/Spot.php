@@ -78,10 +78,16 @@ class Spot
      */
     private $picturesFiles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SpotLike", mappedBy="spot")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->pictures = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,5 +251,48 @@ class Spot
         return $this;
     }
 
+    /**
+     * @return Collection|SpotLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(SpotLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setSpot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(SpotLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getSpot() === $this) {
+                $like->setSpot(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * permet de savoir si le spot a été ajouté en favoris par un user
+     * @param User $user
+     * @return bool
+     */
+    public function isLikeByUser(User $user): bool
+    {
+        foreach ($this->likes as $like){
+            if($like->getUser() === $user) return true;
+        }
+        return false;
+    }
 
 }

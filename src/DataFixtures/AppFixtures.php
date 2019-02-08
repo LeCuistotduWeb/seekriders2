@@ -92,6 +92,14 @@ class AppFixtures extends Fixture
             $spots[] = $spot;
         }
 
+        // random spotLike
+//        for ($i = 0; $i < mt_rand(0,10); $i++){
+//            $like = new SpotLike();
+//            $like->setSpot($spot)
+//                ->setUser($faker->randomElement($users));
+//            $manager->persist($like);
+//        }
+
         $manager->flush();
     }
 }

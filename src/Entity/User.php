@@ -121,11 +121,17 @@ class User implements UserInterface, \Serializable
      */
     private $avatarFile;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SpotLike", mappedBy="user")
+     */
+    private $spotLikes;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
         $this->spotsCreated = new ArrayCollection();
+        $this->spotLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -416,5 +422,36 @@ class User implements UserInterface, \Serializable
             $this->username,
             $this->password,
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|SpotLike[]
+     */
+    public function getSpotLikes(): Collection
+    {
+        return $this->spotLikes;
+    }
+
+    public function addSpotLike(SpotLike $spotLike): self
+    {
+        if (!$this->spotLikes->contains($spotLike)) {
+            $this->spotLikes[] = $spotLike;
+            $spotLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpotLike(SpotLike $spotLike): self
+    {
+        if ($this->spotLikes->contains($spotLike)) {
+            $this->spotLikes->removeElement($spotLike);
+            // set the owning side to null (unless already changed)
+            if ($spotLike->getUser() === $this) {
+                $spotLike->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
