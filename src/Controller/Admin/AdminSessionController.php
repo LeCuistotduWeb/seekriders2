@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class AdminReportController
+ * Class AdminSessionController
  * @package App\Controller
- * @Route("/admin")
+ * @Route("/admin/session")
  */
-class AdminReportController extends AbstractController
+class AdminSessionController extends AbstractController
 {
     /**
-     * @Route("/report", name="admin_report")
+     * @Route("/", name="admin_session")
      * @IsGranted("ROLE_ADMIN")
      */
     public function index()
     {
-        return $this->render('admin/admin-report.html.twig', [
+        return $this->render('admin/session/admin-session.html.twig', [
         ]);
     }
 }
