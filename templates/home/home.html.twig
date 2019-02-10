@@ -36,7 +36,7 @@
                 </div>
                 <div class="row">
                     {% for spot in spots %}
-                        <div class="col-lg-4 col-sm-6 col-xs-6 mb-3">
+                        <div class="col-lg-4 col-sm-4 col-xs-4 mb-3">
                             {{ include('partials/spot-card.html.twig') }}
                         </div>
                     {% endfor %}
@@ -80,13 +80,13 @@
     <section id="lastUsers">
         <div class="container">
             <div class="row">
-                <div class=" col-12 section-title">
+                <div class="section-title">
                     <h3>Dérniers utilisateurs enregistrés</h3>
                 </div>
             </div>
             <div class="row">
                 {% for user in users  %}
-                    <div class="col-sm-3 mb-3">
+                    <div class="col-sm-3">
                         <div class="card">
                             <a href="{{ path('user_show', {'id': user.id}) }}">
                                 {% if user.avatar %}

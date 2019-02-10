@@ -7,7 +7,7 @@
     <!-- Navigation -->
     {% include('partials/navbar.html.twig') %}
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="row">
             <h1>Contact</h1>
         </div>
@@ -16,39 +16,37 @@
         </div>
 
         <div class="row">
-            <form action="" method="POST"></form>
-                <div class="form-group my-5">
-                    <div class="form-row mb-3">
-                        <div class="col-md-4">
-                            <input type="text" placeholder="Entrez votre nom">
+            <div class="col-8">
+                <div id="contactForm">
+                    {{ form_start(form) }}
+
+                    <div class="row">
+                        <div class="form-group col-6">
+                            {{ form_row(form.firstname) }}
                         </div>
-                        <div class="col-md-8">
-                            <input type="email" name="email" id="" placeholder="Entrez votre email">
-                        </div>
-                    </div>
-                    <div class="form-row mb-3">
-                        <div class="col">
-                            <input type="text" placeholder="Sujet de votre message">
+                        <div class="form-group col-6">
+                            {{ form_row(form.email) }}
                         </div>
                     </div>
-                    <div class="form-row mb-3">
-                        <div class="col">
-                            <textarea name="message" id="" cols="30" rows="10"></textarea>
-                        </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.object) }}
                     </div>
-                    <div class="form-row mb-3">
-                        <div class="col">
-                            <input type="checkbox">
-                        </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.message) }}
                     </div>
-                    <div class="form-row mb-3">
-                        <div class="col">
-                            <button class="btn btn-primary" type="submit">Envoyer !</button>
-                        </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.rgpd) }}
                     </div>
+
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                    {{ form_end(form) }}
                 </div>
-            </form>
+            </div>
         </div>
+
     </div>
 
     <!-- Footer -->
