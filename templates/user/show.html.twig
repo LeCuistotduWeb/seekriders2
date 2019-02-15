@@ -19,7 +19,10 @@
                         <a href="{{ path('account_profile') }}" class="btn btn-sm btn-primary mr-2 mb-2">Modifier mes informations</a>
                         <a href="{{ path('account_password') }}" class="btn btn-sm btn-danger mb-2">Modifier mon mot de passe</a>
                     </div>
+                    {% else %}
+                        <a href="{{ path('user_add_friend', {id: user.id}) }}" class="btn btn-sm btn-primary mr-2 mb-2">Ajouter a mes amis</a>
                 {% endif %}
+
             </div>
 
             <div class="col">
@@ -44,8 +47,8 @@
                     </div>
                     <div class="row">
                         <ul class="list-unstyled d-flex flex-row flex-wrap">
-                            {% for i in 0..10 %}
-                                <li class="mr-2"><img src="http://placehold.it/50" alt="" class="image-profile img-fluid rounded-circle"></li>
+                            {% for friend in user.friendship %}
+                                <li class="mr-2"><a href="{{ path('user_show', {id: friend.user2.id}) }}"><img src="http://placehold.it/50" alt="" class="image-profile img-fluid rounded-circle"></a></li>
                             {% endfor %}
                         </ul>
                     </div>

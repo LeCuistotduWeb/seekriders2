@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for spot in spots %}
+                            {% for spot in pagination.data %}
                             <tr>
                                 <td><p>{{ spot.createdAt | date('d-m-Y') }}</p></td>
                                 <td><a href="{{ path('admin_spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></td>
@@ -51,6 +51,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {{ pagination.display() }}
                 </div>
 
             <a href="{{ path('admin_spot_new') }}" class="btn btn-primary">Ajouter un nouveau spot</a>

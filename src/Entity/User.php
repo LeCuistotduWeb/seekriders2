@@ -126,12 +126,18 @@ class User implements UserInterface, \Serializable
      */
     private $spotLikes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Friendship", mappedBy="user1")
+     */
+    private $friendship;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->userRoles = new ArrayCollection();
         $this->spotsCreated = new ArrayCollection();
         $this->spotLikes = new ArrayCollection();
+        $this->friendship = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -449,6 +455,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($spotLike->getUser() === $this) {
                 $spotLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Friendship[]
+     */
+    public function getFriendship(): Collection
+    {
+        return $this->friendship;
+    }
+
+    public function addFriendship(Friendship $friendship): self
+    {
+        if (!$this->friendship->contains($friendship)) {
+            $this->friendship[] = $friendship;
+            $friendship->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendship(Friendship $friendship): self
+    {
+        if ($this->friendship->contains($friendship)) {
+            $this->friendship->removeElement($friendship);
+            // set the owning side to null (unless already changed)
+            if ($friendship->getUser1() === $this) {
+                $friendship->setUser1(null);
             }
         }
 
