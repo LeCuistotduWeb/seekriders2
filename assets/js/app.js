@@ -76,3 +76,19 @@ document.querySelectorAll('a[data-spotLike]').forEach(a => {
             });
     })
 });
+
+    //     fetch(a.getAttribute('href'), {
+    //         headers: {
+    //             'X-Requested-With': 'XMLHttpRequest',
+    //             'Content-Type': 'application/json'
+    //         },
+    //     }).then(response => response.json())
+    //         .then(data => {
+    //             if (data.code == 200 ) {
+    //
+    //             } else {
+    //                 console.log('Une erreur s\'est produite')
+    //             }
+    //         })
+    //         .catch(e => alert(e))
+    // })
