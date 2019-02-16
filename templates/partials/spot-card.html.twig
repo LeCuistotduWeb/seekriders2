@@ -6,7 +6,7 @@
         {% if spot.picture %}
             <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(spot.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo du spot {{ spot.title }}">
         {% else %}
-            <img class="card-img-top img-fluid" src="https://picsum.photos/255/150" alt="Card image cap">
+            <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
         {% endif %}
     </a>
         {% if app.user %}

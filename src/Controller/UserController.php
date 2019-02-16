@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Friendship;
 use App\Entity\User;
 use App\Form\User1Type;
 use App\Repository\UserRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,4 +24,26 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', ['user' => $user]);
     }
+
+    /**
+     * @Route("/addfriend/{id}", name="user_add_friend", methods="GET|POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function addFriend(UserRepository $userRepository, $id, ObjectManager $manager)
+    {
+        $user = $this->getUser();
+        $friend = $userRepository->find($id);
+        $friendship = new Friendship();
+        $friendship->setUser($user);
+        $friendship->setFriend($friend);
+        $manager->persist($friendship);
+        $manager->flush();
+        $this->addFlash(
+            "success",
+            "l'utilisateur a été ajouté à votre liste d'amis"
+        );
+        return $this->redirectToRoute('user_show', ['id' => $id]);
+    }
+
 }
