@@ -27,6 +27,10 @@ class AppFixtures extends Fixture
         $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole);
 
+        $userRole = new Role();
+        $userRole->setTitle('ROLE_USER');
+        $manager->persist($userRole);
+
         $adminUser = new User();
         $adminUser->setFirstname('gaetan')
             ->setSurname('boyron')
