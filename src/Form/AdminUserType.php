@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Role;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -26,11 +25,11 @@ class AdminUserType extends AbstractType
             ->add('email', EmailType::class, [])
 
 //            ->add('password', PasswordType::class, [
-////                'required' => false,
-////            ])
-////            ->add('passwordConfirm', PasswordType::class, [
-////                'required' => false,
-////            ])
+//                'required' => false,
+//            ])
+//            ->add('passwordConfirm', PasswordType::class, [
+//                'required' => false,
+//            ])
 
             ->add('biography', TextareaType::class, ['required' => false,])
 
@@ -50,10 +49,16 @@ class AdminUserType extends AbstractType
                 'required' => false,
                 'label' => false,
             ])
-            ->add('userRoles', EntityType::class,[
-                'class' => Role::class,
-                'choice_label' => 'title',
+            ->add('roles', ChoiceType::class,[
+                'choices' => [
+                    'Administrateur' => 'ROLE_ADMIN',
+//                    'Editeur' => 'ROLE_EDITOR',
+//                    'Marketing' => 'ROLE_MARKETING',
+                ],
                 'multiple' => true,
+                'expanded' => true,
+                'required' => false,
+                'label' => "Role utilisateur"
             ])
         ;
     }

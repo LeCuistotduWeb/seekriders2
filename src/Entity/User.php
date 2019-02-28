@@ -89,15 +89,17 @@ class User implements UserInterface, \Serializable
     private $birthdayAt;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Location", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $location;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Role", inversedBy="users")
-     */
-    private $userRoles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Spot", mappedBy="author", orphanRemoval=true)
@@ -139,7 +141,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->userRoles = new ArrayCollection();
+
         $this->spotsCreated = new ArrayCollection();
         $this->spotLikes = new ArrayCollection();
         $this->friends = new ArrayCollection();
@@ -303,48 +305,29 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getRoles() {
+    /**
+     * Returns the roles or permissions granted to the user for security.
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
 
-        $roles = $this->userRoles->map(function($role){
-            return $role->getTitle();
-        })->toArray();
+        // guarantees that a user always has at least one role for security
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
 
-        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
 
-        return $roles;
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
     }
 
     public function getSalt() {}
 
     public function eraseCredentials() {}
-
-    /**
-     * @return Collection|Role[]
-     */
-    public function getUserRoles(): Collection
-    {
-        return $this->userRoles;
-    }
-
-    public function addUserRole(Role $userRole): self
-    {
-        if (!$this->userRoles->contains($userRole)) {
-            $this->userRoles[] = $userRole;
-            $userRole->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserRole(Role $userRole): self
-    {
-        if ($this->userRoles->contains($userRole)) {
-            $this->userRoles->removeElement($userRole);
-            $userRole->removeUser($this);
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Spot[]

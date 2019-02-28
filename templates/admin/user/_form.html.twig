@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-group">
-            {{ form_row(form.userRoles) }}
+            {{ form_row(form.roles) }}
         </div>
 
     </div>
@@ -59,17 +59,23 @@
                 <div class="form-group">
                     {{ form_row(form.avatarFile) }}
                 </div>
+                {#<div class="form-group">#}
+                    {#{{ form_row(form.password) }}#}
+                {#</div>#}
+                {#<div class="form-group">#}
+                    {#{{ form_row(form.passwordConfirm) }}#}
+                {#</div>#}
             </div>
         </div>
         <div class="row">
-            {% if user.avatar %}
-                <div class="col-4">
+            <div class="col-4">
+                {% if user.avatar %}
                     <div class="form-group">
                         <img src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('square') }}" class="img-fluid " alt="image/photo de {{ user.username }}">
                         <a href="{{ path('user_picture_delete', { id: user.id }) }}" class="btn btn-danger btn-block" data-delete data-token="{{ csrf_token('delete' ~ user.id ) }}">supprimer</a>
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

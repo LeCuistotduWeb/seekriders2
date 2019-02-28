@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Location;
-use App\Entity\Role;
 use App\Entity\Spot;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -23,21 +22,13 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
 
-        $adminRole = new Role();
-        $adminRole->setTitle('ROLE_ADMIN');
-        $manager->persist($adminRole);
-
-        $userRole = new Role();
-        $userRole->setTitle('ROLE_USER');
-        $manager->persist($userRole);
-
         $adminUser = new User();
         $adminUser->setFirstname('gaetan')
             ->setSurname('boyron')
             ->setUsername('admin')
             ->setEmail('gaetan.boyron@gmail.com')
             ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
-            ->addUserRole($adminRole);
+            ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($adminUser);
 
@@ -76,7 +67,8 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setCreatedAt($faker->dateTime($max = 'now', $timezone = null))
                 ->setBiography($faker->text)
-                ->setPassword($this->encoder->encodePassword($user, 'password'));
+                ->setPassword($this->encoder->encodePassword($user, 'password'))
+                ->setRoles(['ROLE_USER']);
             $manager->persist($user);
             $users[] = $user;
 
