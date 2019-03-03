@@ -64,36 +64,37 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $users[] = $user;
 
-            /* creation des spots*/
-            $spotLocation = new Location();
-            $spotLocation->setDepartment($faker->departmentName)
-                ->setPostCode(str_replace(' ', '', $faker->postcode))
-                ->setRegion($faker->region)
-                ->setCountry($faker->country)
-                ->setCity($faker->city)
-                ->setAddress($faker->address)
-                ->setLatitude($faker->latitude)
-                ->setLongitude($faker->longitude)
-            ;
-            $manager->persist($spotLocation);
+            for ($i = 0; $i < mt_rand(0, 10); $i++) {
+                /* creation des spots*/
+                $spotLocation = new Location();
+                $spotLocation->setDepartment($faker->departmentName)
+                    ->setPostCode(str_replace(' ', '', $faker->postcode))
+                    ->setRegion($faker->region)
+                    ->setCountry($faker->country)
+                    ->setCity($faker->city)
+                    ->setAddress($faker->address)
+                    ->setLatitude($faker->latitude)
+                    ->setLongitude($faker->longitude);
+                $manager->persist($spotLocation);
 
-            $spot = new Spot();
-            $spot->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
-                ->setDescription($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
-                ->setLocation($spotLocation)
-                ->setType(mt_rand(0, count(Spot::SPOT_TYPE) -1))
-                ->setPaying(mt_rand(0, count(Spot::PRICE) -1))
-                ->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days'))
-                ->setAuthor($user);
-            $manager->persist($spot);
-            $spots[] = $spot;
+                $spot = new Spot();
+                $spot->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
+                    ->setDescription($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
+                    ->setLocation($spotLocation)
+                    ->setType(mt_rand(0, count(Spot::SPOT_TYPE) - 1))
+                    ->setPaying(mt_rand(0, count(Spot::PRICE) - 1))
+                    ->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days'))
+                    ->setAuthor($user);
+                $manager->persist($spot);
+                $spots[] = $spot;
 
-            //random spotLike
-            for ($i = 0; $i < mt_rand(0,10); $i++){
-                $like = new SpotLike();
-                $like->setSpot($faker->randomElement($spots))
-                    ->setUser($faker->randomElement($users));
-                $manager->persist($like);
+                //random spotLike
+                for ($i = 0; $i < mt_rand(0, 10); $i++) {
+                    $like = new SpotLike();
+                    $like->setSpot($faker->randomElement($spots))
+                        ->setUser($faker->randomElement($users));
+                    $manager->persist($like);
+                }
             }
         }
 
