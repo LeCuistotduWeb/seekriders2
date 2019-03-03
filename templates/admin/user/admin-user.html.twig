@@ -38,7 +38,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for user in users %}
+                        {% for user in pagination.data %}
                             <tr>
                                 <td><a href="{{ path('user_show', {'id': user.id}) }}">{{ user.username }}</a></td>
                                 <td><p>{{ user.email }}</p></td>
@@ -53,6 +53,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    {{ pagination.display() }}
                 </div>
 
             </main>

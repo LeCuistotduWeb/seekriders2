@@ -7,6 +7,7 @@ use App\Entity\SpotLike;
 use App\Form\SpotType;
 use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
+use App\Service\PaginationService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -24,14 +25,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpotController extends AbstractController
 {
     /**
-     * @Route("/", name="spot_index", methods="GET")
+     * @Route("/list/{page<\d+>?1}", name="spot_index", methods="GET")
      */
-    public function index(SpotRepository $spotRepository): Response
+    public function index($page, PaginationService $pagination ): Response
     {
-        $spots = $spotRepository->findAll();
+        $pagination->setEntityClass(Spot::class)
+            ->setLimit(5)
+            ->setPage($page);
 
         return $this->render('spot/index.html.twig', [
-            'spots' => $spots,
+            'pagination' => $pagination,
         ]);
     }
 

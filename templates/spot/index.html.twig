@@ -24,13 +24,16 @@
                 </form>
             </div>
         </div>
+
         <div class="row">
-            {% for spot in spots  %}
+            {% for spot in pagination.data %}
                 <div class="col-sm-6 col-md-3 mb-3">
                     {{ include('partials/spot-card.html.twig') }}
                 </div>
             {% endfor %}
         </div>
+
+        {{ pagination.display() }}
 
     </div>
 
