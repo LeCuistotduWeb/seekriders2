@@ -11,7 +11,42 @@
         <!-- Row -->
         <div class="row">
 
-            <div class="col-md-7">
+            <div class="col-md-6">
+                {% if spot.pictures.count > 0 %}
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for picture in spot.pictures %}
+                                <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+                                    <img class="img-fluid" src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('medium')}}" alt="image/photo du spot {{ spot.title }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                {% endif %}
+
+                {#add spot in favourites#}
+                {% if app.user %}
+                    {% if spot.isLikeByUser(app.user)  %}
+                        <a href="{{ path('spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x" data-spotLike><i class="fas fa-star"></i></a>
+                    {% else %}
+                        <a href="{{ path('spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x" data-spotLike><i class="far fa-star"></i></a>
+                    {% endif %}
+                {% else %}
+                    {# return null#}
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
                 <h1>{{ spot.title }}</h1>
 
                 <address>
@@ -29,6 +64,7 @@
                     <li>Ajouté le : {{ spot.createdAt | date('d-M-Y')}}</li>
                 </ul>
 
+                {#button spot edition reserved admin#}
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
                     <div class="d-inline-block">
@@ -37,30 +73,6 @@
                 {% elseif app.user == spot.author %}
                     <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
                 {%endif%}
-
-            </div>
-
-            <div class="col">
-
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-
-                    <div class="carousel-inner">
-                        {% for picture in spot.pictures %}
-                        <div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
-                            <img class="img-fluid" src="{{ vich_uploader_asset(picture, 'imageFile') | imagine_filter('medium')}}" alt="image/photo du spot {{ spot.title }}">
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-
-                </div>
 
             </div>
 
