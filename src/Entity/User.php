@@ -128,24 +128,12 @@ class User implements UserInterface, \Serializable
      */
     private $spotLikes;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Friendship", mappedBy="user")
-     */
-    private $friends;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Friendship", mappedBy="friend")
-     */
-    private $friendsWithMe;
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
 
         $this->spotsCreated = new ArrayCollection();
         $this->spotLikes = new ArrayCollection();
-        $this->friends = new ArrayCollection();
-        $this->friendsWithMe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -450,65 +438,4 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Friendship[]
-     */
-    public function getFriends(): Collection
-    {
-        return $this->friends;
-    }
-
-    public function addFriend(Friendship $friend): self
-    {
-        if (!$this->friends->contains($friend)) {
-            $this->friends[] = $friend;
-            $friend->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFriend(Friendship $friend): self
-    {
-        if ($this->friends->contains($friend)) {
-            $this->friends->removeElement($friend);
-            // set the owning side to null (unless already changed)
-            if ($friend->getUser() === $this) {
-                $friend->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Friendship[]
-     */
-    public function getFriendsWithMe(): Collection
-    {
-        return $this->friendsWithMe;
-    }
-
-    public function addFriendsWithMe(Friendship $friendsWithMe): self
-    {
-        if (!$this->friendsWithMe->contains($friendsWithMe)) {
-            $this->friendsWithMe[] = $friendsWithMe;
-            $friendsWithMe->setFriend($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFriendsWithMe(Friendship $friendsWithMe): self
-    {
-        if ($this->friendsWithMe->contains($friendsWithMe)) {
-            $this->friendsWithMe->removeElement($friendsWithMe);
-            // set the owning side to null (unless already changed)
-            if ($friendsWithMe->getFriend() === $this) {
-                $friendsWithMe->setFriend(null);
-            }
-        }
-
-        return $this;
-    }
 }

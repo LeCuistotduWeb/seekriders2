@@ -8,41 +8,25 @@
 
     <div class="container mt-5">
         <div class="row">
-            <h1 class="mt-2">Spots</h1>
+            <div class="col">
+                <h1 class="mt-2">Spots</h1>
+            </div>
         </div>
-
         <hr>
-
         <div class="row">
-            <div class="jumbotron col">
+            <div class="col">
+                <a href="{{ path('spot_new') }}" class="btn btn-primary mb-4">Ajouter un spot</a>
+                <a href="#" class="btn btn-primary mb-4">Voir la carte</a>
+            </div>
+            <div class="col">
                 <form action="">
-                    <p>Rechercher un spot par :</p>
-                    <div class="form-group form-inline">
-                            <input type="text" placeholder="nom" class="form-control col mr-1">
-                            <input type="text" placeholder="region" class="form-control col-md-3 mr-1">
-                            <input type="text" placeholder="department" class="form-control col-md-3">
-                    </div>
-                    <div class="form-inline">
-                        <label for="search_spot_paying">payant:</label>
-                        <input type="checkbox" class="form-check mr-md-5" name="search_spot_paying">
-                        <label for="search_spot_select_type">Type:</label>
-                        <select name="search_spot_select_type" id="" class="form-control">
-                            <option value="all">Tous</option>
-                            <option value="all">Skatepark</option>
-                            <option value="all">Street</option>
-                            <option value="all">Skateshop</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary float-right">Rechercher</button>
+                    <input type="search" class="form-control" placeholder="Rechercher ....">
                 </form>
             </div>
         </div>
-
-        <hr>
-
         <div class="row">
             {% for spot in spots  %}
-                <div class="col-sm-6 col-md-3 mb-2">
+                <div class="col-sm-6 col-md-3 mb-3">
                     {{ include('partials/spot-card.html.twig') }}
                 </div>
             {% endfor %}

@@ -19,8 +19,6 @@
                         <a href="{{ path('account_profile') }}" class="btn btn-sm btn-primary mr-2 mb-2">Modifier mes informations</a>
                         <a href="{{ path('account_password') }}" class="btn btn-sm btn-danger mb-2">Modifier mon mot de passe</a>
                     </div>
-                    {% else %}
-                        <a href="{{ path('user_add_friend', {id: user.id}) }}" class="btn btn-sm btn-primary mr-2 mb-2">Ajouter a mes amis</a>
                 {% endif %}
 
             </div>
@@ -40,23 +38,6 @@
                     </div>
                 </div>
                 <hr>
-                <!-- friends list -->
-                <div class="container">
-                    <div class="row">
-                        <h3>Liste d'amis : </h3>
-                    </div>
-                    <div class="row">
-                        <ul class="list-unstyled d-flex flex-row flex-wrap">
-                            {% for friend in user.friends %}
-                                {% if friend.friend.avatar %}
-                                    <li class="mr-2"><a href="{{ path('user_show', {id: friend.friend.id}) }}"><img src="{{ vich_uploader_asset(friend.friend, 'avatarFile') | imagine_filter('avatarMin') }}" alt="avatar de {{ friend.friend.username }}" class="image-profile img-fluid rounded-circle"></a></li>
-                                {% else %}
-                                    <li class="mr-2"><a href="{{ path('user_show', {id: friend.friend.id}) }}"><img src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatarMin') }}" alt="avatar de {{ friend.friend.username }}" class="image-profile img-fluid rounded-circle"></a></li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
 
                 <!-- last session -->
                 <div class="container">
