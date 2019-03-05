@@ -167,6 +167,11 @@ class Spot
         return $this;
     }
 
+    public function getSpotType(): string
+    {
+        return self::SPOT_TYPE[$this->type];
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -177,11 +182,6 @@ class Spot
         $this->createdAt = $createdAt;
 
         return $this;
-    }
-
-    public function getSpotType(): string
-    {
-        return self::SPOT_TYPE[$this->type];
     }
 
     public function getSpotPrice(): string

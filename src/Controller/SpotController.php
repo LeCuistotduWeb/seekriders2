@@ -30,7 +30,6 @@ class SpotController extends AbstractController
     public function index($page, PaginationService $pagination ): Response
     {
         $pagination->setEntityClass(Spot::class)
-            ->setLimit(5)
             ->setPage($page);
 
         return $this->render('spot/index.html.twig', [

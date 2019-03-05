@@ -5,6 +5,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -29,7 +30,9 @@ class AccountType extends AbstractType
             ])
             ->add('email', EmailType::class, [])
             ->add('biography', TextareaType::class, ['required' => false,])
-
+            ->add('level', ChoiceType::class, [
+                'choices' => $this->getChoices(User::USER_LEVEL),
+            ])
             ->add('birthdayAt', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
@@ -53,5 +56,14 @@ class AccountType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    private function getChoices($choices)
+    {
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 }

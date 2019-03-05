@@ -26,6 +26,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class User implements UserInterface, \Serializable
 {
+    const USER_LEVEL= [
+        0 => 'NC',
+        1 => 'Débutant',
+        2 => 'Intermediaire',
+        3 => 'Confirmé',
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -127,6 +134,11 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\SpotLike", mappedBy="user")
      */
     private $spotLikes;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $level;
 
     public function __construct()
     {
@@ -436,6 +448,23 @@ class User implements UserInterface, \Serializable
         }
 
         return $this;
+    }
+
+    public function getLevel(): ?string
+    {
+        return $this->level;
+    }
+
+    public function setLevel(string $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getUserLevel(): string
+    {
+        return self::USER_LEVEL[$this->level];
     }
 
 }

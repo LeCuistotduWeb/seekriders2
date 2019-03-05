@@ -20,6 +20,7 @@ class UserType extends AbstractType
             ->add('password')
             ->add('biography')
             ->add('birthdayAt')
+            ->add('level')
             ->add('avatar')
             ->add('location', LocationType::class, [
                 'label' => false,

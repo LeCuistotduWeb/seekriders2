@@ -29,6 +29,7 @@ class AppFixtures extends Fixture
             ->setUsername('admin')
             ->setEmail('gaetan.boyron@gmail.com')
             ->setPassword($this->encoder->encodePassword($adminUser, 'password'))
+            ->setLevel(2)
             ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($adminUser);
@@ -59,6 +60,7 @@ class AppFixtures extends Fixture
                 ->setEmail($faker->email)
                 ->setCreatedAt($faker->dateTime($max = 'now', $timezone = null))
                 ->setBiography($faker->text)
+                ->setLevel(mt_rand(0, count(USer::USER_LEVEL) - 1))
                 ->setPassword($this->encoder->encodePassword($user, 'password'))
                 ->setRoles(['ROLE_USER']);
             $manager->persist($user);

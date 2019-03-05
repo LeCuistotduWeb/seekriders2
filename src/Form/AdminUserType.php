@@ -23,6 +23,9 @@ class AdminUserType extends AbstractType
             ->add('surname', TextType::class, ['required' => false,])
             ->add('username', TextType::class, ['required' => false,])
             ->add('email', EmailType::class, [])
+            ->add('level', ChoiceType::class, [
+                'choices' => $this->getChoices(User::USER_LEVEL),
+            ])
 
 //            ->add('password', PasswordType::class, [
 //                'required' => false,
@@ -68,5 +71,14 @@ class AdminUserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    private function getChoices($choices)
+    {
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 }
