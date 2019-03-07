@@ -18,6 +18,14 @@ class PagesController extends AbstractController
     {
         return $this->render('pages/privacy.html.twig', []);
     }
+
+    /**
+     * @Route("/map", name="map")
+     */
+    public function map()
+    {
+        return $this->render('pages/map.html.twig', []);
+    }
     
     /**
      * @Route("/terms", name="terms")
