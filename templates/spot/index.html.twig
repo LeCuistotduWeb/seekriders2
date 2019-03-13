@@ -6,26 +6,26 @@
     <!-- Navigation -->
     {% include('partials/navbar.html.twig') %}
 
-    {#<div class="jumbotron-fluid bg-primary text-white text-center py-5">#}
-        {#<h1 class="">Spots</h1>#}
-        {#<h2 class="h4">Quel spot skater aujourd'hui ?</h2>#}
-    {#</div>#}
-    <div class="container shadow">
-        <div class="row">
-            <div class="col-md-6 py-3">
+    <div class="container shadow mt-2 bg-primary">
+        <div class="row overflow-hidden">
+            <div class="col-sm-6 py-3">
                 <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a>
-                <a href="{{ path('map') }}" class="btn btn-primary">Voir la carte</a>
             </div>
-            <div class="col-md-6 py-3">
+            <div class="col py-3">
                 <form action="">
-                    <input type="search" class="form-control" placeholder="Rechercher ....">
+                    <input type="search" class="form-control" placeholder="Search">
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="container mt-5 ">
+    <div class="container mt-3">
         <div class="row">
+            <div class="col bg-primary p-0">
+                <div id="map" style="min-height: 500px;">map</div>
+            </div>
+        </div>
+        <div class="row mt-4">
             {% for spot in pagination.data %}
                 <div class="col-sm-6 col-md-3 mb-3">
                     {{ include('partials/spot-card.html.twig') }}
@@ -39,4 +39,9 @@
 
     <!-- Footer -->
     {% include('partials/footer.html.twig') %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('app/googleMap') }}
+    {% endblock %}
 {% endblock %}

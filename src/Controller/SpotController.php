@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Spot;
 use App\Entity\SpotLike;
+use App\Form\SearchSpotType;
 use App\Form\SpotType;
 use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
@@ -25,13 +26,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class SpotController extends AbstractController
 {
     /**
-     * @Route("/list/{page<\d+>?1}", name="spot_index", methods="GET")
+     * @Route("/list/{page<\d+>?1}", name="spot_index", methods="GET|POST")
      */
     public function index($page, PaginationService $pagination ): Response
     {
         $pagination->setEntityClass(Spot::class)
             ->setPage($page);
 
+        dump($pagination);
         return $this->render('spot/index.html.twig', [
             'pagination' => $pagination,
         ]);
@@ -113,7 +115,7 @@ class SpotController extends AbstractController
 
     /**
      * Permet de liker un spot
-     * @Route("/{id}/like",name="spot_like")
+     * @Route("/{id}/like", name="spot_like")
      */
     public function like(Spot $spot, ObjectManager $manager, SpotLikeRepository $spotLikeRepository): Response
     {

@@ -19,6 +19,17 @@ class SpotRepository extends ServiceEntityRepository
         parent::__construct($registry, Spot::class);
     }
 
+    public function searchSpot($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.title = :title')
+            ->setParameter('title', $value['title'])
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Spot[] Returns an array of Spot objects
     //  */

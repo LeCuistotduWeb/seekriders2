@@ -61,7 +61,7 @@ document.querySelectorAll('a[data-spotLike]').forEach(a => {
 
         axios.get(url)
             .then(function (response) {
-                if(response.status == 200){
+                if(response.status === 200){
                     if (icon.classList.contains('fas')){
                         icon.classList.replace('fas','far')
                     }else{
@@ -76,19 +76,3 @@ document.querySelectorAll('a[data-spotLike]').forEach(a => {
             });
     })
 });
-
-    //     fetch(a.getAttribute('href'), {
-    //         headers: {
-    //             'X-Requested-With': 'XMLHttpRequest',
-    //             'Content-Type': 'application/json'
-    //         },
-    //     }).then(response => response.json())
-    //         .then(data => {
-    //             if (data.code == 200 ) {
-    //
-    //             } else {
-    //                 console.log('Une erreur s\'est produite')
-    //             }
-    //         })
-    //         .catch(e => alert(e))
-    // })
