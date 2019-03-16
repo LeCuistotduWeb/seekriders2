@@ -8,17 +8,16 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2 bg-secondary">
-                <div class="navbar">
-                    <ul class="list-group list-unstyled">
-                        <li> <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a></li>
-                        <li>
-                            <form action="">
-                                <input type="search" class="form-control" placeholder="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+            <div class="col-2">
+                <ul class="list-group list-group-flush list-unstyled">
+                    <li> <a href="{{ path('spot_new') }}" class="list-group-item">Ajouter un spot</a></li>
+                    <li class="list-group-item">
+                        {{ form_start(form) }}
+
+                        <input type="submit" class="btn btn-primary">
+                        {{ form_end(form) }}
+                    </li>
+                </ul>
             </div>
             <div class="col p-0">
                 {#<div class="navbar bg-primary">#}
@@ -33,21 +32,20 @@
                         {#</div>#}
                     {#</div>#}
                 {#</div>#}
-                <div id="map"></div>
+                {#<div id="map"></div>#}
+                <div class="row mt-4">
+                {% for spot in spots %}
+                <div class="col-sm-6 col-md-3 mb-3">
+                {{ include('partials/spot-card.html.twig') }}
+                </div>
+                {% endfor %}
+                </div>
+
+                <div class="pagination">
+                {{ knp_pagination_render(spots) }}
+                </div>
             </div>
         </div>
-        {#<div class="row mt-4">#}
-            {#{% for spot in spots %}#}
-                {#<div class="col-sm-6 col-md-3 mb-3">#}
-                    {#{{ include('partials/spot-card.html.twig') }}#}
-                {#</div>#}
-            {#{% endfor %}#}
-        {#</div>#}
-
-        {#<div class="pagination">#}
-            {#{{ knp_pagination_render(spots) }}#}
-        {#</div>#}
-
     </div>
 
     {% block javascripts %}

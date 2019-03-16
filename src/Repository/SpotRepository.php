@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Spot;
+use App\Entity\SpotSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,15 +21,23 @@ class SpotRepository extends ServiceEntityRepository
         parent::__construct($registry, Spot::class);
     }
 
-    public function searchSpot($value)
+    public function findByTitle(SpotSearch $search): Query
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.title = :title')
-            ->setParameter('title', $value['title'])
-            ->orderBy('s.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
+        $query = $this->createQueryBuilder('s');
+
+        if($search->getTitle()){
+            $query = $query
+                ->andWhere('s.title = :title')
+                ->setParameter('title', $search->getTitle());
+        }
+
+        if($search->getType()){
+            $query = $query
+                ->andWhere('s.type = :type')
+                ->setParameter('type', $search->getType());
+        }
+
+        return $query->getQuery();
     }
 
     // /**

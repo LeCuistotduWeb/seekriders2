@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Spot;
 use App\Entity\SpotLike;
+use App\Entity\SpotSearch;
 use App\Form\SearchSpotType;
+use App\Form\SpotSearchType;
 use App\Form\SpotType;
 use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
@@ -30,14 +32,19 @@ class SpotController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator, SpotRepository $spotRepository): Response
     {
+        $search = new SpotSearch();
+        $form = $this->createForm(SpotSearchType::class, $search);
+        $form->handleRequest($request);
+
         $spots = $paginator->paginate(
-            $spotRepository->findAll(), /* query NOT result */
+            $spotRepository->findByTitle($search), /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             12/*limit per page*/
         );
 
         return $this->render('spot/index.html.twig', [
             'spots' => $spots,
+            'form' => $form->createView(),
         ]);
     }
 
