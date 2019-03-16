@@ -44,6 +44,8 @@
                 {% else %}
                     {# return null#}
                 {% endif %}
+
+                <div id="map" class="bg-secondary" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}"></div>
             </div>
 
             <div class="col-md-6">

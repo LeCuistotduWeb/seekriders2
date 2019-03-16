@@ -9,12 +9,8 @@ header {
 #mainNav {
   height: 60px; }
 
-main {
-  min-height: 600px;
-  height: calc(100vh - (footer) - ( 60px)); }
-
 #map {
-  min-height: 600px;
+  min-height: 300px;
   height: calc(100vh - ( 60px)); }
 
 @media (min-width: 992px) {

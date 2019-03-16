@@ -1,19 +1,21 @@
 // any CSS you require will output into a single css file (app.scss in this case)
-require('../css/app.scss');
-
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-let $ = require('jquery');
-require('popper.js');
-require('bootstrap');
-require('bootstrap-datepicker');
+import '../css/app.scss';
+import 'popper.js';
+import 'bootstrap-datepicker';
+import 'bootstrap';
+import Map from './modules/map';
+import $ from 'jquery';
+import axios from 'axios';
 
-let axios = require('axios');
+// Initialize the map
+Map.init();
 
 // active alert bootstrap
 $(function() {
-    // $(".alert").fadeTo(2000, 500).slideUp(500, function(){
-    //     $("#success-alert").slideUp(500);
-    // });
+    $(".alert").fadeTo(3000, 500).slideUp(500, function(){
+        $("#success-alert").slideUp(500);
+    });
 });
 
 // datepicker birthday

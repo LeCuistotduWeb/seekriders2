@@ -20,40 +20,23 @@
                 </ul>
             </div>
             <div class="col p-0">
-                {#<div class="navbar bg-primary">#}
-                    {#<div class="row">#}
-                        {#<div class="col-sm-6">#}
-                            {#<a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a>#}
+                <div id="map"></div>
+                {#<div class="row mt-4">#}
+                    {#{% for spot in spots %}#}
+                        {#<div class="col-sm-6 col-md-3 mb-3">#}
+                            {#{{ include('partials/spot-card.html.twig') }}#}
                         {#</div>#}
-                        {#<div class="col">#}
-                            {#<form action="">#}
-                                {#<input type="search" class="form-control" placeholder="Search">#}
-                            {#</form>#}
-                        {#</div>#}
-                    {#</div>#}
+                    {#{% endfor %}#}
                 {#</div>#}
-                {#<div id="map"></div>#}
-                <div class="row mt-4">
-                {% for spot in spots %}
-                <div class="col-sm-6 col-md-3 mb-3">
-                {{ include('partials/spot-card.html.twig') }}
-                </div>
-                {% endfor %}
-                </div>
 
-                <div class="pagination">
-                {{ knp_pagination_render(spots) }}
-                </div>
+                {#<div class="pagination">#}
+                {#{{ knp_pagination_render(spots) }}#}
+                {#</div>#}
             </div>
         </div>
     </div>
 
     {% block javascripts %}
         {{ parent() }}
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
-        </script>
-        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-
-        {{ encore_entry_script_tags('app/googleMap') }}
     {% endblock %}
 {% endblock %}
