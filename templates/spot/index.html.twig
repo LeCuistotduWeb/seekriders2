@@ -6,42 +6,54 @@
     <!-- Navigation -->
     {% include('partials/navbar.html.twig') %}
 
-    <div class="container shadow mt-2 bg-primary">
-        <div class="row overflow-hidden">
-            <div class="col-sm-6 py-3">
-                <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a>
-            </div>
-            <div class="col py-3">
-                <form action="">
-                    <input type="search" class="form-control" placeholder="Search">
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-3">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col bg-primary p-0">
-                <div id="map" style="min-height: 500px;">map</div>
+            <div class="col-2 bg-secondary">
+                <div class="navbar">
+                    <ul class="list-group list-unstyled">
+                        <li> <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a></li>
+                        <li>
+                            <form action="">
+                                <input type="search" class="form-control" placeholder="Search">
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col p-0">
+                {#<div class="navbar bg-primary">#}
+                    {#<div class="row">#}
+                        {#<div class="col-sm-6">#}
+                            {#<a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a>#}
+                        {#</div>#}
+                        {#<div class="col">#}
+                            {#<form action="">#}
+                                {#<input type="search" class="form-control" placeholder="Search">#}
+                            {#</form>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+                <div id="map"></div>
             </div>
         </div>
-        <div class="row mt-4">
-            {% for spot in pagination.data %}
-                <div class="col-sm-6 col-md-3 mb-3">
-                    {{ include('partials/spot-card.html.twig') }}
-                </div>
-            {% endfor %}
-        </div>
+        {#<div class="row mt-4">#}
+            {#{% for spot in pagination.data %}#}
+                {#<div class="col-sm-6 col-md-3 mb-3">#}
+                    {#{{ include('partials/spot-card.html.twig') }}#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
 
-        {{ pagination.display() }}
+        {#{{ pagination.display() }}#}
 
     </div>
-
-    <!-- Footer -->
-    {% include('partials/footer.html.twig') %}
 
     {% block javascripts %}
         {{ parent() }}
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+        </script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
         {{ encore_entry_script_tags('app/googleMap') }}
     {% endblock %}
 {% endblock %}

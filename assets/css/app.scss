@@ -2,11 +2,23 @@
 @import "bootstrap.min.css";
 @import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
 
+//variables
+$main-nav: 60px;
+//variables
+
 h3{
      margin: 1em 0;
 }
 header {
     padding: 154px 0 100px;
+}
+#mainNav {
+    height: $main-nav;
+}
+
+#map {
+  min-height: 600px;
+  height: calc(100vh - $main-nav);
 }
 
 @media (min-width: 992px) {

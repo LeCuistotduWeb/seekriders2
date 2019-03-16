@@ -13,6 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,6 @@ class SpotController extends AbstractController
         $pagination->setEntityClass(Spot::class)
             ->setPage($page);
 
-        dump($pagination);
         return $this->render('spot/index.html.twig', [
             'pagination' => $pagination,
         ]);
