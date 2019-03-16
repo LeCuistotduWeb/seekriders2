@@ -8,6 +8,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.0",
         "friendsofphp/php-cs-fixer": "^2.14",
         "fzaninotto/faker": "^1.8",
+        "knplabs/knp-paginator-bundle": "^3.0",
         "knpuniversity/oauth2-client-bundle": "^1.26",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^3.0",

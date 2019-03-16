@@ -5,8 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Spot;
 use App\Form\SpotType;
 use App\Repository\SpotRepository;
-use App\Service\PaginationService;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,15 +23,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminSpotController extends AbstractController
 {
     /**
-     * @Route("/list/{page<\d+>?1}", name="admin_spot")
+     * @Route("/", name="admin_spot")
      */
-    public function spots($page, PaginationService $pagination)
+    public function spots(Request $request, PaginatorInterface $paginator, SpotRepository $spotRepository)
     {
-        $pagination->setEntityClass(Spot::class)
-            ->setPage($page);
+        $spots = $paginator->paginate(
+            $spotRepository->findAll(), /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            12/*limit per page*/
+        );
 
         return $this->render('admin/spot/admin-spot.html.twig', [
-            'pagination'=> $pagination,
+            'spots'=> $spots,
         ]);
     }
 

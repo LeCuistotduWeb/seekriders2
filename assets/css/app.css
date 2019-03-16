@@ -6,6 +6,13 @@ h3 {
 header {
   padding: 154px 0 100px; }
 
+#mainNav {
+  height: 60px; }
+
+#map {
+  min-height: 600px;
+  height: calc(100vh - ( 60px)); }
+
 @media (min-width: 992px) {
   header {
     padding: 156px 0 100px; } }

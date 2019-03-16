@@ -37,14 +37,16 @@
             </div>
         </div>
         {#<div class="row mt-4">#}
-            {#{% for spot in pagination.data %}#}
+            {#{% for spot in spots %}#}
                 {#<div class="col-sm-6 col-md-3 mb-3">#}
                     {#{{ include('partials/spot-card.html.twig') }}#}
                 {#</div>#}
             {#{% endfor %}#}
         {#</div>#}
 
-        {#{{ pagination.display() }}#}
+        {#<div class="pagination">#}
+            {#{{ knp_pagination_render(spots) }}#}
+        {#</div>#}
 
     </div>
 

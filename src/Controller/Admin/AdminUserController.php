@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
-use App\Service\PaginationService;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +20,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/list/{page<\d+>?1}", name="admin_user", methods="GET")
+     * @Route("/", name="admin_user", methods="GET")
+     * @param PaginatorInterface $paginator
+     * @param UserRepository $userRepository
+     * @param Request $request
+     * @return Response
      */
-    public function users($page, PaginationService $pagination) :Response
+    public function users(PaginatorInterface $paginator, UserRepository $userRepository, Request $request) :Response
     {
-        $pagination->setEntityClass(User::class)
-            ->setPage($page);
+        $users = $paginator->paginate(
+            $userRepository->findAll(), /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            12/*limit per page*/
+        );
 
         return $this->render('admin/user/admin-user.html.twig', [
-            'pagination'=> $pagination,
+            'users'=> $users,
         ]);
     }
 

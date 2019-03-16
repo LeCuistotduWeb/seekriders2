@@ -18,7 +18,7 @@ header {
 
 #map {
   min-height: 600px;
-  height: calc(100vh - $main-nav);
+  height: calc(100vh - ( #{$main-nav}));
 }
 
 @media (min-width: 992px) {

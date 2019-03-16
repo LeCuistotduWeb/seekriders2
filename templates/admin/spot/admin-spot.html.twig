@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for spot in pagination.data %}
+                            {% for spot in spots %}
                             <tr>
                                 <td><p>{{ spot.createdAt | date('d-m-Y') }}</p></td>
                                 <td><a href="{{ path('admin_spot_show', {'id': spot.id}) }}">{{ spot.title }}</a></td>
@@ -53,7 +53,9 @@
                     </table>
                 </div>
 
-                {{ pagination.display }}
+                <div class="pagination">
+                    {{ knp_pagination_render(spots) }}
+                </div>
 
             </main>
         </div>
