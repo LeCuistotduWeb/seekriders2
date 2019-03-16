@@ -8,35 +8,38 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2">
+            <div class="col-lg-4 col-xl-3 col-md-12 d-none d-md-block">
                 <ul class="list-group list-group-flush list-unstyled">
                     <li> <a href="{{ path('spot_new') }}" class="list-group-item">Ajouter un spot</a></li>
                     <li class="list-group-item">
                         {{ form_start(form) }}
-
-                        <input type="submit" class="btn btn-primary">
+                        {{ form_widget(form) }}
+                        <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
                         {{ form_end(form) }}
                     </li>
                 </ul>
             </div>
-            <div class="col p-0">
-                <div id="map"></div>
-                {#<div class="row mt-4">#}
-                    {#{% for spot in spots %}#}
-                        {#<div class="col-sm-6 col-md-3 mb-3">#}
-                            {#{{ include('partials/spot-card.html.twig') }}#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-                {#</div>#}
+            <div class="col">
+                {#<div id="map"></div>#}
+                <div class="row mt-4">
+                    {% for spot in spots %}
+                        <div class="col-lg-4 col-md-6 mb-3">
+                            {{ include('partials/spot-card.html.twig') }}
+                        </div>
+                    {% endfor %}
+                </div>
 
-                {#<div class="pagination">#}
-                {#{{ knp_pagination_render(spots) }}#}
-                {#</div>#}
+                <div class="pagination">
+                {{ knp_pagination_render(spots) }}
+                </div>
             </div>
         </div>
     </div>
 
     {% block javascripts %}
         {{ parent() }}
+        <!-- algoliaPlaces -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+        {{ encore_entry_script_tags('app/algoliaPlaces') }}
     {% endblock %}
 {% endblock %}

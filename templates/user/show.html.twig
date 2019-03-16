@@ -12,9 +12,9 @@
                <div class="row">
                    <div class="col text-center">
                    {% if user.avatar %}
-                       <img class="avatar mb-3 img-fluid mx-auto" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                       <img class="avatar mb-3 img-fluid rounded mx-auto" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                    {% else %}
-                       <img class="avatar mb-3 img-fluid mx-auto" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                       <img class="avatar mb-3 img-fluid rounded mx-auto" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                    {% endif %}
                    </div>
                </div>

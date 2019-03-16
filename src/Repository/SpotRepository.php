@@ -37,6 +37,16 @@ class SpotRepository extends ServiceEntityRepository
                 ->setParameter('type', $search->getType());
         }
 
+        if($search->getLat() && $search->getLng()){
+            $query = $query
+                ->select('s')
+                ->innerJoin('s.location', 'location')
+                ->andWhere('(6371 * 2 * ASIN(SQRT( POWER(SIN((location.latitude - :lat) *  pi()/180 / 2), 2) + COS(location.latitude * pi()/180) * COS(:lat * pi()/180) * POWER(SIN((location.longitude - :lng) * pi()/180 / 2), 2) ))) <= :distance')
+                ->setParameter('lat', $search->getLat())
+                ->setParameter('lng', $search->getLng())
+                ->setParameter('distance', $search->getDistance());
+        }
+
         return $query->getQuery();
     }
 

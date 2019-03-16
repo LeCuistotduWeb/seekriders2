@@ -31,12 +31,14 @@
     <section id="lastSpot" class="">
         <div class="container">
             <div class="row">
-                <div class="section-title">
-                    <h3>Les dérniers spots ajoutés</h3>
+                <div class="col">
+                    <div class="section-title">
+                        <h3>Les dérniers spots ajoutés</h3>
+                    </div>
                 </div>
                 <div class="row">
                     {% for spot in spots %}
-                        <div class="col-lg-4 col-sm-4 col-xs-4 mb-3">
+                        <div class="col-lg-4 col-sm-4 col-xs-4 mb-3 d-flex">
                             {{ include('partials/spot-card.html.twig') }}
                         </div>
                     {% endfor %}
@@ -49,8 +51,10 @@
     <section id="lastSessions" class="bg-light">
         <div class="container">
             <div class="row">
-                <div class="section-title">
-                    <h3>Les dérnières sessions ajoutées</h3>
+                <div class="col">
+                    <div class="section-title">
+                        <h3>Les dérnières sessions ajoutées</h3>
+                    </div>
                 </div>
                 <div class="row">
                     {% for i in (1..4) %}
@@ -80,29 +84,26 @@
     <section id="lastUsers">
         <div class="container">
             <div class="row">
-                <div class="section-title">
-                    <h3>Dérniers utilisateurs enregistrés</h3>
+                <div class="col">
+                    <div class="section-title">
+                        <h3>Dérniers utilisateurs enregistrés</h3>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 {% for user in users  %}
-                    <div class="col-sm-3">
-                        <div class="card">
+                    <div class="col">
+
+                        <div class="">
                             <a href="{{ path('user_show', {'id': user.id}) }}">
                                 {% if user.avatar %}
-                                    <img class="img-fluid" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('thumb') }}" alt="image/photo de {{ user.username }}">
+                                    <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                                 {% else %}
-                                    <img class="img-fluid" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('thumb') }}" alt="image/photo de {{ user.username }}">
+                                    <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                                 {% endif %}
                             </a>
-                            <div class="card-body">
-                                <h4 class="mt-2"><a href="{{ path('user_show', {'id': user.id}) }}">{{  user.username }}</a></h4>
-                                {% if user.location %}
-                                    <p>{{ user.location.region }} / {{ user.location.city }}</p>
-                                {% endif %}
-                            </div>
-
                         </div>
+
                     </div>
                 {% endfor %}
             </div>
