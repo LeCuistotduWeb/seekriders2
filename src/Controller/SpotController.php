@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -160,6 +161,20 @@ class SpotController extends AbstractController
             'code' => 200,
             'message' => 'tout es ok',
             'likes' => $spotLikeRepository->count(['spot' => $spot])
+        ], 200);
+    }
+
+    /**
+     * Permet de liker un spot
+     * @Route("/api", name="spot_like")
+     */
+    public function spotMap(Request $request, Spot $spot, ObjectManager $manager, SpotRepository $spotRepository): Response
+    {
+        $spots = new JsonResponse([$spotRepository->findAll()]);
+        return $this->json([
+            'code' => 200,
+            'message' => 'tout es ok',
+            'likes' => '5'
         ], 200);
     }
 }

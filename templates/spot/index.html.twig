@@ -20,18 +20,17 @@
                 </ul>
             </div>
             <div class="col">
-                {#<div id="map"></div>#}
-                <div class="row mt-4">
+                <div id="map" data-lat="48.853796" data-lng="2.352402"></div>
+                <div class="d-none">
                     {% for spot in spots %}
-                        <div class="col-lg-4 col-md-6 mb-3">
-                            {{ include('partials/spot-card.html.twig') }}
-                        </div>
+                        <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
                     {% endfor %}
                 </div>
 
-                <div class="pagination">
-                {{ knp_pagination_render(spots) }}
-                </div>
+                {#<div class="pagination">#}
+                {#{{ knp_pagination_render(spots) }}#}
+                {#</div>#}
+
             </div>
         </div>
     </div>
