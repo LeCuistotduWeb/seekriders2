@@ -19,7 +19,11 @@ header {
 #map {
   min-height: 300px;
   height: calc(100vh - ( #{$main-nav}));
+  &.spot-map {
+    height: 450px;
+  }
 }
+
 
 @media (min-width: 992px) {
     header {

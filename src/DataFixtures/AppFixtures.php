@@ -75,8 +75,8 @@ class AppFixtures extends Fixture
                     ->setCountry($faker->country)
                     ->setCity($faker->city)
                     ->setAddress($faker->address)
-                    ->setLatitude($faker->latitude)
-                    ->setLongitude($faker->longitude);
+                    ->setLatitude($faker->latitude($min = 42.932348, $max = 49.472454))
+                    ->setLongitude($faker->longitude($min = -5.700505, $max = 7.964787));
                 $manager->persist($spotLocation);
 
                 $spot = new Spot();

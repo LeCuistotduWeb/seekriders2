@@ -16,8 +16,16 @@ export default class Map {
             return
         }
 
-        //Center of the map
-        let center = [48.853796, 2.352402];
+        function getCenterMap(){
+            //Center of the map
+            let center;
+            if(map.dataset.lat === undefined || map.dataset.lng === undefined){
+                return center = [48.853796, 2.352402];
+            }else{
+                return center = [map.dataset.lat, map.dataset.lng];
+            }
+        }
+
         // Icon skatepark
         let skateparkIcon = L.icon({
             iconUrl: '/images/icons/icon-skatepark-min.png',
@@ -34,8 +42,8 @@ export default class Map {
             popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
-        map = L.map('map').setView(center, 6);
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        map = L.map('map').setView(getCenterMap(), 6);
+        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: ' ',
             maxZoom: 18,
             minZoom: 2,
@@ -49,7 +57,6 @@ export default class Map {
         // Add marker clusterer
         let markers = L.markerClusterGroup();
 
-        // Create a marker for each Spot
         Array.from(document.querySelectorAll('.leaflet-marker')).forEach((item) => {
             let icon;
             if(item.dataset.type === '1'){
@@ -58,6 +65,9 @@ export default class Map {
             else if (item.dataset.type === '0'){
                icon = streetIcon;
             }
+            else {
+                icon = skateparkIcon;
+            }
             let marker = L.marker([item.dataset.lat, item.dataset.lng], {icon: icon}).addTo(map);
             markers.addLayer(marker);
         });
@@ -65,7 +75,10 @@ export default class Map {
 
         // // Add button locate my position
         let lc = L.control.locate().addTo(map);
-        lc.start ();
-        console.log(L.control.locate())
+
+        // Locate my position
+        function getLocatePositionBtn(){
+            lc.start ();
+        }
     }
 }

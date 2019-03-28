@@ -15,7 +15,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +39,7 @@ class SpotController extends AbstractController
         $spots = $paginator->paginate(
             $spotRepository->findByTitle($search), /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
-            12/*limit per page*/
+            100/*limit per page*/
         );
 
         return $this->render('spot/index.html.twig', [
@@ -48,7 +47,6 @@ class SpotController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * Permet de créer une annonce
@@ -89,7 +87,7 @@ class SpotController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="spot_show", methods="GET")
+     * @Route("/{id}", name="spot_show", requirements={"id"="\d+"}, methods="GET")
      */
     public function show(Spot $spot): Response
     {
@@ -99,7 +97,7 @@ class SpotController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="spot_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="spot_edit", requirements={"id"="\d+"}, methods="GET|POST")
      * @Security("is_granted('ROLE_USER') and user === spot.getAuthor() or is_granted('ROLE_ADMIN') ", message="Vous ne pouvez pas modifier un spot qui ne vous appartient pas.")
      */
     public function edit(Request $request, Spot $spot): Response
@@ -125,7 +123,7 @@ class SpotController extends AbstractController
 
     /**
      * Permet de liker un spot
-     * @Route("/{id}/like", name="spot_like")
+     * @Route("/{id}/like", name="spot_like", requirements={"id"="\d+"})
      */
     public function like(Spot $spot, ObjectManager $manager, SpotLikeRepository $spotLikeRepository): Response
     {

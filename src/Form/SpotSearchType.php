@@ -39,6 +39,7 @@ class SpotSearchType extends AbstractType
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
             ->add('address', TextType::class, [
+                'required' => false,
                 'attr' => ['id' => "search_address"]
             ]);
     }

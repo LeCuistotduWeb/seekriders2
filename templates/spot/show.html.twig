@@ -44,8 +44,6 @@
                 {% else %}
                     {# return null#}
                 {% endif %}
-
-                <div id="map" class="bg-secondary" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}"></div>
             </div>
 
             <div class="col-md-6">
@@ -78,6 +76,12 @@
 
             </div>
 
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
+                <div id="map" class="bg-secondary spot-map" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}"></div>
+            </div>
         </div>
 
     </div>

@@ -76,5 +76,5 @@ document.querySelectorAll('a[data-spotLike]').forEach(a => {
                     window.alert("Vous devez être connecté pour ajouter un spot en favoris !")
                 }
             });
-    })
+    });
 });

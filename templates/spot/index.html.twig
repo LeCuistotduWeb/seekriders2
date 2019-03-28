@@ -19,8 +19,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="col">
-                <div id="map" data-lat="48.853796" data-lng="2.352402"></div>
+            <div class="col p-0">
+                <div id="map" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
                 <div class="d-none">
                     {% for spot in spots %}
                         <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
