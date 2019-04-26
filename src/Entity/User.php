@@ -363,7 +363,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getResetToken(): string
+    public function getResetToken(): ?string
     {
         return $this->resetToken;
     }
