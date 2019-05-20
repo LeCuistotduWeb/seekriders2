@@ -15,6 +15,45 @@ header {
 #mainNav {
     height: $main-nav;
 }
+#sidebarLeft {
+  //background-color: #18BC9C;
+  //color: white;
+  max-width: 400px;
+  height: 100%;
+}
+#sidebarLeftMini {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: #1E2B37;
+  .item {
+    color: white;
+    font-size: 1.2em;
+    width: 90px;
+    height: 90px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: lightgrey;
+    }
+    &.active {
+      background-color: #18BC9C;
+      a{
+        color: white;
+      }
+    }
+    &:hover {
+      transition: all .2s;
+      background-color: #18BC9C;
+      a{
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}
 
 #map {
   min-height: 300px;

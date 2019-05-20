@@ -1,39 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends '/layouts/panel.twig' %}
 
 {% block title %}{{ parent() }} Les spots{% endblock %}
 
-{% block body %}
-    <!-- Navigation -->
-    {% include('partials/navbar.html.twig') %}
+    {% block sidebarLeft %}
+        <ul class="list-group list-group-flush list-unstyled">
+            <li> <a href="{{ path('spot_new') }}" class="">Ajouter un spot</a></li>
+            <li class="">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
+                {{ form_end(form) }}
+            </li>
+        </ul>
+    {% endblock %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4 col-xl-3 col-md-12 d-none d-md-block">
-                <ul class="list-group list-group-flush list-unstyled">
-                    <li> <a href="{{ path('spot_new') }}" class="list-group-item">Ajouter un spot</a></li>
-                    <li class="list-group-item">
-                        {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
-                        {{ form_end(form) }}
-                    </li>
-                </ul>
-            </div>
-            <div class="col p-0">
-                <div id="map" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
-                <div class="d-none">
-                    {% for spot in spots %}
-                        <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
-                    {% endfor %}
-                </div>
-
-                {#<div class="pagination">#}
-                {#{{ knp_pagination_render(spots) }}#}
-                {#</div>#}
-
-            </div>
+    {% block main %}
+        <div id="map" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
+        <div class="d-none">
+            {% for spot in spots %}
+                <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
+            {% endfor %}
         </div>
-    </div>
+        {#<div class="pagination">#}
+        {#{{ knp_pagination_render(spots) }}#}
+        {#</div>#}
+    {% endblock %}
 
     {% block javascripts %}
         {{ parent() }}
@@ -41,4 +32,3 @@
         <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
         {{ encore_entry_script_tags('app/algoliaPlaces') }}
     {% endblock %}
-{% endblock %}

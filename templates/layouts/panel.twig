@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Les spots{% endblock %}
+
+{% block body %}
+
+    <!-- Navigation -->
+    {% include('partials/navbar.html.twig') %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div id="sidebarLeft" class="col-lg-4 col-xl-3 d-none d-lg-block">
+                {% block sidebarLeft %}{% endblock %}
+            </div>
+            <div id="sidebarLeftMini" class="">
+                <ul class="list-unstyled text-center">
+                    <li class="item active">
+                        <a href="{{ path('spot_index')}}">
+                            <i class="far fa-map"></i>
+                            <p class="text-white">Map</p>
+                        </a>
+
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <i class="fas fa-calendar-day"></i>
+                            <p class="text-white">Sessions</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#">
+                            <i class="far fa-star"></i>
+                            <p class="text-white">Favoris</p>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="{{ path('account_index') }}">
+                            <i class="far fa-user"></i>
+                            <p class="text-white">Users</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="list-unstyled text-center m-0">
+                    <li class="item">
+                        <button class="btn btn-link">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col p-0">
+                {% block main %}
+                    main
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}
