@@ -136,7 +136,7 @@ class User implements UserInterface, \Serializable
     private $spotLikes;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $level;
 
@@ -455,7 +455,7 @@ class User implements UserInterface, \Serializable
         return $this->level;
     }
 
-    public function setLevel(string $level): self
+    public function setLevel(?string $level): self
     {
         $this->level = $level;
 
@@ -464,6 +464,9 @@ class User implements UserInterface, \Serializable
 
     public function getUserLevel(): string
     {
+        if ($this->level == null) {
+            return self::USER_LEVEL[0];
+        }
         return self::USER_LEVEL[$this->level];
     }
 

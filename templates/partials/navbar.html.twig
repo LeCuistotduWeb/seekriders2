@@ -23,8 +23,8 @@
                             <div class="dropdown-divider"></div>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <a href="{{ path('admin_dashboard') }}" class="dropdown-item">Administration</a>
+                                <div class="dropdown-divider"></div>
                             {% endif %}
-                            <div class="dropdown-divider"></div>
                             <a href="{{ path('account_logout') }}" class="dropdown-item">Se déconnecter</a>
                         </div>
                     </li>
