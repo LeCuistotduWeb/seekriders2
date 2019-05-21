@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Modification de la session {{ session.title }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app/app') }}
+    {{ encore_entry_link_tags('app/admin') }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- navbar -->
+    {% include('admin/partials/admin-navbar.html.twig') %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            {% include('admin/partials/admin-sidebar.html.twig') %}
+
+            <!-- main content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Modification de la session {{ session.title }}</h1>
+                </div>
+
+                {{ include('admin/session/_form.html.twig', {button: 'Enregistrer les modifications'}) }}
+                {{ include('session/_delete_form.html.twig') }}
+
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app/app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <!-- algoliaPlaces -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+        {{ encore_entry_script_tags('app/algoliaPlaces') }}
+        {{ encore_entry_script_tags('app/admin') }}
+    {% endblock %}
+{% endblock %}

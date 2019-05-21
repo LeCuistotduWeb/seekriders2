@@ -82,7 +82,7 @@ class AdminSpotController extends AbstractController
      */
     public function show(Spot $spot): Response
     {
-        return $this->render('spot/show.html.twig', [
+        return $this->render('admin/spot/show.html.twig', [
             'spot' => $spot,
         ]);
     }

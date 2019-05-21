@@ -6,18 +6,21 @@ h3 {
 header {
   padding: 154px 0 100px; }
 
+main {
+  height: calc(100vh - 60px);
+  overflow: auto; }
+
 #mainNav {
   height: 60px; }
 
 #sidebarLeft {
-  max-width: 400px;
-  height: 100%; }
+  max-width: 400px; }
 
 #sidebarLeftMini {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  background-color: #1E2B37; }
+  background-color: #2C3E50; }
   #sidebarLeftMini .item {
     color: white;
     font-size: 1.2em;

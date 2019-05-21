@@ -83,11 +83,17 @@ class Spot
      */
     private $likes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="spot", orphanRemoval=true)
+     */
+    private $sessions;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->pictures = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,6 +299,37 @@ class Spot
             if($like->getUser() === $user) return true;
         }
         return false;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->setSpot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->contains($session)) {
+            $this->sessions->removeElement($session);
+            // set the owning side to null (unless already changed)
+            if ($session->getSpot() === $this) {
+                $session->setSpot(null);
+            }
+        }
+
+        return $this;
     }
 
 }

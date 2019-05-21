@@ -1,15 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/panel.twig' %}
 
 {% block title %}{{ parent() }} {{ spot.title }}{% endblock %}
 
-{% block body %}
-    <!-- Navigation -->
-    {% include('partials/navbar.html.twig') %}
+{% block main %}
+    <div class="container mt-5">
 
-    <div class="container m-5 mx-auto">
-
-        <!-- Row -->
         <div class="row">
+
+            <div class="col-md-6">
+                <h1>{{ spot.title }}</h1>
+
+                <address>
+                    {{ spot.location.fullAddress }}
+                </address>
+
+                <h3>Description : </h3>
+                <p>{{ spot.description }}</p>
+
+                <h3 class="my-3">Infos :</h3>
+                <ul class="list-unstyled">
+                    <li>Type : {{ spot.spotType }}</li>
+                    <li>Tarifs : {{ spot.spotPrice }}</li>
+                    <li>Auteur :  <a href="{{ path('user_show', {'id': spot.author.id}) }}">{{ spot.author.username }}</a></li>
+                    <li>Ajouté le : {{ spot.createdAt | date('d-M-Y')}}</li>
+                </ul>
+            </div>
 
             <div class="col-md-6">
                 {% if spot.pictures.count > 0 %}
@@ -46,46 +61,23 @@
                 {% endif %}
             </div>
 
-            <div class="col-md-6">
-                <h1>{{ spot.title }}</h1>
-
-                <address>
-                    {{ spot.location.fullAddress }}
-                </address>
-
-                <h3>Description : </h3>
-                <p>{{ spot.description }}</p>
-
-                <h3 class="my-3">Infos :</h3>
-                <ul class="list-unstyled">
-                    <li>Type : {{ spot.spotType }}</li>
-                    <li>Tarifs : {{ spot.spotPrice }}</li>
-                    <li>Auteur :  <a href="{{ path('user_show', {'id': spot.author.id}) }}">{{ spot.author.username }}</a></li>
-                    <li>Ajouté le : {{ spot.createdAt | date('d-M-Y')}}</li>
-                </ul>
-
-                {#button spot edition reserved admin#}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
-                    <div class="d-inline-block">
-                        {{ include('spot/_delete_form.html.twig') }}
-                    </div>
-                {% elseif app.user == spot.author %}
-                    <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
-                {%endif%}
-
-            </div>
-
         </div>
-        <div class="row">
+
+        <div class="row mb-5">
             <div class="col">
                 <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
                 <div id="map" class="bg-secondary spot-map" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}"></div>
             </div>
         </div>
 
-    </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
+            <div class="d-inline-block">
+                {{ include('spot/_delete_form.html.twig') }}
+            </div>
+        {% elseif app.user == spot.author %}
+            <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning">Editer</a>
+        {%endif%}
 
-    <!-- Footer -->
-    {% include('partials/footer.html.twig') %}
+    </div>
 {% endblock %}

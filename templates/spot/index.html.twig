@@ -3,22 +3,24 @@
 {% block title %}{{ parent() }} Les spots{% endblock %}
 
     {% block sidebarLeft %}
-        <ul class="list-group list-group-flush list-unstyled">
-            <li> <a href="{{ path('spot_new') }}" class="">Ajouter un spot</a></li>
-            <li class="">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
-                {{ form_end(form) }}
-            </li>
-        </ul>
+        <div id="sidebarLeft" class="col-lg-4 col-xl-3 d-none d-lg-block my-3">
+            <ul class="list-group list-group-flush list-unstyled">
+                <li> <a href="{{ path('spot_new') }}" class="btn btn-primary d-block">Ajouter un spot</a></li>
+                <li class="">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
+                    {{ form_end(form) }}
+                </li>
+            </ul>
+        </div>
     {% endblock %}
 
     {% block main %}
         <div id="map" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
         <div class="d-none">
             {% for spot in spots %}
-                <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}"></div>
+                <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}" data-title="{{ spot.title }}"></div>
             {% endfor %}
         </div>
         {#<div class="pagination">#}

@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/panel.twig' %}
 
 {% block title %}{{ parent() }} {{ user.username }}{% endblock %}
 
-{% block body %}
-    <!-- Navigation -->
-    {% include('partials/navbar.html.twig') %}
+{% block main %}
 
     <div class="container mt-5">
         <div class="row mb-5">
@@ -25,7 +23,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <h1 class="mb-2">{% if user.location %}{{user.username}}{% else %}Nouvel utilisateur{% endif %}</h1>
+                            <h1 class="mb-2">{% if user.username %}{{user.username}}{% else %}Nouvel utilisateur{% endif %}</h1>
                             {% if user.location %}
                                 <p>{{ user.location.department }} / {{ user.location.city }}</p>
                             {% endif %}

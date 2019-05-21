@@ -1,0 +1,12 @@
+{% extends 'layouts/panel.twig' %}
+
+{% block title %}{{ parent() }} Modification de la session {{ session.title }}{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h1>Modification de la session {{ session.title }}</h1>
+
+        {{ include('session/_form.html.twig', {button: 'Enregistrer les modifications'}) }}
+        {{ include('session/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Modification du spot {{ spot.title }}{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app/app') }}
+    {{ encore_entry_link_tags('app/admin') }}
+{% endblock %}
+
+{% block body %}
+
+    <!-- navbar -->
+    {% include('admin/partials/admin-navbar.html.twig') %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            {% include('admin/partials/admin-sidebar.html.twig') %}
+
+            <!-- main content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                    <h1 class="h2">{{ spot.title }}</h1>
+                </div>
+                <div class="row table-responsive table-striped">
+                    <table class="table">
+
+                        <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <td>{{ spot.title }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ spot.spotType }}</td>
+                        </tr>
+                        <tr>
+                            <th>Paying</th>
+                            <td>{{ spot.spotPrice }}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ spot.location.fullAddress}}</td>
+                        </tr>
+                        <tr>
+                            <th>Author</th>
+                            <td><a href="{{ path('user_show', {id: spot.author.id}) }}">{{ spot.author.username }}</a></td>
+                        </tr>
+                        <tr>
+                            <th>Pictures</th>
+                            <td>
+                                {% for spotPicture in  spot.pictures %}
+                                    <img class="img-fluid" src="{{ vich_uploader_asset(spotPicture, 'imageFile') | imagine_filter('thumb')}}" alt="image/photo du spot {{ spot.title }}">
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <a href="{{ path('spot_edit', {'id': spot.id}) }}" class="btn btn-warning mr-3">Modifier</a>
+                    {{ include('spot/_delete_form.html.twig') }}
+                </div>
+            </main>
+        </div>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app/app') }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <!-- algoliaPlaces -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+        {{ encore_entry_script_tags('app/algoliaPlaces') }}
+        {{ encore_entry_script_tags('app/admin') }}
+    {% endblock %}
+{% endblock %}
