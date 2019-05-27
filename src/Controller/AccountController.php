@@ -8,7 +8,7 @@ use App\Form\AccountType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
-use App\Service\FileUploader;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -250,5 +250,21 @@ class AccountController extends AbstractController
      * @return void
      */
     public function logout() {}
+
+    /**
+     * Permet de supprimer son compte
+     * @Route("/delete", name="account_delete")
+     * @IsGranted("ROLE_USER")
+     */
+    public function delete(ObjectManager $manager) {
+        $user = $this->getUser();
+
+        $manager->remove($user);
+        $manager->flush();
+
+        $this->addFlash('danger', 'Votre compte a bien été supprimer');
+
+        return $this->redirectToRoute('home');
+    }
 }
 

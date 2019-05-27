@@ -68,7 +68,11 @@ export default class Map {
             else {
                 icon = skateparkIcon;
             }
-            let marker = L.marker([item.dataset.lat, item.dataset.lng], {icon: icon}).addTo(map);
+            let marker = L.marker([item.dataset.lat, item.dataset.lng], {
+                icon: icon,
+                title: item.dataset.title,
+                riseOnHover: true
+            }).addTo(map);
             markers.addLayer(marker);
         });
         map.addLayer(markers);

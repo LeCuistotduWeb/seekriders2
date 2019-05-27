@@ -6,12 +6,48 @@ h3 {
 header {
   padding: 154px 0 100px; }
 
+main {
+  height: calc(100vh - 60px);
+  overflow: auto; }
+
 #mainNav {
   height: 60px; }
+
+#sidebarLeft {
+  max-width: 400px; }
+
+#sidebarLeftMini {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: #2C3E50; }
+  #sidebarLeftMini .item {
+    color: white;
+    font-size: 1.2em;
+    width: 90px;
+    height: 90px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #sidebarLeftMini .item a {
+      color: lightgrey; }
+    #sidebarLeftMini .item.active {
+      background-color: #18BC9C; }
+      #sidebarLeftMini .item.active a {
+        color: white; }
+    #sidebarLeftMini .item:hover {
+      transition: all .2s;
+      background-color: #18BC9C; }
+      #sidebarLeftMini .item:hover a {
+        color: white;
+        text-decoration: none; }
 
 #map {
   min-height: 300px;
   height: calc(100vh - ( 60px)); }
+  #map.spot-map {
+    height: 450px; }
 
 @media (min-width: 992px) {
   header {

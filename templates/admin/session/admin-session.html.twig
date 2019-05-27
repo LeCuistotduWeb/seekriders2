@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} Sessions{% endblock %}
+{% block title %}{{ parent() }} Dashboard{% endblock %}
 {% block stylesheets %}
     {{ encore_entry_link_tags('app/app') }}
     {{ encore_entry_link_tags('app/admin') }}
@@ -21,6 +21,50 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Sessions :</h1>
+                </div>
+                <div class="row my-2">
+                    <a href="{{ path('admin_session_new') }}" class="btn btn-primary">Ajouter une nouvelle session</a>
+                </div>
+
+                <div class="row table-responsive table-striped">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>Début</td>
+                            <td>Fin</td>
+                            <td>Title</td>
+                            <td>Spot</td>
+                            <td>Nb participants</td>
+                            <td>Auteur</td>
+                            <td>Action</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for session in sessions %}
+                            <tr>
+                                <td><p>{{ session.startDateAt | date('d-m-Y') }}</p></td>
+                                <td><p>{{ session.endDateAt | date('d-m-Y') }}</p></td>
+                                <td><a href="{{ path('admin_session_show', {'id': session.id}) }}">{{ session.title }}</a></td>
+                                <td>{{ session.spot.title }}</td>
+                                <td>{{ session.participants | length }}</td>
+                                <td>{{ session.author.username }}</td>
+                                <td class="d-flex">
+                                    <a href="{{ path('admin_session_show', {'id': session.id}) }}" class="btn btn-primary mr-1">Voir</a>
+                                    <a href="{{ path('admin_session_edit', {'id': session.id}) }}" class="btn btn-warning mr-1">Editer</a>
+                                    {{ include('admin/session/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    {{ knp_pagination_render(sessions) }}
                 </div>
 
             </main>

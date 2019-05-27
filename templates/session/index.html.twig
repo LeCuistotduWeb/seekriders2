@@ -1,0 +1,37 @@
+{% extends 'layouts/panel.twig' %}
+
+{% block title %}Session index{% endblock %}
+
+{% block sidebarLeft %}
+    <div id="sidebarLeft" class="col-lg-4 col-xl-3 d-none d-lg-block my-3">
+        <ul class="list-group list-group-flush list-unstyled">
+            <li>
+                <a href="{{ path('session_new') }}" class="btn btn-primary d-block">Créer une session</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h1>Les prochaines sessions</h1>
+        <div class="row">
+        {% for session in sessions %}
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <a href="{{ path('session_show', {id: session.id}) }}">
+                        <img class="card-img-top image-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="mb-0"><a href="{{ path('session_show', {id: session.id}) }}">{{ session.title }}</a></h4>
+                        <div class="py-2">Le {{ session.startDateAt | date('d-m-Y') }} <br>Début : {{ session.startDateAt | date('H:m') }}</div>
+                        <div>Session ajouté par : <a href="{{ path('user_show', {id: session.author.id }) }}">{{ session.author.username }}</a></div>
+                        <div>12 personnes participent</div>
+                        <button class="btn btn-primary">Participer</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

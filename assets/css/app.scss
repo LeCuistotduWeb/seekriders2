@@ -12,8 +12,52 @@ h3{
 header {
     padding: 154px 0 100px;
 }
+
+main {
+  height: calc(100vh - #{$main-nav});
+  overflow: auto;
+}
+
 #mainNav {
     height: $main-nav;
+}
+#sidebarLeft {
+  //background-color: #18BC9C;
+  //color: white;
+  max-width: 400px;
+}
+#sidebarLeftMini {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: #2C3E50;
+  .item {
+    color: white;
+    font-size: 1.2em;
+    width: 90px;
+    height: 90px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: lightgrey;
+    }
+    &.active {
+      background-color: #18BC9C;
+      a{
+        color: white;
+      }
+    }
+    &:hover {
+      transition: all .2s;
+      background-color: #18BC9C;
+      a{
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 #map {

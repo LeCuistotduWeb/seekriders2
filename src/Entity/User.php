@@ -136,9 +136,19 @@ class User implements UserInterface, \Serializable
     private $spotLikes;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $level;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Session", mappedBy="participants")
+     */
+    private $sessions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="author", orphanRemoval=true)
+     */
+    private $mySessions;
 
     public function __construct()
     {
@@ -146,6 +156,8 @@ class User implements UserInterface, \Serializable
 
         $this->spotsCreated = new ArrayCollection();
         $this->spotLikes = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
+        $this->mySessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -455,7 +467,7 @@ class User implements UserInterface, \Serializable
         return $this->level;
     }
 
-    public function setLevel(string $level): self
+    public function setLevel(?string $level): self
     {
         $this->level = $level;
 
@@ -464,7 +476,69 @@ class User implements UserInterface, \Serializable
 
     public function getUserLevel(): string
     {
+        if ($this->level == null) {
+            return self::USER_LEVEL[0];
+        }
         return self::USER_LEVEL[$this->level];
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): self
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions[] = $session;
+            $session->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): self
+    {
+        if ($this->sessions->contains($session)) {
+            $this->sessions->removeElement($session);
+            $session->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Session[]
+     */
+    public function getMySessions(): Collection
+    {
+        return $this->mySessions;
+    }
+
+    public function addMySession(Session $mySession): self
+    {
+        if (!$this->mySessions->contains($mySession)) {
+            $this->mySessions[] = $mySession;
+            $mySession->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMySession(Session $mySession): self
+    {
+        if ($this->mySessions->contains($mySession)) {
+            $this->mySessions->removeElement($mySession);
+            // set the owning side to null (unless already changed)
+            if ($mySession->getAuthor() === $this) {
+                $mySession->setAuthor(null);
+            }
+        }
+
+        return $this;
     }
 
 }

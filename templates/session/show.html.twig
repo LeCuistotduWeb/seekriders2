@@ -1,0 +1,34 @@
+{% extends 'layouts/panel.twig' %}
+
+{% block title %}{{ parent() }} {{ session.title }}{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <h1>{{ session.title }}</h1>
+
+                <p>Début : {{ session.startDateAt|date('Y-m-d') }}</p>
+                <p>Fin : {{ session.endDateAt|date('Y-m-d') }}</p>
+
+                <address>
+                    {{ session.spot.location.fullAddress }}
+                </address>
+
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col">
+                <div class="leaflet-marker hide" data-lat="{{ session.spot.location.latitude }}" data-lng="{{ session.spot.location.longitude }}" data-type="{{ session.spot.type }}"></div>
+                <div id="map" class="bg-secondary spot-map" data-lat="{{ session.spot.location.latitude }}" data-lng="{{ session.spot.location.longitude }}"></div>
+            </div>
+        </div>
+        <div class="row ml-1">
+            {% if app.user == session.author or is_granted('ROLE_ADMIN')  %}
+                <a href="{{ path('session_edit', {'id': session.id}) }}" class="btn btn-warning mr-2">Modifier</a>
+                {{ include('session/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
