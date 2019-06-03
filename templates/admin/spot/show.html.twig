@@ -67,6 +67,8 @@
     </div>
     {% block javascripts %}
         {{ encore_entry_script_tags('app/app') }}
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAeL0E48mHmGKdemIn_0STynAmoc9f-0eo&callback=initMap"
+                type="text/javascript"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <!-- algoliaPlaces -->
         <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>

@@ -4,7 +4,7 @@ import 'leaflet.locatecontrol'
 import 'leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
-
+import axios from 'axios'
 
 export default class Map {
 
@@ -20,11 +20,20 @@ export default class Map {
             //Center of the map
             let center;
             if(map.dataset.lat === undefined || map.dataset.lng === undefined){
-                return center = [48.853796, 2.352402];
+                return center = [47.83769, 7.625492];
             }else{
                 return center = [map.dataset.lat, map.dataset.lng];
             }
         }
+
+        map = L.map('map').setView(getCenterMap(), 6);
+        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: ' ',
+            maxZoom: 18,
+            minZoom: 2,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoibGVjdWlzdG90ZHV3ZWIiLCJhIjoiY2ptcTVxa3p0MW1odTNwanBtdjd6Z2g1dyJ9.MEAlNrofdb89_X_BRuLqVw'
+        }).addTo(map);
 
         // Icon skatepark
         let skateparkIcon = L.icon({
@@ -42,39 +51,37 @@ export default class Map {
             popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
-        map = L.map('map').setView(getCenterMap(), 6);
-        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-            attribution: ' ',
-            maxZoom: 18,
-            minZoom: 2,
-            id: 'mapbox.streets',
-            accessToken: 'pk.eyJ1IjoibGVjdWlzdG90ZHV3ZWIiLCJhIjoiY2ptcTVxa3p0MW1odTNwanBtdjd6Z2g1dyJ9.MEAlNrofdb89_X_BRuLqVw'
-        }).addTo(map);
-
         //Create a marker
         // L.marker(center, {icon: skateparkIcon}).addTo(map);
+
+        const url = "/spot/api/all";
+        axios.get(url)
+            .then(function (response) {
+                for (let spot of response.data) {
+                    addMarker(spot)
+                }
+            })
 
         // Add marker clusterer
         let markers = L.markerClusterGroup();
 
-        Array.from(document.querySelectorAll('.leaflet-marker')).forEach((item) => {
+        function addMarker(spot){
             let icon;
-            if(item.dataset.type === '1'){
-               icon = skateparkIcon;
-            }
-            else if (item.dataset.type === '0'){
-               icon = streetIcon;
-            }
-            else {
-                icon = skateparkIcon;
-            }
-            let marker = L.marker([item.dataset.lat, item.dataset.lng], {
-                icon: icon,
-                title: item.dataset.title,
+            spot.type === 0 ? icon = streetIcon : icon = skateparkIcon;
+            let marker = L.marker([spot.location.latitude, spot.location.longitude], {
+                icon : icon,
+                title: spot.title,
                 riseOnHover: true
-            }).addTo(map);
+            }).addTo(map).bindPopup(
+                `<div>
+                    <a href="/spot/${ spot.id }">
+                    <img class="img-fluid" src="/images/spots/image-null.jpg" alt="image/photo du spot ${ spot.title }">
+                    </a>
+                    <p>${spot.title}</p>
+                 </div>
+            `);
             markers.addLayer(marker);
-        });
+        }
         map.addLayer(markers);
 
         // // Add button locate my position

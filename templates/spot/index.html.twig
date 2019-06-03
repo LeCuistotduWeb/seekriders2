@@ -18,14 +18,6 @@
 
     {% block main %}
         <div id="map" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
-        <div class="d-none">
-            {% for spot in spots %}
-                <div class="leaflet-marker hide" data-lat="{{ spot.location.latitude }}" data-lng="{{ spot.location.longitude }}" data-type="{{ spot.type }}" data-title="{{ spot.title }}"></div>
-            {% endfor %}
-        </div>
-        {#<div class="pagination">#}
-        {#{{ knp_pagination_render(spots) }}#}
-        {#</div>#}
     {% endblock %}
 
     {% block javascripts %}

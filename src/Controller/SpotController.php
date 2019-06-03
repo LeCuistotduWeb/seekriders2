@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,7 +53,6 @@ class SpotController extends AbstractController
      * Permet de créer une annonce
      *
      * @Route("/new", name="spot_new", methods="GET|POST")
-     * @IsGranted("ROLE_USER")
      *
      * @return Response
      */
@@ -88,6 +88,7 @@ class SpotController extends AbstractController
 
     /**
      * @Route("/{id}", name="spot_show", requirements={"id"="\d+"}, methods="GET")
+     * @IsGranted("ROLE_USER")
      */
     public function show(Spot $spot): Response
     {
@@ -160,5 +161,19 @@ class SpotController extends AbstractController
             'message' => 'tout es ok',
             'likes' => $spotLikeRepository->count(['spot' => $spot])
         ], 200);
+    }
+
+    /**
+     * @Route("/api/all", name="spots_all_api",)
+     */
+    public function allSpot(SpotRepository $spotRepository){
+        $spots = $spotRepository->findall();
+        $newArray = [];
+
+        foreach($spots as $spot)
+        {
+            $newArray[] = $spot->toArray();
+        }
+        return new JsonResponse($newArray);
     }
 }

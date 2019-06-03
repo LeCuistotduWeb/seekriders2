@@ -184,4 +184,12 @@ class Location
 
         return $this;
     }
+
+    public function toArray()
+    {
+        $objectArray = get_object_vars($this);
+        unset($objectArray['spot']);
+        unset($objectArray['id']);
+        return $objectArray;
+    }
 }

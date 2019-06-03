@@ -57,6 +57,7 @@ class Session
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->participants = new ArrayCollection();
     }
 
@@ -161,5 +162,15 @@ class Session
         $this->author = $author;
 
         return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->getSpot()->getPicture();
+    }
+
+    public function getLocation()
+    {
+        return $this->getSpot()->getLocation();
     }
 }

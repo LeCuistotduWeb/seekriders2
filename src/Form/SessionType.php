@@ -16,7 +16,6 @@ class SessionType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('createdAt')
             ->add('startDateAt')
             ->add('endDateAt')
             ->add('spot', EntityType::class, [

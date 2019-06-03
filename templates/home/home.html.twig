@@ -53,23 +53,29 @@
             <div class="row">
                 <div class="col">
                     <div class="section-title">
-                        <h3>Les dérnières sessions ajoutées</h3>
+                        <h3>Les prochaines sessions</h3>
                     </div>
                 </div>
                 <div class="row">
-                    {% for i in (1..4) %}
+                    {% for session in sessions %}
                         <div class="col-md-6 my-2">
                             <div class="card">
-                                <h5 class="card-header">12 mai 2019</h5>
+                                <h5 class="card-header">Le {{ session.startDateAt |date("d-m-Y", "Europe/Paris") }}</h5>
                                 <div class="card-body">
                                     <div class="row">
-                                    <div class="col-3">
-                                        <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
-                                    </div>
-                                    <div class="col">
-                                    <h5 class="card-title">Special title treatment</h5>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    </div>
+                                        <div class="col">
+                                            {% if session.picture %}
+                                                <img class="img-fluid" src="{{ vich_uploader_asset(session.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo de la session {{ session.title }}">
+                                            {% else %}
+                                                <img class="img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col">
+                                            <h5 class="card-title">{{ session.title }}</h5>
+                                            <p class="card-text">{{ session.location.city }} / {{ session.location.department }}</p>
+                                            <div>{{ session.participants | length }} participants</div>
+                                            <a href="#" class="btn btn-primary">Participer</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
