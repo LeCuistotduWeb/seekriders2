@@ -332,4 +332,16 @@ class Spot
         return $this;
     }
 
+    public function toArray()
+    {
+        $objectArray = get_object_vars($this);
+
+        if($this->getAuthor()){
+            $objectArray['author'] = $this->getAuthor()->getUsername();
+        }
+        if($this->getLocation()){
+            $objectArray['location'] = $this->getLocation()->toArray();
+        }
+        return $objectArray;
+    }
 }

@@ -541,4 +541,17 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function toArray()
+    {
+        $objectArray = get_object_vars($this);
+        unset($objectArray['password']);
+        unset($objectArray['passwordConfirm']);
+        unset($objectArray['roles']);
+        if($this->getLocation()){
+            $objectArray['location'] = $this->getLocation()->toArray();
+        }
+
+        return $objectArray;
+    }
+
 }

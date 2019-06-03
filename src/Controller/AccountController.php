@@ -194,12 +194,14 @@ class AccountController extends AbstractController
             }
 
             $url = $this->generateUrl('account_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+            $mailer = new PHPMailer();
+
 
             $message = (new \Swift_Message('Mot de passe oublié Seekriders'))
-                ->setFrom('forgotpass@seekriders.com')
+                ->setFrom('forgotpassword@seekriders.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    "blablabla voici le token pour reseter votre mot de passe : " . $url,
+                    "Vous avez fait une demande de modification de votre mot de passe. Cliquez ici pour réinitialiser votre mot de passe : " . $url,
                     'text/html'
                 );
 
@@ -256,9 +258,8 @@ class AccountController extends AbstractController
      * @Route("/delete", name="account_delete")
      * @IsGranted("ROLE_USER")
      */
-    public function delete(ObjectManager $manager) {
-        $user = $this->getUser();
-
+    public function delete(ObjectManager $manager, UserRepository $userRepository) {
+        $user = $userRepository->find($this->getUser());
         $manager->remove($user);
         $manager->flush();
 

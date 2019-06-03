@@ -20,6 +20,21 @@ class SessionRepository extends ServiceEntityRepository
     }
 
     // /**
+    //  * @return Sessions[] Returns an array of Sessions objects
+    //  */
+    public function findLastSessionsCreatedWidthLimit($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.startDateAt > :today')
+            ->setParameter('today', new \Datetime())
+            ->orderBy('u.startDateAt', 'ASC')
+            ->setMaxResults($value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    // /**
     //  * @return Session[] Returns an array of Session objects
     //  */
     /*
