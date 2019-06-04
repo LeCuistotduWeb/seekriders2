@@ -17,19 +17,10 @@
         <h1>Les prochaines sessions</h1>
         <div class="row">
         {% for session in sessions %}
-            <div class="col-md-3 mb-3">
-                <div class="card">
-                    <a href="{{ path('session_show', {id: session.id}) }}">
-                        <img class="card-img-top image-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
-                    </a>
-                    <div class="card-body">
-                        <h4 class="mb-0"><a href="{{ path('session_show', {id: session.id}) }}">{{ session.title }}</a></h4>
-                        <div class="py-2">Le {{ session.startDateAt | date('d-m-Y') }} <br>Début : {{ session.startDateAt | date('H:m') }}</div>
-                        <div>Session ajouté par : <a href="{{ path('user_show', {id: session.author.id }) }}">{{ session.author.username }}</a></div>
-                        <div>12 personnes participent</div>
-                        <button class="btn btn-primary">Participer</button>
-                    </div>
-                </div>
+            <div class="col-md-10 mb-3">
+                {#{% for i in 0..10 %}#}
+                {% include "partials/session-card.html.twig" %}
+                {#{% endfor %}#}
             </div>
         {% endfor %}
         </div>

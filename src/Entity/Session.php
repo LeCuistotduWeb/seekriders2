@@ -173,4 +173,12 @@ class Session
     {
         return $this->getSpot()->getLocation();
     }
+
+    public function isParticipating(User $user)
+    {
+        foreach ($this->participants as $participant){
+            if($participant === $user) return true;
+        }
+        return false;
+    }
 }

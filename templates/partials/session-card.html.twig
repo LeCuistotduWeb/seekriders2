@@ -1,0 +1,31 @@
+<div class="card">
+    <h5 class="card-header">Le {{ session.startDateAt |date("d-m-Y", "Europe/Paris") }}</h5>
+    <div class="card-body">
+        <div class="row">
+            <div class="col order-1">
+                <a href="{{ path('session_show', {id: session.id}) }}">
+                    {% if session.picture %}
+                        <img class="img-fluid" src="{{ vich_uploader_asset(session.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo de la session {{ session.title }}">
+                    {% else %}
+                        <img class="img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="col order-0">
+                <h5 class="card-title"><a href="{{ path('session_show', {id: session.id}) }}">{{ session.title }}</a></h5>
+                <p class="card-text">{{ session.location.city }} / {{ session.location.department }}</p>
+                <p>
+                    Debut : {{ session.startDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}<br>
+                    Fin : {{ session.endDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}
+                </p>
+                <div><p>{{ session.participants | length }} participants</p></div>
+                {% if session.isParticipating(app.user) %}
+                    <a href="{{ path('session_remove_participant', {id: session.id}) }}" class="btn btn-danger">Ne plus participer</a>
+                {% else %}
+                    <a href="{{ path('session_add_participant', {id: session.id}) }}" class="btn btn-primary">Participer</a>
+                {% endif %}
+                <a href="{{ path('session_show', {id: session.id}) }}" class="btn btn-link">Plus d'infos</a>
+            </div>
+        </div>
+    </div>
+</div>

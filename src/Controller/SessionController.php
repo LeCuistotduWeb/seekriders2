@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -98,5 +99,23 @@ class SessionController extends AbstractController
         }
 
         return $this->redirectToRoute('session_index');
+    }
+
+    /**
+     * @Route("/{id}/participants/add", name="session_add_participant", requirements={"id"="\d+"})
+     */
+    public function addParticipant(Session $session, ObjectManager $manager){
+        $session->addParticipant($this->getUser());
+        $manager->flush();
+        return $this->redirect('/');
+    }
+
+    /**
+     * @Route("/{id}/participants/remove", name="session_remove_participant", requirements={"id"="\d+"})
+     */
+    public function removeParticipant(Session $session, ObjectManager $manager){
+        $session->removeParticipant($this->getUser());
+        $manager->flush();
+        return $this->redirect('/');
     }
 }
