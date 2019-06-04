@@ -10,6 +10,7 @@ use App\Form\SpotSearchType;
 use App\Form\SpotType;
 use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -151,6 +152,23 @@ class SpotController extends AbstractController
             'message' => 'tout es ok',
             'likes' => $spotLikeRepository->count(['spot' => $spot])
         ], 200);
+    }
+
+    /**
+     * @Route("/favorites", name="spots_favorites",)
+     */
+    public function favorites(SpotRepository $spotRepository){
+        $spots = $spotRepository->findAll();
+        $favorites = [];
+        foreach( $spots as $spot){
+            if ($spot->isLikeByUser($this->getUser())){
+                $favorites[] = $spot;
+            }
+        }
+
+        return $this->render('spot/favorites.html.twig', [
+            'spots' => $favorites
+        ]);
     }
 
     /**

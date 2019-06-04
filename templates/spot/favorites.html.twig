@@ -1,0 +1,22 @@
+{% extends 'layouts/panel.twig' %}
+
+{% block title %}{{ parent() }} Spots favoris{% endblock %}
+
+{% block main %}
+
+    <div class="container mt-5">
+        <div class="row">
+            {% for spot in spots %}
+                <div class="col-lg-4 col-sm-4 col-xs-4 mb-3">
+                    {{ include('partials/spot-card.html.twig') }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% block javascripts %}
+        <!-- algoliaPlaces -->
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+        {{ encore_entry_script_tags('app/algoliaPlaces') }}
+    {% endblock %}
+{% endblock %}
