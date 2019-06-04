@@ -1,14 +1,12 @@
-<div class="card">
+<div class="card spot-card">
     <div class="card-header">
-
-
-    <a href="{{path('spot_show', {'id': spot.id})}}">
-        {% if spot.picture %}
-            <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(spot.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo du spot {{ spot.title }}">
-        {% else %}
-            <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
-        {% endif %}
-    </a>
+        <a href="{{path('spot_show', {'id': spot.id})}}">
+            {% if spot.picture %}
+                <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(spot.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo du spot {{ spot.title }}">
+            {% else %}
+                <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+            {% endif %}
+        </a>
         {% if app.user %}
             {% if spot.isLikeByUser(app.user)  %}
                 <a href="{{ path('spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x" data-spotLike><i class="fas fa-star"></i></a>
@@ -22,8 +20,5 @@
     <div class="card-body">
         <h5 class="card-title"><a href="{{path('spot_show', {'id': spot.id})}}">{{ spot.title }}</a></h5>
         <p class="card-text">{{ spot.location.region }} / {{ spot.location.city }}</p>
-
-        <a href="{{path('spot_show', {'id': spot.id})}}">Voir plus</a>
-
     </div>
 </div>
