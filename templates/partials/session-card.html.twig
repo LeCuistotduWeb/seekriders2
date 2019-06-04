@@ -19,7 +19,7 @@
                     Fin : {{ session.endDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}
                 </p>
                 <div><p>{{ session.participants | length }} participants</p></div>
-                {% if session.isParticipating(app.user) %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
                     <a href="{{ path('session_remove_participant', {id: session.id}) }}" class="btn btn-danger">Ne plus participer</a>
                 {% else %}
                     <a href="{{ path('session_add_participant', {id: session.id}) }}" class="btn btn-primary">Participer</a>
