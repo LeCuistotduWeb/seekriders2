@@ -21,7 +21,7 @@ class SpotRepository extends ServiceEntityRepository
         parent::__construct($registry, Spot::class);
     }
 
-    public function findByTitle(SpotSearch $search): Query
+    public function findByOptions(SpotSearch $search): Query
     {
         $query = $this->createQueryBuilder('s');
 

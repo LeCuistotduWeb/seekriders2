@@ -11,7 +11,6 @@ use App\Form\SpotType;
 use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,20 +30,11 @@ class SpotController extends AbstractController
     /**
      * @Route("/", name="spot_index", methods="GET|POST")
      */
-    public function index(Request $request, PaginatorInterface $paginator, SpotRepository $spotRepository): Response
+    public function index(): Response
     {
         $search = new SpotSearch();
         $form = $this->createForm(SpotSearchType::class, $search);
-        $form->handleRequest($request);
-
-        $spots = $paginator->paginate(
-            $spotRepository->findByTitle($search), /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            100/*limit per page*/
-        );
-
         return $this->render('spot/index.html.twig', [
-            'spots' => $spots,
             'form' => $form->createView(),
         ]);
     }

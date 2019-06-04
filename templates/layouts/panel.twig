@@ -14,7 +14,7 @@
                 <ul class="list-unstyled text-center">
                     <li class="item {% if app.request.attributes.get('_route') == 'spot_index' %}active{% endif %}">
                         <a href="{{ path('spot_index')}}">
-                            <i class="far fa-map"></i>
+                            <i class="fas fa-map"></i>
                             <p class="text-white">Map</p>
                         </a>
 
@@ -27,14 +27,14 @@
                     </li>
                     <li class="item">
                         <a href="#">
-                            <i class="far fa-star"></i>
+                            <i class="fas fa-star"></i>
                             <p class="text-white">Favoris</p>
                         </a>
                     </li>
                     <li class="item">
-                        <a href="{{ path('account_index') }}">
-                            <i class="far fa-user"></i>
-                            <p class="text-white">Users</p>
+                        <a href="{{ path('user_list') }}">
+                            <i class="fas fa-users"></i>
+                            <p class="text-white">Riders</p>
                         </a>
                     </li>
                 </ul>
