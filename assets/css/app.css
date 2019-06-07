@@ -14,6 +14,17 @@ main {
 .user-card {
   height: 100%; }
 
+.spot-image a.favorite {
+  width: 45px;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  bottom: 15px;
+  top: auto;
+  left: 15px;
+  position: absolute; }
+
 #mainNav {
   height: 60px; }
 

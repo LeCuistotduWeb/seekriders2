@@ -11,30 +11,7 @@ export default class Map {
     // Init the map
     static init() {
         let map = document.querySelector('#map');
-
-        if (map === null) {
-            return
-        }
-
-        function getCenterMap(){
-            //Center of the map
-            let center;
-            if(map.dataset.lat === undefined || map.dataset.lng === undefined){
-                return center = [47.83769, 7.625492];
-            }else{
-                return center = [map.dataset.lat, map.dataset.lng];
-            }
-        }
-
-        map = L.map('map').setView(getCenterMap(), 6);
-        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-            attribution: ' ',
-            maxZoom: 18,
-            minZoom: 2,
-            id: 'mapbox.streets',
-            accessToken: 'pk.eyJ1IjoibGVjdWlzdG90ZHV3ZWIiLCJhIjoiY2ptcTVxa3p0MW1odTNwanBtdjd6Z2g1dyJ9.MEAlNrofdb89_X_BRuLqVw'
-        }).addTo(map);
-
+        let center = [47.83769, 7.625492];
         // Icon skatepark
         let skateparkIcon = L.icon({
             iconUrl: '/images/icons/icon-skatepark-min.png',
@@ -51,19 +28,35 @@ export default class Map {
             popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
-        //Create a marker
-        // L.marker(center, {icon: skateparkIcon}).addTo(map);
+        if (map === null) {
+            return
+        }
 
-        const url = "/spot/api/all";
-        axios.get(url)
-            .then(function (response) {
-                for (let spot of response.data) {
-                    addMarker(spot)
-                }
-            })
+        map = L.map('map').setView(center, 6);
+        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: ' ',
+            maxZoom: 18,
+            minZoom: 2,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoibGVjdWlzdG90ZHV3ZWIiLCJhIjoiY2ptcTVxa3p0MW1odTNwanBtdjd6Z2g1dyJ9.MEAlNrofdb89_X_BRuLqVw'
+        }).addTo(map);
 
         // Add marker clusterer
         let markers = L.markerClusterGroup();
+
+        (function getMarkers(){
+            let spots = document.getElementById("map").dataset.spots;
+            let spot = document.getElementById("map").dataset.spot;
+            if(spot){
+                spot = JSON.parse(spot);
+                map.setView([spot.location.latitude, spot.location.longitude], 12);
+                addMarker(spot);
+            }else if(spots) {
+                for (let spot of JSON.parse(spots)) {
+                    addMarker(spot);
+                }
+            }
+        })();
 
         function addMarker(spot){
             let icon;
@@ -73,12 +66,11 @@ export default class Map {
                 title: spot.title,
                 riseOnHover: true
             }).addTo(map).bindPopup(
-                `<div>
-                    <a href="/spot/${ spot.id }">
-                    <img class="img-fluid" src="/images/spots/image-null.jpg" alt="image/photo du spot ${ spot.title }">
-                    </a>
-                    <p>${spot.title}</p>
-                 </div>
+                `
+                <a href="/spot/${ spot.id }">
+                <img class="img-fluid" src="/images/spots/image-null.jpg" alt="image/photo du spot ${ spot.title }">
+                </a>
+                <p>${spot.title}</p>
             `);
             markers.addLayer(marker);
         }

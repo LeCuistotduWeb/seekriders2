@@ -31,12 +31,19 @@ class SpotController extends AbstractController
     /**
      * @Route("/", name="spot_index", methods="GET|POST")
      */
-    public function index(): Response
+    public function index(SpotRepository $spotRepository): Response
     {
+        $spotsObj = $spotRepository->findAll();
+        $spots = [];
+        foreach($spotsObj as $spot){
+            $spots[] = $spot->toArray();
+        }
+
         $search = new SpotSearch();
         $form = $this->createForm(SpotSearchType::class, $search);
         return $this->render('spot/index.html.twig', [
             'form' => $form->createView(),
+            'spots' => json_encode($spots),
         ]);
     }
 
@@ -85,6 +92,7 @@ class SpotController extends AbstractController
     {
         return $this->render('spot/show.html.twig', [
             'spot' => $spot,
+            'spotJson' => json_encode($spot->toArray()),
         ]);
     }
 
