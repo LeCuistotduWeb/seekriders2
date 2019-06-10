@@ -181,4 +181,14 @@ class Session
         }
         return false;
     }
+
+    public function toArray()
+    {
+        $objectArray = get_object_vars($this);
+
+        if($this->getSpot()){
+            $objectArray['spot'] = $this->getSpot()->toArray();
+        }
+        return $objectArray;
+    }
 }

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card session-card">
     <h5 class="card-header">Le {{ session.startDateAt |date("d-m-Y", "Europe/Paris") }}</h5>
     <div class="card-body">
         <div class="row">
@@ -18,7 +18,9 @@
                     Debut : {{ session.startDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}<br>
                     Fin : {{ session.endDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}
                 </p>
-                <div><p>{{ session.participants | length }} participants</p></div>
+                <div>
+                    <p>{{ session.participants | length }} participants</p>
+                </div>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
                     <a href="{{ path('session_remove_participant', {id: session.id}) }}" class="btn btn-danger">Ne plus participer</a>
                 {% else %}

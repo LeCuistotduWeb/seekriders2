@@ -10,7 +10,7 @@
     <header class="bg-primary">
         <div class="container">
             <div class="row">
-                <div class="text-white">
+                <div class="col text-white">
                     <h1>Seekriders</h1>
                     <h2 class="lead">Un site créé par un skater pour les skaters</h2>
 
@@ -80,17 +80,13 @@
             <div class="row">
                 {% for user in users  %}
                     <div class="col">
-
-                        <div class="">
-                            <a href="{{ path('user_show', {'id': user.id}) }}">
-                                {% if user.avatar %}
-                                    <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
-                                {% else %}
-                                    <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
-                                {% endif %}
-                            </a>
-                        </div>
-
+                        <a href="{{ path('user_show', {'id': user.id}) }}">
+                            {% if user.avatar %}
+                                <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                            {% else %}
+                                <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                            {% endif %}
+                        </a>
                     </div>
                 {% endfor %}
             </div>

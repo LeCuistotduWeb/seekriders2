@@ -15,20 +15,54 @@
                     {{ session.spot.location.fullAddress }}
                 </address>
 
+                <p>Spot : <a href="{{path('spot_show', {'id': session.spot.id})}}">{{ session.spot.title }}</a>
+                </p>
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
+                    <a href="{{ path('session_remove_participant', {id: session.id}) }}" class="btn btn-danger">Ne plus participer</a>
+                {% else %}
+                    <a href="{{ path('session_add_participant', {id: session.id}) }}" class="btn btn-primary">Participer</a>
+                {% endif %}
+            </div>
+            <div class="col-md-5">
+                <a href="{{path('spot_show', {'id': session.spot.id})}}">
+                    {% if session.spot.picture %}
+                        <img class="card-img-top img-fluid" src="{{ vich_uploader_asset(session.spot.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo du spot {{ session.spot.title }}">
+                    {% else %}
+                        <img class="card-img-top img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                    {% endif %}
+                </a>
             </div>
         </div>
 
-        <div class="row mb-5">
+        <div class="row my-3">
+            <div class="col-12">
+                <h3 class="my-3">Participants : <span class="badge badge-primary">{{ session.participants | length }}</span></h3>
+            </div>
+            {% for user in session.participants  %}
+                <div class="col-2 mb-3">
+                    <a href="{{ path('user_show', {'id': user.id}) }}">
+                        {% if user.avatar %}
+                            <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                        {% else %}
+                            <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                        {% endif %}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row my-3">
             <div class="col">
-                <div class="leaflet-marker hide" data-lat="{{ session.spot.location.latitude }}" data-lng="{{ session.spot.location.longitude }}" data-type="{{ session.spot.type }}"></div>
-                <div id="map" class="bg-secondary spot-map" data-lat="{{ session.spot.location.latitude }}" data-lng="{{ session.spot.location.longitude }}"></div>
+                <div id="map" class="bg-secondary spot-map" data-spot="{{ spot }}"></div>
             </div>
         </div>
-        <div class="row ml-1">
-            {% if app.user == session.author or is_granted('ROLE_ADMIN')  %}
+
+        {% if app.user == session.author or is_granted('ROLE_ADMIN')  %}
+            <div class="row my-3 ml-1">
                 <a href="{{ path('session_edit', {'id': session.id}) }}" class="btn btn-warning mr-2">Modifier</a>
                 {{ include('session/_delete_form.html.twig') }}
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
