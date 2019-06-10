@@ -30,7 +30,7 @@ main {
   height: 60px; }
 
 #sidebarLeft {
-  max-width: 400px; }
+  max-width: 330px; }
 
 #sidebarLeftMini {
   display: flex;
@@ -58,6 +58,23 @@ main {
       #sidebarLeftMini .item:hover a {
         color: white;
         text-decoration: none; }
+
+.navbar-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2C3E50;
+  width: 100%; }
+  .navbar-bottom .item {
+    color: white;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    .navbar-bottom .item a {
+      color: #ffffff; }
+    .navbar-bottom .item.active a {
+      color: #18BC9C; }
 
 #map {
   min-height: 300px;

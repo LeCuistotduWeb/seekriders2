@@ -16,6 +16,10 @@ $(function() {
     $(".alert").fadeTo(3000, 500).slideUp(500, function(){
         $("#success-alert").slideUp(500);
     });
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebarLeft').toggleClass('active');
+    });
 });
 
 // datepicker birthday

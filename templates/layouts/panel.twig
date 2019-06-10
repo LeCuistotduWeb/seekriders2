@@ -10,14 +10,13 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div id="sidebarLeftMini" class="">
+            <div id="sidebarLeftMini" class="d-none d-lg-block">
                 <ul class="list-unstyled text-center">
                     <li class="item {% if app.request.attributes.get('_route') == 'spot_index' %}active{% endif %}">
                         <a href="{{ path('spot_index')}}">
                             <i class="fas fa-map"></i>
                             <p class="text-white">Map</p>
                         </a>
-
                     </li>
                     <li class="item {% if app.request.attributes.get('_route') == 'session_index' %}active{% endif %}">
                         <a href="{{ path('session_index') }}">
@@ -50,6 +49,34 @@
                 {% endblock %}
                 </main>
             </div>
+        </div>
+        <div class="row d-block d-lg-none">
+            <nav class="navbar navbar-bottom fixed-bottom text-center py-1">
+                <div class="col-3 item {% if app.request.attributes.get('_route') == 'spot_index' %}active{% endif %}">
+                    <a href="{{ path('spot_index')}}">
+                        <i class="fas fa-map"></i><br>
+                        <span>Map</span>
+                    </a>
+                </div>
+                <div class="col-3 item {% if app.request.attributes.get('_route') == 'session_index' %}active{% endif %}">
+                    <a href="{{ path('session_index') }}">
+                        <i class="fas fa-calendar-day"></i><br>
+                        <span>Sessions</span>
+                    </a>
+                </div>
+                <div class="col-3 item {% if app.request.attributes.get('_route') == 'spots_favorites' %}active{% endif %}">
+                    <a href="{{ path('spots_favorites') }}">
+                        <i class="fas fa-star"></i><br>
+                        <span>Favoris</span>
+                    </a>
+                </div>
+                <div class="col-3 item {% if app.request.attributes.get('_route') == 'user_list' %}active{% endif %}">
+                    <a href="{{ path('user_list') }}">
+                        <i class="fas fa-users"></i><br>
+                        <span>Riders</span>
+                    </a>
+                </div>
+            </nav>
         </div>
     </div>
 

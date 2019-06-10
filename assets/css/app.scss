@@ -41,7 +41,7 @@ main {
 #sidebarLeft {
   //background-color: #18BC9C;
   //color: white;
-  max-width: 400px;
+  max-width: 330px;
 }
 #sidebarLeftMini {
   display: flex;
@@ -73,6 +73,26 @@ main {
         color: white;
         text-decoration: none;
       }
+    }
+  }
+}
+.navbar-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2C3E50;
+  width: 100%;
+  .item {
+    color: white;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: #ffffff;
+    }
+    &.active a{
+      color: #18BC9C;
     }
   }
 }
