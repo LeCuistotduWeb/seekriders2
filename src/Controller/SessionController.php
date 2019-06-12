@@ -102,22 +102,4 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute('session_index');
     }
-
-    /**
-     * @Route("/{id}/participants/add", name="session_add_participant", requirements={"id"="\d+"})
-     */
-    public function addParticipant(Session $session, ObjectManager $manager){
-        $session->addParticipant($this->getUser());
-        $manager->flush();
-        return $this->redirect('/');
-    }
-
-    /**
-     * @Route("/{id}/participants/remove", name="session_remove_participant", requirements={"id"="\d+"})
-     */
-    public function removeParticipant(Session $session, ObjectManager $manager){
-        $session->removeParticipant($this->getUser());
-        $manager->flush();
-        return $this->redirect('/');
-    }
 }

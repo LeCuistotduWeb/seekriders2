@@ -53,9 +53,9 @@
                     {#add spot in favourites#}
                     {% if app.user %}
                         {% if spot.isLikeByUser(app.user)  %}
-                            <a href="{{ path('spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x card-img-overlay favorite" data-spotLike><i class="fas fa-star"></i></a>
+                            <a href="{{ path('api_spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x card-img-overlay favorite" data-spotLike><i class="fas fa-star"></i></a>
                         {% else %}
-                            <a href="{{ path('spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x card-img-overlay favorite" data-spotLike><i class="far fa-star"></i></a>
+                            <a href="{{ path('api_spot_like', {'id': spot.id}) }}" class="btn btn-primary rounded-0x card-img-overlay favorite" data-spotLike><i class="far fa-star"></i></a>
                         {% endif %}
                     {% else %}
                         {# return null#}

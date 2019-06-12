@@ -3,19 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Spot;
-use App\Entity\SpotLike;
 use App\Entity\SpotSearch;
 use App\Form\SearchSpotType;
 use App\Form\SpotSearchType;
 use App\Form\SpotType;
-use App\Repository\SpotLikeRepository;
 use App\Repository\SpotRepository;
-use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -122,47 +118,6 @@ class SpotController extends AbstractController
     }
 
     /**
-     * Permet de liker un spot
-     * @Route("/{id}/like", name="spot_like", requirements={"id"="\d+"})
-     */
-    public function like(Spot $spot, ObjectManager $manager, SpotLikeRepository $spotLikeRepository): Response
-    {
-        $user = $this->getUser();
-
-        if(!$user) return $this->json([
-            'code' => 403,
-            'message' => 'Unauthorize'
-        ], 403);
-
-        if ($spot->isLikeByUser($user)){
-            $like = $spotLikeRepository->findOneBy([
-                'spot' => $spot,
-                'user' => $user
-            ]);
-            $manager->remove($like);
-            $manager->flush();
-
-            return $this->json([
-                'code' => 200,
-                'message' => 'like bien supprimé',
-                'likes' => $spotLikeRepository->count(['spot' => $spot])
-            ], 200);
-        }
-
-        $like = new SpotLike();
-        $like->setSpot($spot)
-            ->setUser($user);
-        $manager->persist($like);
-        $manager->flush();
-
-        return $this->json([
-            'code' => 200,
-            'message' => 'tout es ok',
-            'likes' => $spotLikeRepository->count(['spot' => $spot])
-        ], 200);
-    }
-
-    /**
      * @Route("/favorites", name="spots_favorites",)
      */
     public function favorites(SpotRepository $spotRepository){
@@ -177,19 +132,5 @@ class SpotController extends AbstractController
         return $this->render('spot/favorites.html.twig', [
             'spots' => $favorites
         ]);
-    }
-
-    /**
-     * @Route("/api/all", name="spots_all_api",)
-     */
-    public function allSpot(SpotRepository $spotRepository){
-        $spots = $spotRepository->findall();
-        $newArray = [];
-
-        foreach($spots as $spot)
-        {
-            $newArray[] = $spot->toArray();
-        }
-        return new JsonResponse($newArray);
     }
 }

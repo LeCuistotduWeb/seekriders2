@@ -82,3 +82,31 @@ document.querySelectorAll('a[data-spotLike]').forEach(a => {
             });
     });
 });
+
+// add participant to session
+document.querySelectorAll('a[data-sessionParticipant]').forEach(a => {
+    a.addEventListener('click', (event) => {
+        event.preventDefault();
+        const url = a.href;
+        console.log(a);
+        axios.get(url)
+            .then(function (response) {
+                if(response.status === 200){
+                    if (a.classList.contains('btn-danger')){
+                        a.classList.add('btn-primary');
+                        a.classList.remove('btn-danger');
+                        a.innerHTML = 'Participer';
+                    }else{
+                        a.classList.add('btn-danger');
+                        a.classList.remove('btn-primary');
+                        a.innerHTML = 'Ne plus participer';
+                    }
+                }
+            })
+            .catch(function (error) {
+                if(error.response.status === 403){
+                    window.alert("Vous devez être connecté pour ajouter un spot en favoris !")
+                }
+            });
+    });
+});
