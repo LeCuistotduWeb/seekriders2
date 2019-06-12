@@ -26,9 +26,6 @@
                         </div>
                         <hr>
                         <div class="form-group">
-                            <a href="{{ path('connect_facebook_start') }}" scope="public_profile,email" onlogin="checkLoginState();" class="btn btn-primary">Connection avec facebook</a>
-                        </div>
-                        <div class="form-group">
                             <input class="" type="checkbox" id="remember_me" name="_remember_me" />
                             <label for="remember_me">Rester connecté</label>
                         </div>
@@ -43,25 +40,4 @@
         </div>
     </div>
 
-{% endblock %}
-
-{% block javascripts %}
-    <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '301961630669636',
-                xfbml      : true,
-                version    : 'v3.3'
-            });
-            FB.AppEvents.logPageView();
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
 {% endblock %}

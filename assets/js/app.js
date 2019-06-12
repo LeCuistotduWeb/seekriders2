@@ -38,8 +38,8 @@ $( function() {
 // DELETE  picture
 document.querySelectorAll('[data-delete]').forEach(a => {
     a.addEventListener('click', e => {
-        e.preventDefault()
-        fetch(a.getAttribute('href'), {
+        e.preventDefault();
+        axios(a.getAttribute('href'), {
             method: 'DELETE',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
