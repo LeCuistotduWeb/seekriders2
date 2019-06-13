@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/session")
+ * @Route("/api/sessions")
  * @IsGranted("ROLE_USER")
  */
 class ApiSessionController extends AbstractController

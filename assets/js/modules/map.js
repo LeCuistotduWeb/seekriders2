@@ -45,16 +45,19 @@ export default class Map {
         let markers = L.markerClusterGroup();
 
         (function getMarkers(){
-            let spots = document.getElementById("map").dataset.spots;
             let spot = document.getElementById("map").dataset.spot;
             if(spot){
                 spot = JSON.parse(spot);
                 map.setView([spot.location.latitude, spot.location.longitude], 12);
                 addMarker(spot);
-            }else if(spots) {
-                for (let spot of JSON.parse(spots)) {
-                    addMarker(spot);
-                }
+            }else {
+                axios('/api/spots/',{
+                    method: 'POST'
+                }).then(function (response) {
+                        for(spot of response.data){
+                            addMarker(spot);
+                        }
+                    })
             }
         })();
 
@@ -78,7 +81,6 @@ export default class Map {
 
         // // Add button locate my position
         let lc = L.control.locate().addTo(map);
-
         // Locate my position
         function getLocatePositionBtn(){
             lc.start ();

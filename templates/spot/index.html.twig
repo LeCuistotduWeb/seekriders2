@@ -7,7 +7,7 @@
             <ul class="list-group list-group-flush list-unstyled">
                 <li> <a href="{{ path('spot_new') }}" class="btn btn-primary d-block">Ajouter un spot</a></li>
                 <li class="">
-                    {{ form_start(form) }}
+                    {{ form_start(form, {'attr': {'id': 'spotSearchForm'}}) }}
                     {{ form_widget(form) }}
                     <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
                     {{ form_end(form) }}
@@ -17,7 +17,7 @@
     {% endblock %}
 
     {% block main %}
-        <div id="map" data-spots="{{ spots }}" class="d-flex justify-content-center align-items-center"><span>Erreur de chargement de la map</span></div>
+        <div id="map" class="d-flex justify-content-center align-items-center"></div>
     {% endblock %}
 
     {% block javascripts %}

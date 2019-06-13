@@ -26,7 +26,7 @@ class ApiSpotController extends AbstractController
     /**
      * @Route("/", name="api_spots_all",)
      */
-    public function allSpots(Request $request, SpotRepository $spotRepository){
+    public function allSpots(SpotRepository $spotRepository){
         $spots = $spotRepository->findall();
         $newArray = [];
 

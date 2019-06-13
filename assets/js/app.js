@@ -8,17 +8,12 @@ import Map from './modules/map';
 import $ from 'jquery';
 import axios from 'axios';
 
-// Initialize the map
 Map.init();
 
 // active alert bootstrap
 $(function() {
     $(".alert").fadeTo(3000, 500).slideUp(500, function(){
         $("#success-alert").slideUp(500);
-    });
-
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebarLeft').toggleClass('active');
     });
 });
 
@@ -110,3 +105,5 @@ document.querySelectorAll('a[data-sessionParticipant]').forEach(a => {
             });
     });
 });
+
+
