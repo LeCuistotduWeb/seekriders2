@@ -9,8 +9,8 @@
     <div class="container mt-5">
         <div class="row">
             {% for user in users %}
-                <div class="col-md-3 mb-3">
-                    <div class="card user-card text-center p-3 bg-primary text-white">
+                <div class="col-md-6 col-lg-4 col-xl-3 col-sm-6 mb-3">
+                    <div class="card user-card text-center p-3 bg-primary text-white shadow h-100">
                         <a href="{{ path('user_show', {'id': user.id}) }}">
                             {% if user.avatar %}
                                 <img class="img-fluid rounded-circle" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
@@ -19,7 +19,7 @@
                             {% endif %}
                         </a>
                         <div class="card-body">
-                            <h4><a href="{{ path('user_show', {'id': user.id}) }}">{{ user.username }}</a></h4>
+                            <h4><a class="text-white" href="{{ path('user_show', {'id': user.id}) }}">{{ user.username }}</a></h4>
                             <p class="card-text">
                                 {% if user.location %}
                                     Niveau : {{ user.userLevel }}

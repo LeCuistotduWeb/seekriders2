@@ -1,17 +1,17 @@
-<div class="card session-card">
+<div class="card session-card shadow h-100">
     <h5 class="card-header">Le {{ session.startDateAt |date("d-m-Y", "Europe/Paris") }}</h5>
     <div class="card-body">
-        <div class="row">
-            <div class="col order-1">
+        <div class="row center">
+            <div class="col-lg-4 col-12 ">
                 <a href="{{ path('session_show', {id: session.id}) }}">
                     {% if session.picture %}
-                        <img class="img-fluid" src="{{ vich_uploader_asset(session.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo de la session {{ session.title }}">
+                        <img class="img-fluid session-card-image" src="{{ vich_uploader_asset(session.picture, 'imageFile') | imagine_filter('thumb') }}" alt="image/photo de la session {{ session.title }}">
                     {% else %}
-                        <img class="img-fluid" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
+                        <img class="img-fluid session-card-image" src="{{ asset('/images/spots/image-null.jpg') | imagine_filter('thumb') }}" alt="Card image cap">
                     {% endif %}
                 </a>
             </div>
-            <div class="col order-0">
+            <div class="col-12 col-lg-8">
                 <h5 class="card-title"><a href="{{ path('session_show', {id: session.id}) }}">{{ session.title }}</a></h5>
                 <p class="card-text">{{ session.location.city }} / {{ session.location.department }}</p>
                 <p>
@@ -21,12 +21,14 @@
                 <div>
                     <p>{{ session.participants | length }} participants</p>
                 </div>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
-                    <a href="{{ path('api_session_participant', {id: session.id}) }}" class="btn btn-danger" data-sessionParticipant>Ne plus participer</a>
-                {% else %}
-                    <a href="{{ path('api_session_participant', {id: session.id}) }}" class="btn btn-primary" data-sessionParticipant>Participer</a>
+                {% if app.user %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
+                        <a href="{{ path('api_session_participant', {id: session.id}) }}" class="btn btn-danger" data-sessionParticipant>Ne plus participer</a>
+                    {% else %}
+                        <a href="{{ path('api_session_participant', {id: session.id}) }}" class="btn btn-primary" data-sessionParticipant>Participer</a>
+                    {% endif %}
+                    <a href="{{ path('session_show', {id: session.id}) }}" class="btn btn-link">Plus d'infos</a>
                 {% endif %}
-                <a href="{{ path('session_show', {id: session.id}) }}" class="btn btn-link">Plus d'infos</a>
             </div>
         </div>
     </div>

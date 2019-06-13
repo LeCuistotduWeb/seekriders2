@@ -1,20 +1,49 @@
-//@import "~bootstrap/scss/bootstrap";
-@import "bootstrap.min.css";
-@import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
+// Import Custom Variables (Overrides Default Bootstrap Variables)
+@import "../scss/variables.scss";
 
-//variables
-$main-nav: 60px;
-//variables
+// Import Bootstrap
+@import "~bootstrap/scss/bootstrap.scss";
+
+// Import leaflet
+@import "~leaflet/dist/leaflet.css";
+@import '~leaflet.markercluster/dist/MarkerCluster.Default.css';
+@import '~leaflet.markercluster/dist/MarkerCluster.css';
+
+// Import Custom Mixins and Components
+@import "../scss/mixins.scss";
+@import "../scss/global.scss";
+@import "../scss/utilities.scss";
+
+// Custom Components
+@import "../scss/dropdowns.scss";
+@import "../scss/navs.scss";
+@import "../scss/buttons.scss";
+@import "../scss/cards.scss";
+@import "../scss/charts.scss";
+@import "../scss/login.scss";
+@import "../scss/error.scss";
+@import "../scss/footer.scss";
+@import "../scss/leaflet.scss";
+
+//Bootstrap datePicker
+@import "~bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css";
 
 h3{
      margin: 1em 0;
 }
-header {
-    padding: 154px 0 100px;
+
+.homepage-header {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  nav {
+    background: rgba(0,0,0,.5);
+  }
 }
 
 main {
-  height: calc(100vh - #{$main-nav});
+  height: calc(100vh - 4.375rem);
   overflow: auto;
 }
 
@@ -35,87 +64,36 @@ main {
   position: absolute;
 }
 
-#mainNav {
-    height: $main-nav;
-}
-#sidebarLeft {
-  //background-color: #18BC9C;
-  //color: white;
-  max-width: 330px;
-}
-#sidebarLeftMini {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  background-color: #2C3E50;
-  .item {
-    color: white;
-    font-size: 1.2em;
-    width: 90px;
-    height: 90px;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    a {
-      color: lightgrey;
-    }
-    &.active {
-      background-color: #18BC9C;
-      a{
-        color: white;
-      }
-    }
-    &:hover {
-      transition: all .2s;
-      background-color: #18BC9C;
-      a{
-        color: white;
-        text-decoration: none;
-      }
-    }
-  }
-}
-.navbar-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #2C3E50;
-  width: 100%;
-  .item {
-    color: white;
-    font-size: 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    a {
-      color: #ffffff;
-    }
-    &.active a{
-      color: #18BC9C;
-    }
+.session-card{
+  .session-card-image {
+    width: 100%;
   }
 }
 
 #map {
+  z-index: 100;
   min-height: 300px;
-  height: calc(100vh - ( #{$main-nav}));
+  height: calc(100vh - ( 4.375rem));
   &.spot-map {
     height: 450px;
   }
 }
 
-
-@media (min-width: 992px) {
-    header {
-        padding: 156px 0 100px;
-    }
-}
-
-section {
+.section {
     padding: 70px 0;
 }
 
 footer a {
   color: #fff;
+}
+
+#spotSearch {
+  z-index: 200;
+  bottom: 15px;
+  left: 15px;
+}
+#sessionSearch {
+  z-index: 200;
+  bottom: 15px;
+  right: 15px;
 }

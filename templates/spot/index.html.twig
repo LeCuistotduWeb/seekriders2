@@ -2,22 +2,49 @@
 
 {% block title %}{{ parent() }} Les spots{% endblock %}
 
-    {% block sidebarLeft %}
-        <div id="sidebarLeft" class="col-lg-4 col-xl-3 d-none d-lg-block my-3">
-            <ul class="list-group list-group-flush list-unstyled">
-                <li> <a href="{{ path('spot_new') }}" class="btn btn-primary d-block">Ajouter un spot</a></li>
-                <li class="">
-                    {{ form_start(form, {'attr': {'id': 'spotSearchForm'}}) }}
-                    {{ form_widget(form) }}
-                    <input type="submit" class="btn btn-primary mt-3" value="Rechercher">
-                    {{ form_end(form) }}
-                </li>
-            </ul>
-        </div>
+    {% block topbar %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary mr-2 d-none d-md-block" data-toggle="modal" data-target="#searchByFilters">
+            Recherche par filtres
+        </button>
+        <a href="{{ path('spot_new') }}" class="btn btn-primary d-none d-md-block">Ajouter un spot</a>
     {% endblock %}
 
     {% block main %}
-        <div id="map" class="d-flex justify-content-center align-items-center"></div>
+        <div class="main position-relative">
+            <div id="map" class="d-flex justify-content-center align-items-center"></div>
+
+            <div class="position-absolute" id="spotSearch">
+                <button type="button" class="btn btn-secondary mr-2 d-md-none" data-toggle="modal" data-target="#searchByFilters">
+                    Recherche par filtres
+                </button>
+                <br>
+                <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none">Ajouter un spot</a>
+            </div>
+        </div>
+
+        <!-- Modal Spot Filters-->
+        <div class="modal fade" id="searchByFilters" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    {{ form_start(form, {'attr': {'id': 'spotSearchForm'}}) }}
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Recherche par filtres</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_widget(form) }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Rechercher">
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
     {% endblock %}
 
     {% block javascripts %}

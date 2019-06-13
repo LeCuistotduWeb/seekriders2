@@ -3,52 +3,51 @@
 {% block title %}{{ parent() }} Contact{% endblock %}
 
 {% block body %}
-
     <!-- Navigation -->
     {% include('partials/navbar.html.twig') %}
+    <main>
+        <div class="container my-5">
+            <div class="row">
+                <h1>Contact</h1>
+            </div>
+            <div class="row">
+                <p class="">Vous pouvez nous contactez à l'aide du formulaire ci dessous. Nous vous répondrons dans les plus brefs délais</p>
+            </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <h1>Contact</h1>
-        </div>
-        <div class="row">
-            <p class="">Vous pouvez nous contactez à l'aide du formulaire ci dessous. Nous vous répondrons dans les plus brefs délais</p>
-        </div>
+            <div class="row">
+                <div class="col-8">
+                    <div id="contactForm">
+                        {{ form_start(form) }}
 
-        <div class="row">
-            <div class="col-8">
-                <div id="contactForm">
-                    {{ form_start(form) }}
-
-                    <div class="row">
-                        <div class="form-group col-6">
-                            {{ form_row(form.firstname) }}
+                        <div class="row">
+                            <div class="form-group col-6">
+                                {{ form_row(form.firstname) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.email) }}
+                            </div>
                         </div>
-                        <div class="form-group col-6">
-                            {{ form_row(form.email) }}
+
+                        <div class="form-group">
+                            {{ form_row(form.object) }}
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        {{ form_row(form.object) }}
-                    </div>
+                        <div class="form-group">
+                            {{ form_row(form.message) }}
+                        </div>
 
-                    <div class="form-group">
-                        {{ form_row(form.message) }}
-                    </div>
+                        <div class="form-group">
+                            {{ form_row(form.rgpd) }}
+                        </div>
 
-                    <div class="form-group">
-                        {{ form_row(form.rgpd) }}
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                        {{ form_end(form) }}
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Envoyer</button>
-                    {{ form_end(form) }}
                 </div>
             </div>
+
         </div>
-
-    </div>
-
+    </main>
     <!-- Footer -->
     {% include('partials/footer.html.twig') %}
 

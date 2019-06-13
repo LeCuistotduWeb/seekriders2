@@ -3,20 +3,73 @@
 {% block title %}{{ parent() }} Accueil{% endblock %}
 
 {% block body %}
-    <!-- Navigation -->
-    {% include('partials/navbar.html.twig') %}
-
     <!-- header -->
-    <header class="bg-primary">
-        <div class="container">
+    <header class="homepage-header" style="background: url({{ asset('/images/skateboard.jpg') }}) center">
+        <!-- navbar -->
+        <nav class="navbar navbar-expand topbar fixed-top shadow">
+            <a class="navbar-brand text-white" href="{{ path('home') }}">Seekriders</a>
+            {% block topbar %}{% endblock %}
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                {% if app.user %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ path('account_login') }}">Se connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ path('account_register') }}">S'enregistrer</a>
+                        </li>
+                {% endif %}
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <span class="mr-2 d-none d-lg-inline text-white small">{{ app.user.username }}</span>
+                            {% if app.user.avatar %}
+                                <img src="{{ vich_uploader_asset(app.user, 'avatarFile') | imagine_filter('avatarMin') }}" class="img-profile rounded-circle" alt="Avatar de {{ app.user.username }}">
+                            {% else %}
+                                <img src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatarMin') }}" class="img-profile rounded-circle" alt="Avatar de {{ app.user.username }}">
+                            {% endif %}
+                        {% endif %}
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{{ path('account_index') }}">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Profile
+                        </a>
+                        <a class="dropdown-item" href="{{ path('account_profile') }}">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Modifier mon profile
+                        </a>
+                        <a class="dropdown-item" href="{{ path('account_password') }}">
+                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Modifier mon mot de passe
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_dashboard') }}" class="dropdown-item">Administration</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- End of Topbar -->
+
+        <div class="container header-content">
             <div class="row">
                 <div class="col text-white">
-                    <h1>Seekriders</h1>
-                    <h2 class="lead">Un site créé par un skater pour les skaters</h2>
+                    <h1 class="display-1">Seekriders</h1>
+                    <h2 class="h1">Un site créé par un skater pour les skaters</h2>
 
                     <div class="call-to-action mt-3">
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <a class="btn btn-secondary btn-lg" href="{{ path('spot_index') }}" role="button">Acceder au site</a>
+                            <a class="btn btn-primary btn-lg" href="{{ path('spot_index') }}" role="button">Acceder au site</a>
                         {% else %}
                             <a class="btn btn-primary btn-lg mr-3" href="{{ path('account_login') }}" role="button">Se connecter</a>
                             <a class="btn  btn-secondary btn-lg" href="{{ path('account_register') }}" role="button">Créer un compte</a>
@@ -28,7 +81,7 @@
     </header>
 
     <!-- section last spots -->
-    <section id="lastSpot" class="">
+    <section id="lastSpot" class="section">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -48,7 +101,7 @@
     </section>
 
     <!-- section last sessions -->
-    <section id="lastSessions" class="bg-light">
+    <section id="lastSessions" class="section bg-light">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -68,7 +121,7 @@
     </section>
 
     <!-- section last users -->
-    <section id="lastUsers">
+    <section id="lastUsers" class="section">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -79,12 +132,12 @@
             </div>
             <div class="row">
                 {% for user in users  %}
-                    <div class="col">
+                    <div class="col-4 col-md-3 col-lg-2 mb-2">
                         <a href="{{ path('user_show', {'id': user.id}) }}">
                             {% if user.avatar %}
-                                <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                                <img class="rounded shadow h-100" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                             {% else %}
-                                <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                                <img class="rounded shadow h-100" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
                             {% endif %}
                         </a>
                     </div>
@@ -96,4 +149,27 @@
     <!-- Footer -->
     {% include('partials/footer.html.twig') %}
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="{{ path('account_logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded bg-primary" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+    </a>
 {% endblock %}

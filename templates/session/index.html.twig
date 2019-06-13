@@ -11,16 +11,52 @@
         </ul>
     </div>
 {% endblock %}
+{% block topbar %}
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary mr-2 d-none d-md-block" data-toggle="modal" data-target="#searchByFilters">
+        Recherche par filtres
+    </button>
+    <a href="{{ path('session_new') }}" class="btn btn-primary d-none d-md-block">Créer une session</a>
+{% endblock %}
 
 {% block main %}
-    <div class="container mt-5">
+    <div class="container mt-5 position-relative">
         <h1>Les prochaines sessions</h1>
         <div class="row">
-        {% for session in sessions %}
-            <div class="col-md-10 mb-3">
-                {% include "partials/session-card.html.twig" %}
+            {% for session in sessions %}
+                <div class="col-md-12 mb-3">
+                    {% include "partials/session-card.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="position-fixed" id="sessionSearch">
+            <button type="button" class="btn btn-secondary mr-2 d-md-none" data-toggle="modal" data-target="#searchByFilters">
+                <i class="fas fa-fw fa-search"></i>
+            </button>
+            <br>
+            <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none"><i class="fas fa-fw fa-plus"></i></a>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="searchByFilters" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                {#{{ form_start(form, {'attr': {'id': 'sessionSearchForm'}}) }}#}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Recherche par filtres</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {#{{ form_widget(form) }}#}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Rechercher">
+                </div>
+                {#{{ form_end(form) }}#}
             </div>
-        {% endfor %}
         </div>
     </div>
 {% endblock %}
