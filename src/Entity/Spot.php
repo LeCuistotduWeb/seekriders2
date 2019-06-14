@@ -339,6 +339,11 @@ class Spot
         if($this->getAuthor()){
             $objectArray['author'] = $this->getAuthor()->getUsername();
         }
+        if($this->getPicture()){
+            $objectArray['spot_image'] = $this->getPicture()->getFilename();
+        }else {
+            $objectArray['spot_image'] = null;
+        }
         if($this->getLocation()){
             $objectArray['location'] = $this->getLocation()->toArray();
         }

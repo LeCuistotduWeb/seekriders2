@@ -1,6 +1,7 @@
 .leaflet-popup-content-wrapper {
   border-radius: 5px;
-  width: 350px;
+  max-width: 310px;
+  width: 300px;
   text-align: center;
   font-size: 1rem;
 }

@@ -53,6 +53,7 @@ export default class Map {
                 }).then(function (response) {
                         for(spot of response.data){
                             addMarker(spot);
+                            console.log(spot)
                         }
                     })
             }
@@ -60,6 +61,12 @@ export default class Map {
 
         function addMarker(spot){
             let icon;
+            let spotImg;
+            if(spot.spot_image != null){
+                spotImg = `${spot.spot_image}`
+            }else{
+                spotImg = 'image-null.jpg'
+            }
             spot.type === 0 ? icon = streetIcon : icon = skateparkIcon;
             let marker = L.marker([spot.location.latitude, spot.location.longitude], {
                 icon : icon,
@@ -68,7 +75,7 @@ export default class Map {
             }).addTo(map).bindPopup(
                 `
                 <a href="/spot/${ spot.id }">
-                <img class="img-fluid" src="/images/spots/image-null.jpg" alt="image/photo du spot ${ spot.title }">
+                <img class="img-fluid" src="/images/spots/${spotImg}" alt="image/photo du spot ${ spot.title }">
                 </a>
                 <p>${spot.title}</p>
             `);
@@ -78,10 +85,6 @@ export default class Map {
 
         // // Add button locate my position
         let lc = L.control.locate().addTo(map);
-
-        if (lc.start ()){
-            lc.start ();
-        }
 
         // Locate my position
         function getLocatePositionBtn(){
