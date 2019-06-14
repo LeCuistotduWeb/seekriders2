@@ -14,12 +14,12 @@
         <div class="main position-relative">
             <div id="map" class="d-flex justify-content-center align-items-center"></div>
 
-            <div class="position-absolute" id="spotSearch">
-                <button type="button" class="btn btn-secondary mr-2 d-md-none" data-toggle="modal" data-target="#searchByFilters">
-                    Recherche par filtres
+            <div class="position-absolute" id="floatingActionButtons">
+                <button type="button" class="btn btn-secondary mr-2 mb-2 d-md-none btn-circle" data-toggle="modal" data-target="#searchByFilters">
+                    <i class="fas fa-fw fa-search"></i>
                 </button>
                 <br>
-                <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none">Ajouter un spot</a>
+                <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none btn-circle"><i class="fas fa-fw fa-plus"></i></a>
             </div>
         </div>
 

@@ -54,7 +54,23 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="session_show", methods={"GET"})
+     * @Route("/my-sessions", name="session_my_sessions", methods="GET")
+     * @IsGranted("ROLE_USER")
+     */
+    public function mySessions(SessionRepository $sessionRepository): Response
+    {
+        $sessionsList = $sessionRepository->findAll();
+        $sessions = [];
+        foreach ($sessionsList as $session){
+            if($session->isParticipating($this->getUser())){
+                $sessions[] = $session;
+            }
+        }
+        return $this->render('session/my_session.html.twig', ['sessions' => $sessions]);
+    }
+
+    /**
+     * @Route("/{id}", name="session_show", methods={"GET"}, requirements={"\d+"})
      */
     public function show(Session $session): Response
     {
@@ -66,7 +82,7 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="session_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="session_edit", methods={"GET","POST"}, requirements={"\d+"})
      * @Security("is_granted('ROLE_USER') and user === session.getAuthor() or is_granted('ROLE_ADMIN') ", message="Vous ne pouvez pas modifier une session qui ne vous appartient pas.")
      */
     public function edit(Request $request, Session $session): Response
@@ -89,7 +105,7 @@ class SessionController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="session_delete", methods={"DELETE"})
+     * @Route("/{id}", name="session_delete", methods={"DELETE"}, requirements={"\d+"})
      * @Security("is_granted('ROLE_USER') and user === session.getAuthor() or is_granted('ROLE_ADMIN') ", message="Vous ne pouvez pas supprimer une session qui ne vous appartient pas.")
      */
     public function delete(Request $request, Session $session): Response

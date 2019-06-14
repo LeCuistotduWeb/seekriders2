@@ -78,6 +78,11 @@ export default class Map {
 
         // // Add button locate my position
         let lc = L.control.locate().addTo(map);
+
+        if (lc.start ()){
+            lc.start ();
+        }
+
         // Locate my position
         function getLocatePositionBtn(){
             lc.start ();

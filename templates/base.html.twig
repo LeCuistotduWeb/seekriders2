@@ -27,6 +27,9 @@
 
         {% block body %}{% endblock %}
 
+        <!-- Logout Modal-->
+        {% include "partials/logoutModal.html.twig" %}
+
         <!-- script -->
         {{ encore_entry_script_tags('app/app') }}
         {% block javascripts %}{% endblock %}

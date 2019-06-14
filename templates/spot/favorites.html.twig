@@ -2,6 +2,10 @@
 
 {% block title %}{{ parent() }} Spots favoris{% endblock %}
 
+{% block topbar %}
+    <a href="{{ path('spot_new') }}" class="btn btn-primary d-none d-md-block">Ajouter un spot</a>
+{% endblock %}
+
 {% block main %}
 
     <div class="container mt-5">
@@ -11,6 +15,10 @@
                     {{ include('partials/spot-card.html.twig') }}
                 </div>
             {% endfor %}
+        </div>
+
+        <div class="position-fixed" id="floatingActionButtons">
+            <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none btn-circle"><i class="fas fa-fw fa-plus"></i></a>
         </div>
     </div>
 

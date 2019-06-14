@@ -1,0 +1,23 @@
+{% extends 'layouts/panel.twig' %}
+
+{% block title %}Mes Sessions{% endblock %}
+
+{% block topbar %}
+    <a href="{{ path('session_new') }}" class="btn btn-primary d-none d-md-block">Créer une session</a>
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5 position-relative">
+        <h1>Mes prochaines Sessions</h1>
+        <div class="row">
+            {% for session in sessions %}
+                <div class="col-md-12 mb-3">
+                    {% include "partials/session-card.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="position-fixed" id="floatingActionButtons">
+            <a href="{{ path('session_new') }}" class="btn btn-primary d-md-none btn-circle"><i class="fas fa-fw fa-plus"></i></a>
+        </div>
+    </div>
+{% endblock %}
