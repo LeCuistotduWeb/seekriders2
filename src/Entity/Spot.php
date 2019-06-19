@@ -31,11 +31,13 @@ class Spot
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
      */
     private $description;
 

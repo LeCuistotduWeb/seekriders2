@@ -24,11 +24,25 @@ class SessionRepository extends ServiceEntityRepository
     //  */
     public function findLastSessionsCreatedWidthLimit($value)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.startDateAt > :today')
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.startDateAt >= :today')
             ->setParameter('today', new \Datetime())
-            ->orderBy('u.startDateAt', 'ASC')
+            ->orderBy('s.startDateAt', 'ASC')
             ->setMaxResults($value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    // /**
+    //  * @return Sessions[] Returns an array of Sessions objects
+    //  */
+    public function findSessionsNotDone()
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.startDateAt >= :today')
+            ->setParameter('today', new \Datetime())
+            ->orderBy('s.startDateAt', 'ASC')
             ->getQuery()
             ->getResult()
             ;

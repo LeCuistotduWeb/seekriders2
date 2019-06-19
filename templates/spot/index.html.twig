@@ -39,7 +39,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Rechercher">
+                        {#<input type="submit" class="btn btn-primary" value="Rechercher">#}
                     </div>
                     {{ form_end(form) }}
                 </div>
@@ -49,7 +49,8 @@
 
     {% block javascripts %}
         {{ parent() }}
-        <!-- algoliaPlaces -->
-        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+        {{ encore_entry_script_tags('app/map') }}
         {{ encore_entry_script_tags('app/algoliaPlaces') }}
+        <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
+
     {% endblock %}

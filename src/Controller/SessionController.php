@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use App\Service\SessionService;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,10 +24,16 @@ class SessionController extends AbstractController
     /**
      * @Route("/", name="session_index", methods={"GET"})
      */
-    public function index(SessionRepository $sessionRepository): Response
+    public function index(SessionRepository $sessionRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $sessions = $paginator->paginate(
+            $sessionRepository->findSessionsNotDone(), /* query NOT result */
+            $request->query->getInt('page', 1),/*page number*/
+            6/*limit per page*/
+        );
+
         return $this->render('session/index.html.twig', [
-            'sessions' => $sessionRepository->findAll(),
+            'sessions' => $sessions,
         ]);
     }
 
@@ -35,6 +43,8 @@ class SessionController extends AbstractController
     public function new(Request $request): Response
     {
         $session = new Session();
+        $session->setStartDateAt(new \DateTime());
+        $session->setEndDateAt($session->getStartDateAt());
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 

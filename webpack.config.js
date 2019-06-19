@@ -18,7 +18,7 @@ Encore
      */
     .addEntry('app/app', './assets/js/app.js')
     .addEntry('app/admin', './assets/js/admin/app.js')
-    .addEntry('app/algoliaPlaces', './assets/js/algoliaPlaces.js')
+    .addEntry('app/algoliaPlaces', './assets/js/modules/algoliaPlaces.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')

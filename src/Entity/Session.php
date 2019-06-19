@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Validator\SessionStartDate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
@@ -20,6 +22,7 @@ class Session
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
      */
     private $title;
 
@@ -30,6 +33,7 @@ class Session
 
     /**
      * @ORM\Column(type="datetime")
+     * @SessionStartDate()
      */
     private $startDateAt;
 

@@ -20,6 +20,7 @@
         "jquery": "^3.4.1",
         "jquery.easing": "^1.4.1",
         "leaflet": "^1.4.0",
+        "leaflet-search": "^2.9.8",
         "leaflet.locatecontrol": "^0.66.2",
         "leaflet.markercluster": "^1.4.1",
         "node-sass": "^4.11.0",

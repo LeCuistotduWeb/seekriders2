@@ -36,7 +36,14 @@
             <br>
             <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none btn-circle"><i class="fas fa-fw fa-plus"></i></a>
         </div>
+
+        <div class="pagination">
+            {{ knp_pagination_render(sessions) }}
+        </div>
+
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="searchByFilters" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

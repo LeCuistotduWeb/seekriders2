@@ -1,12 +1,13 @@
 import L from 'leaflet';
 import 'leaflet.locatecontrol'
 import 'leaflet.markercluster'
+import 'leaflet-search'
 import axios from 'axios'
 
 export default class Map {
-
     // Init the map
     static init() {
+        let spots= [];
         let map = document.querySelector('#map');
         let center = [47.83769, 7.625492];
         // Icon skatepark
@@ -51,11 +52,11 @@ export default class Map {
                 axios('/api/spots/',{
                     method: 'POST'
                 }).then(function (response) {
-                        for(spot of response.data){
-                            addMarker(spot);
-                            console.log(spot)
-                        }
-                    })
+                    spots = response.data;
+                    for(spot of response.data){
+                        addMarker(spot);
+                    }
+                })
             }
         })();
 
@@ -90,5 +91,13 @@ export default class Map {
         function getLocatePositionBtn(){
             lc.start ();
         }
+
+        let controlSearch = new L.Control.Search({
+            position:'topleft',
+            layer: markers,
+            zoom: 12,
+        });
+
+        map.addControl( controlSearch );
     }
 }

@@ -77,7 +77,7 @@ $( function() {
         autoclose: true,
         todayHighlight: true
     });
-});
+})
 
 // DELETE  picture
 document.querySelectorAll('[data-delete]').forEach(a => {
