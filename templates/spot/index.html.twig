@@ -49,7 +49,6 @@
 
     {% block javascripts %}
         {{ parent() }}
-        {{ encore_entry_script_tags('app/map') }}
         {{ encore_entry_script_tags('app/algoliaPlaces') }}
         <script src="https://cdn.jsdelivr.net/npm/places.js@1.15.1"></script>
 

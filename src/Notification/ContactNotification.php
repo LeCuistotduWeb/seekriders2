@@ -41,5 +41,6 @@ class ContactNotification
             ]))
         ;
         $this->mailer->send($message);
+        return true;
     }
 }

@@ -194,8 +194,6 @@ class AccountController extends AbstractController
             }
 
             $url = $this->generateUrl('account_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
-            $mailer = new PHPMailer();
-
 
             $message = (new \Swift_Message('Mot de passe oublié Seekriders'))
                 ->setFrom('forgotpassword@seekriders.com')
@@ -207,7 +205,7 @@ class AccountController extends AbstractController
 
             $mailer->send($message);
 
-            $this->addFlash('success', 'Mail envoyé : TEST:tokenURL a suprimmer ensuite ' . $url);
+            $this->addFlash('success', 'Un email vous a été envoyé.');
 
             return $this->redirectToRoute('home');
         }
