@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\SessionSearch;
+use App\Form\SessionSearchType;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
-use App\Service\SessionService;
-use Doctrine\Common\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -22,18 +22,33 @@ use Symfony\Component\Routing\Annotation\Route;
 class SessionController extends AbstractController
 {
     /**
-     * @Route("/", name="session_index", methods={"GET"})
+     * @Route("/", name="session_index", methods={"GET","POST"})
      */
-    public function index(SessionRepository $sessionRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request, SessionRepository $sessionRepository, PaginatorInterface $paginator): Response
     {
+        $search = new SessionSearch();
+        $search->setStartDateAt(new \DateTime('now'));
+        $search->setEndDateAt(new \DateTime('1 month'));
+
+        $form = $this->createForm(SessionSearchType::class, $search);
+
+        $form->handleRequest($request);
+
+        $sessionsList = $sessionRepository->findSessionsNotDone();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sessionsList = $sessionRepository->findSessionsWidthOptions($search);
+        }
+
         $sessions = $paginator->paginate(
-            $sessionRepository->findSessionsNotDone(), /* query NOT result */
+            $sessionsList, /* query NOT result */
             $request->query->getInt('page', 1),/*page number*/
             6/*limit per page*/
         );
 
         return $this->render('session/index.html.twig', [
             'sessions' => $sessions,
+            'form' => $form->createView(),
         ]);
     }
 

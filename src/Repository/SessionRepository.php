@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Session;
+use App\Entity\SessionSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -49,31 +51,28 @@ class SessionRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Session[] Returns an array of Session objects
+    //  *
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findSessionsWidthOptions(SessionSearch $search): Query
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('s');
 
-    /*
-    public function findOneBySomeField($value): ?Session
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if($search->getStartDateAt()){
+            $query = $query
+                ->andWhere('s.startDateAt >= :startDate')
+                ->andWhere('s.startDateAt >= :today')
+                ->setParameter('startDate', $search->getStartDateAt())
+                ->setParameter('today', new \DateTime());
+        }
+
+        if($search->getEndDateAt()){
+            $query = $query
+                ->andWhere('s.endDateAt >= :startDate')
+                ->setParameter('startDate', $search->getStartDateAt());
+        }
+
+        $query->orderBy('s.endDateAt', 'ASC');
+
+        return $query->getQuery();
     }
-    */
 }
