@@ -1,12 +1,16 @@
 {% extends '/layouts/panel.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.8/src/leaflet-search.css">
+{% endblock %}
+
 {% block title %}{{ parent() }} Les spots{% endblock %}
 
     {% block topbar %}
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-secondary mr-2 d-none d-md-block" data-toggle="modal" data-target="#searchByFilters">
-            Recherche par filtres
-        </button>
+        {#<button type="button" class="btn btn-secondary mr-2 d-none d-md-block" data-toggle="modal" data-target="#searchByFilters">#}
+            {#Recherche par filtres#}
+        {#</button>#}
         <a href="{{ path('spot_new') }}" class="btn btn-primary d-none d-md-block">Ajouter un spot</a>
     {% endblock %}
 
@@ -15,10 +19,10 @@
             <div id="map" class="d-flex justify-content-center align-items-center"></div>
 
             <div class="position-absolute" id="floatingActionButtons">
-                <button type="button" class="btn btn-secondary mr-2 mb-2 d-md-none btn-circle" data-toggle="modal" data-target="#searchByFilters">
-                    <i class="fas fa-fw fa-search"></i>
-                </button>
-                <br>
+                {#<button type="button" class="btn btn-secondary mr-2 mb-2 d-md-none btn-circle" data-toggle="modal" data-target="#searchByFilters">#}
+                    {#<i class="fas fa-fw fa-search"></i>#}
+                {#</button>#}
+                {#<br>#}
                 <a href="{{ path('spot_new') }}" class="btn btn-primary d-md-none btn-circle"><i class="fas fa-fw fa-plus"></i></a>
             </div>
         </div>
