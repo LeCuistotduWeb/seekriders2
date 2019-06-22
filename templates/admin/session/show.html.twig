@@ -45,6 +45,14 @@
                             <th>EndDateAt</th>
                             <td>{{ session.endDateAt ? session.endDateAt|date('Y-m-d H:i:s') : '' }}</td>
                         </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ session.description }}</td>
+                        </tr>
+                        <tr>
+                            <th>Is a contest</th>
+                            <td>{% if session.isContest %}Yes{% else %}No{% endif %}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

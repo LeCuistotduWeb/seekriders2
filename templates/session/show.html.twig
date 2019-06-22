@@ -7,7 +7,11 @@
         <div class="row">
             <div class="col">
                 <h1>{{ session.title }}</h1>
-
+                {% if session.isContest %}
+                    <p>
+                        <span class="badge badge-primary">Cette session est une compétion</span>
+                    </p>
+                {% endif %}
                 <p>Début : {{ session.startDateAt|date('Y-m-d') }}</p>
                 <p>Fin : {{ session.endDateAt|date('Y-m-d') }}</p>
 
@@ -17,6 +21,8 @@
 
                 <p>Spot : <a href="{{path('spot_show', {'id': session.spot.id})}}">{{ session.spot.title }}</a>
                 </p>
+
+                <p>Description : {{ session.description }}</p>
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') and session.isParticipating(app.user) %}
                     <a href="{{ path('api_session_participant', {id: session.id}) }}" class="btn btn-danger" data-sessionParticipant>Ne plus participer</a>

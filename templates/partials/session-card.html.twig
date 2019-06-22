@@ -13,6 +13,11 @@
             </div>
             <div class="col-12 col-lg-8">
                 <h5 class="card-title"><a href="{{ path('session_show', {id: session.id}) }}">{{ session.title }}</a></h5>
+                {% if session.isContest %}
+                    <p>
+                        <span class="badge badge-primary">Cette session est une compétion</span>
+                    </p>
+                {% endif %}
                 <p class="card-text">{{ session.location.city }} / {{ session.location.department }}</p>
                 <p>
                     Debut : {{ session.startDateAt |date("d M Y à  H:i:s", "Europe/Paris") }}<br>

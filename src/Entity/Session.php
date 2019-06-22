@@ -59,6 +59,16 @@ class Session
      */
     private $author;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isContest;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -194,5 +204,29 @@ class Session
             $objectArray['spot'] = $this->getSpot()->toArray();
         }
         return $objectArray;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getIsContest(): ?bool
+    {
+        return $this->isContest;
+    }
+
+    public function setIsContest(?bool $isContest): self
+    {
+        $this->isContest = $isContest;
+
+        return $this;
     }
 }
