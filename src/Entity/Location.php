@@ -63,8 +63,10 @@ class Location
      */
     private $spot;
 
+    private $fullAddress;
+
     public function getFullAddress(){
-        return $this->getAddress() . ' - ' . $this->getCity() . ' ' . $this->getPostCode();
+        return $fullAddress = $this->getAddress() . ' - ' . $this->getCity() . ' ' . $this->getPostCode();
     }
 
     public function getId(): ?int

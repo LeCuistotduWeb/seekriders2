@@ -17,12 +17,15 @@ class SpotType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [])
-            ->add('description', TextareaType::class, [])
+            ->add('description', TextareaType::class, [
+                'required' => false,
+            ])
             ->add('type', ChoiceType::class, [
                 'choices' => $this->getChoices(Spot::SPOT_TYPE),
             ])
             ->add('paying', ChoiceType::class, [
                 'choices' => $this->getChoices(Spot::PRICE),
+                'label' => 'Prix',
             ])
             ->add('location', LocationType::class, [
                 'label' => false,

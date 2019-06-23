@@ -18,22 +18,20 @@
         {{ form_row(form.paying) }}
         </div>
 
-        <div class="form-group">
-            <div class="row">
+        <div class="form-group mt-5">
+            <label class="">Votre addresse</label>
+            <div class="row align-items-center">
+                <div class="col-10">
+                    <input type="text" class="form-control" placeholder="{% if spot.location %}{{ spot.location.fullAddress }}{% else %}Ajouter une adresse{% endif %}" id="address-input" >
+                </div>
                 <div class="col">
-                    {{ form_row(form.location.address) }}
+                    <div class="input-group-append">
+                        <button id="locateMe" class="btn btn-primary" type="button" title="Votre position actuelle"><i class="fas fa-crosshairs"></i></button>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(form.location.city) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(form.location.postCode) }}
-                </div>
-            </div>
-
         </div>
+
     </div>
 
     <div class="col">

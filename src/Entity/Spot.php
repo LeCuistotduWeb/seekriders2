@@ -36,7 +36,7 @@ class Spot
     private $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
      */
     private $description;
@@ -120,7 +120,7 @@ class Spot
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

@@ -167,5 +167,3 @@ document.querySelectorAll('a[data-sessionParticipant]').forEach(a => {
             });
     });
 });
-
-
