@@ -7,6 +7,7 @@ import 'jquery.easing';
 import 'popper.js';
 import 'bootstrap';
 import 'bootstrap-datepicker';
+import 'bootstrap4-datetimepicker';
 import Map from './modules/map';
 import axios from 'axios';
 
@@ -77,7 +78,19 @@ $( function() {
         autoclose: true,
         todayHighlight: true
     });
-})
+});
+
+// datetime picker
+//http://eonasdan.github.io/bootstrap-datetimepicker/
+$(function () {
+    $('.js-datetime-picker').datetimepicker({
+        inline: false,
+        sideBySide: true,
+        format: "YYYY-MM-DD HH:mm",
+        locale: 'fr',
+        minDate: new Date(),
+    });
+});
 
 // DELETE  picture
 document.querySelectorAll('[data-delete]').forEach(a => {

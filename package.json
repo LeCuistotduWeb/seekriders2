@@ -17,6 +17,7 @@
         "axios": "^0.18.0",
         "babel-polyfill": "^6.26.0",
         "bootstrap-datepicker": "^1.8.0",
+        "bootstrap4-datetimepicker": "^5.2.3",
         "jquery": "^3.4.1",
         "jquery.easing": "^1.4.1",
         "leaflet": "^1.4.0",

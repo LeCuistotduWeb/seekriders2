@@ -27,10 +27,16 @@ class SessionType extends AbstractType
                 'required' => false,
             ])
             ->add('startDateAt', DateTimeType::class, [
-                'label' => "Début de la session"
+                'label' => "Début de la session",
+                'widget' => 'single_text',
+                'html5'  => false,
+                'attr' => ['class' => 'js-datetime-picker']
             ])
             ->add('endDateAt', DateTimeType::class, [
-                'label' => "Fin de la session"
+                'label' => "Fin de la session",
+                'widget' => 'single_text',
+                'html5'  => false,
+                'attr' => ['class'=> 'js-datetime-picker']
             ])
             ->add('isContest', CheckboxType::class, [
                 'label' => " Cette session est une compétition ?",

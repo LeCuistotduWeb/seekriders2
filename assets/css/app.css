@@ -7,11 +7,11 @@ Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.
 3: 
 4: // Import Bootstrap
 5: @import "~bootstrap/scss/bootstrap.scss";
-6: 
-7: // Import leaflet
-8: @import "~leaflet/dist/leaflet.css";
-9: @import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
-10: @import "~leaflet.markercluster/dist/MarkerCluster.css";
+6: @import "~bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css";
+7: 
+8: // Import leaflet
+9: @import "~leaflet/dist/leaflet.css";
+10: @import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 Backtrace:
 app.scss:5
@@ -57,4 +57,4 @@ C:/Ruby25-x64/bin/scss:23:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.\A         on line 5 of app.scss\A \A 1: // Import Custom Variables (Overrides Default Bootstrap Variables)\A 2: @import \"../scss/variables.scss\";\A 3: \A 4: // Import Bootstrap\A 5: @import \"~bootstrap/scss/bootstrap.scss\";\A 6: \A 7: // Import leaflet\A 8: @import \"~leaflet/dist/leaflet.css\";\A 9: @import \"~leaflet.markercluster/dist/MarkerCluster.Default.css\";\A 10: @import \"~leaflet.markercluster/dist/MarkerCluster.css\";"; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.scss.\A         on line 5 of app.scss\A \A 1: // Import Custom Variables (Overrides Default Bootstrap Variables)\A 2: @import \"../scss/variables.scss\";\A 3: \A 4: // Import Bootstrap\A 5: @import \"~bootstrap/scss/bootstrap.scss\";\A 6: @import \"~bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css\";\A 7: \A 8: // Import leaflet\A 9: @import \"~leaflet/dist/leaflet.css\";\A 10: @import \"~leaflet.markercluster/dist/MarkerCluster.Default.css\";"; }
