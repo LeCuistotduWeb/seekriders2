@@ -44,7 +44,7 @@
                     <label class="">Votre addresse</label>
                     <div class="row align-items-center">
                         <div class="col-10">
-                            <input type="text" class="form-control" placeholder="{% if user.location.fullAddress %}{{ user.location.fullAddress }}{% else %}Ajouter une adresse{% endif %}" id="address-input" >
+                            <input type="text" class="form-control" placeholder="{% if user.location %}{{ user.location.fullAddress }}{% else %}Ajouter une adresse{% endif %}" id="address-input" >
                         </div>
                         <div class="col">
                             <div class="input-group-append">
