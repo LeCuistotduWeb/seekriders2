@@ -21,8 +21,6 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $faker = Factory::create('fr_FR');
-
         $adminUser = new User();
         $adminUser->setFirstname('gaetan')
             ->setSurname('boyron')
@@ -33,73 +31,6 @@ class AppFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($adminUser);
-
-        $users = [];
-        $spots = [];
-
-        /* creation des utilisateurs*/
-        for ($i=0; $i < 10; $i++) {
-
-            $userLocation = new Location();
-            $userLocation->setDepartment($faker->departmentName)
-                ->setPostCode(str_replace(' ', '', $faker->postcode))
-                ->setRegion($faker->region)
-                ->setCountry($faker->country)
-                ->setCity($faker->city)
-                ->setAddress($faker->address)
-                ->setLatitude($faker->latitude)
-                ->setLongitude($faker->longitude);
-            $manager->persist($userLocation);
-
-            $user = new User();
-            $user->setSurname($faker->name)
-                ->setFirstname($faker->firstName)
-                ->setUsername($faker->userName)
-                ->setBirthdayAt($faker->dateTimeBetween($startDate = '-30 years', $endDate = '-3 years'))
-                ->setLocation($userLocation)
-                ->setEmail($faker->email)
-                ->setCreatedAt($faker->dateTime($max = 'now', $timezone = null))
-                ->setBiography($faker->text)
-                ->setLevel(mt_rand(0, count(USer::USER_LEVEL) - 1))
-                ->setPassword($this->encoder->encodePassword($user, 'password'))
-                ->setRoles(['ROLE_USER']);
-            $manager->persist($user);
-            $users[] = $user;
-
-            for ($i = 0; $i < mt_rand(0, 10); $i++) {
-                /* creation des spots*/
-                $spotLocation = new Location();
-                $spotLocation->setDepartment($faker->departmentName)
-                    ->setPostCode(str_replace(' ', '', $faker->postcode))
-                    ->setRegion($faker->region)
-                    ->setCountry($faker->country)
-                    ->setCity($faker->city)
-                    ->setAddress($faker->address)
-                    ->setLatitude($faker->latitude($min = 42.932348, $max = 49.472454))
-                    ->setLongitude($faker->longitude($min = -5.700505, $max = 7.964787));
-                $manager->persist($spotLocation);
-
-                $spot = new Spot();
-                $spot->setTitle($faker->sentence($nbWords = 6, $variableNbWords = true))
-                    ->setDescription($faker->paragraph($nbSentences = 3, $variableNbSentences = true))
-                    ->setLocation($spotLocation)
-                    ->setType(mt_rand(0, count(Spot::SPOT_TYPE) - 1))
-                    ->setPaying(mt_rand(0, count(Spot::PRICE) - 1))
-                    ->setCreatedAt($faker->dateTimeBetween($startDate = '-1 years', $endDate = '-1 days'))
-                    ->setAuthor($user);
-                $manager->persist($spot);
-                $spots[] = $spot;
-
-                //random spotLike
-                for ($i = 0; $i < mt_rand(0, 10); $i++) {
-                    $like = new SpotLike();
-                    $like->setSpot($faker->randomElement($spots))
-                        ->setUser($faker->randomElement($users));
-                    $manager->persist($like);
-                }
-            }
-        }
-
         $manager->flush();
     }
 }

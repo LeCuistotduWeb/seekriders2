@@ -24,6 +24,8 @@
                     <li>Auteur :  <a href="{{ path('user_show', {'id': spot.author.id}) }}">{{ spot.author.username }}</a></li>
                     <li>Ajouté le : {{ spot.createdAt | date('d-M-Y')}}</li>
                 </ul>
+
+                <a href="{{ path('session_new', {'spot' : spot.id}) }}" class="btn btn-primary">Ajouter une session</a>
             </div>
 
             <div class="col-md-6">

@@ -92,35 +92,55 @@
                         <h3>Les dérniers spots ajoutés</h3>
                     </div>
                 </div>
-                <div class="row">
-                    {% for spot in spots %}
-                        <div class="col-lg-4 col-sm-4 col-xs-4 mb-3">
-                            {{ include('partials/spot-card.html.twig') }}
-                        </div>
-                    {% endfor %}
-                </div>
+                <div class="col">
+                    <div class="row">
+                        {% if spots %}
+                            {% for spot in spots %}
+                                <div class="col-lg-4 col-sm-4 col-xs-4 mb-3">
+                                    {{ include('partials/spot-card.html.twig') }}
+                                </div>
+                            {% endfor %}
+                            {% else %}
+                                <div class="col">
+                                    <div class="m-2">
+                                        <p>Aucun spot n'a été ajouté. <br> <a href="{{ path('spot_new') }}" class="btn btn-primary">Ajouter un spot</a></p>
+                                    </div>
+                                </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <!-- section last sessions -->
     <section id="lastSessions" class="section bg-light">
         <div class="container">
             <div class="row">
-                <div class="col">
+                <div class="col-12">
                     <div class="section-title">
                         <h3>Les prochaines sessions</h3>
                     </div>
                 </div>
-                <div class="row">
-                    {% for session in sessions %}
-                        <div class="col-md-6 my-2">
-                            {{ include('partials/session-card.html.twig') }}
-                        </div>
-                    {% endfor %}
+                <div class="col">
+                    <div class="row">
+                        {% if sessions %}
+                            {% for session in sessions %}
+                                <div class="col-md-6 my-2">
+                                    {{ include('partials/session-card.html.twig') }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col">
+                                <div class="m-2">
+                                    <p>Aucune session n'a été ajoutée.</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
+
             </div>
-        </div>
     </section>
 
     <!-- section last users -->

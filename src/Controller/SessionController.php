@@ -7,6 +7,7 @@ use App\Entity\SessionSearch;
 use App\Form\SessionSearchType;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use App\Repository\SpotRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -55,16 +56,21 @@ class SessionController extends AbstractController
     /**
      * @Route("/new", name="session_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SpotRepository $spotRepository): Response
     {
         $session = new Session();
         $session->setStartDateAt(new \DateTime());
         $session->setEndDateAt($session->getStartDateAt());
+        if($request->query->get('spot')){
+            $spot = $spotRepository->find($request->query->get('spot'));
+            $session->setSpot($spot);
+        }
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $session->setAuthor($this->getUser());
+            $session->addParticipant($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($session);
             $entityManager->flush();
