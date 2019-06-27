@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\SessionRepository;
 use App\Repository\SpotRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,11 +20,12 @@ class AdminDashboardController extends AbstractController
      * @Route("/", name="admin_dashboard")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function index(SpotRepository $spotRepository, UserRepository $userRepository)
+    public function index(SpotRepository $spotRepository, UserRepository $userRepository, SessionRepository $sessionRepository)
     {
         return $this->render('admin/admin-dashboard.html.twig', [
             'spots'=> $spotRepository->findAll(),
             'users'=> $userRepository->findAll(),
+            'sessions'=> $sessionRepository->findAll(),
         ]);
     }
 }

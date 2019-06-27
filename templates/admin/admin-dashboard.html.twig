@@ -46,7 +46,7 @@
                                 <div class="card-body-icon">
                                     <i class="fas fa-fw fa-list"></i>
                                 </div>
-                                <div class="mr-5"><span>15</span> Sessions!</div>
+                                <div class="mr-5"><span>{{ sessions | length }}</span> Sessions!</div>
                             </div>
                             <a class="card-footer clearfix small z-1" href="{{ path('admin_session') }}">
                                 <span class="float-left">Afficher</span>
@@ -78,7 +78,7 @@
                                 <div class="card-body-icon">
                                     <i class="fas fa-fw fa-life-ring"></i>
                                 </div>
-                                <div class="mr-5"><span>3</span> Report!</div>
+                                <div class="mr-5"><span>0</span> Report!</div>
                             </div>
                             <a class="card-footer clearfix small z-1" href="{{ path('admin_report') }}">
                                 <span class="float-left">Afficher</span>
