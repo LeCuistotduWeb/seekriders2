@@ -139,8 +139,8 @@
                         {% endif %}
                     </div>
                 </div>
-
             </div>
+        </div>
     </section>
 
     <!-- section last users -->
@@ -158,9 +158,9 @@
                     <div class="col-4 col-md-3 col-lg-2 mb-2">
                         <a href="{{ path('user_show', {'id': user.id}) }}">
                             {% if user.avatar %}
-                                <img class="rounded shadow h-100" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                                <img class="rounded shadow h-100" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}" title="{{ user.username }}">
                             {% else %}
-                                <img class="rounded shadow h-100" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                                <img class="rounded shadow h-100" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}" title="{{ user.username }}">
                             {% endif %}
                         </a>
                     </div>

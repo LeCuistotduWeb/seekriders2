@@ -49,9 +49,9 @@
                 <div class="col-2 mb-3">
                     <a href="{{ path('user_show', {'id': user.id}) }}">
                         {% if user.avatar %}
-                            <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                            <img class="img-fluid rounded" src="{{ vich_uploader_asset(user, 'avatarFile') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}" title="{{ user.username }}">
                         {% else %}
-                            <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}">
+                            <img class="img-fluid rounded" src="{{ asset('images/users/profile-image-null.png') | imagine_filter('avatar') }}" alt="image/photo de {{ user.username }}" title="{{ user.username }}">
                         {% endif %}
                     </a>
                 </div>

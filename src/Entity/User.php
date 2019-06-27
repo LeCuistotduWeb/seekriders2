@@ -158,6 +158,7 @@ class User implements UserInterface, \Serializable
         $this->spotLikes = new ArrayCollection();
         $this->sessions = new ArrayCollection();
         $this->mySessions = new ArrayCollection();
+        $this->level = 0;
     }
 
     public function getId(): ?int
