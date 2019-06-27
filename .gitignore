@@ -1,7 +1,11 @@
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
-/public/images/
+/public/images/*
+!/public/images/spots/image-null.jpg
+!/public/images/users/profile-image-null.png
+!/public/images/icons/
+!/public/images/skateboard.jpg
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
