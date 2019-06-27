@@ -18,7 +18,7 @@ class PictureController extends AbstractController
      */
     public function spotPictureDelete(SpotPicture $picture, Request $request) {
         $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $data['_token'])) {
+        if ($this->isCsrfTokenValid($picture->getId(), $data['_token'])) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($picture);
             $em->flush();
@@ -33,7 +33,7 @@ class PictureController extends AbstractController
      */
     public function userPictureDelete(User $user, Request $request, EntityManagerInterface $manager) {
         $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $data['_token'])) {
+        if ($this->isCsrfTokenValid($user->getId(), $data['_token'])) {
             $user->setAvatar(null);
             $manager->persist($user);
             $manager->flush();

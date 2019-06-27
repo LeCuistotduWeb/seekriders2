@@ -96,22 +96,19 @@ $(function () {
 document.querySelectorAll('[data-delete]').forEach(a => {
     a.addEventListener('click', e => {
         e.preventDefault();
-        axios(a.getAttribute('href'), {
+        let url = a.getAttribute('href');
+        let token = a.dataset.token;
+        axios(url, {
             method: 'DELETE',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({'_token': a.dataset.token})
-        }).then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    a.parentNode.parentNode.removeChild(a.parentNode)
-                } else {
-                    console.log('Une erreur s\'est produite')
-                }
-            })
-            .catch(e => alert(e))
+            data: {'_token': token }
+        }).then(function (response) {
+            if (response.data.success) {
+                a.parentNode.parentNode.removeChild(a.parentNode)
+            } else {
+                console.log('Une erreur s\'est produite')
+            }
+        })
+            .catch(() => alert('Une erreur s\'est produite'))
     })
 });
 
