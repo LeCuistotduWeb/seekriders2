@@ -105,7 +105,6 @@ class SessionController extends AbstractController
      */
     public function show(Session $session): Response
     {
-        dump(json_encode($session->getSpot()->toArray()));
         return $this->render('session/show.html.twig', [
             'session' => $session,
             'spot' => json_encode($session->getSpot()->toArray()),
