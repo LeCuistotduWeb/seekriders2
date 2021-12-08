@@ -31,7 +31,7 @@ export default class Map {
         }
 
         map = L.map('map').setView(center, 6);
-        L.tileLayer('https://Api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             attribution: ' ',
             maxZoom: 18,
             minZoom: 2,
