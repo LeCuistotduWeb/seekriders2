@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SpotRepository")
@@ -26,50 +27,59 @@ class Spot
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"show_post"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
+     * @Groups({"show_post"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
+     * @Groups({"show_post"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_post"})
      */
     private $paying;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="spotsCreated")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_post"})
      */
     private $author;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Location", inversedBy="spot", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_post"})
      */
     private $location;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"show_post"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"show_post"})
      */
     private $createdAt;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\SpotPicture", mappedBy="spotPictures", orphanRemoval=true, cascade={"persist"})
+     * @Groups({"show_post"})
      */
     private $pictures;
 
@@ -77,16 +87,19 @@ class Spot
      * @Assert\All({
      *  @Assert\Image(mimeTypes="image/jpeg")
      *})
+     * @Groups({"show_post"})
      */
     private $picturesFiles;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\SpotLike", mappedBy="spot")
+     * @Groups({"show_post"})
      */
     private $likes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="spot", orphanRemoval=true)
+     * @Groups({"show_post"})
      */
     private $sessions;
 

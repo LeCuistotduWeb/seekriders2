@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SessionRepository")
@@ -17,28 +18,33 @@ class Session
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"show_post"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=3, minMessage="Le titre doit avoir plus de 3 caractères")
+     * @Groups({"show_post"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"show_post"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      * @SessionStartDate()
+     * @Groups({"show_post"})
      */
     private $startDateAt;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"show_post"})
      */
     private $endDateAt;
 
@@ -56,16 +62,19 @@ class Session
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="mySessions")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"show_post"})
      */
     private $author;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"show_post"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"show_post"})
      */
     private $isContest;
 

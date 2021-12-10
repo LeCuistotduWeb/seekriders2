@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,41 +21,49 @@ class Location
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Country
+     * @Groups({"show_post"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $region;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $department;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $postCode;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"show_post"})
      */
     private $longitude;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"show_post"})
      */
     private $latitude;
 
@@ -63,6 +72,9 @@ class Location
      */
     private $spot;
 
+    /**
+     * @Groups({"show_post"})
+     */
     private $fullAddress;
 
     public function getFullAddress(){

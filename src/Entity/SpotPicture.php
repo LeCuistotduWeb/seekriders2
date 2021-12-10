@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
@@ -16,6 +17,7 @@ class SpotPicture
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"show_post"})
      */
     private $id;
 
@@ -25,11 +27,13 @@ class SpotPicture
      *   @Assert\Image(mimeTypes="image/jpeg")
      * })
      * @Vich\UploadableField(mapping="spot_image", fileNameProperty="filename")
+     * @Groups({"show_post"})
      */
     private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"show_post"})
      */
     private $filename;
 
