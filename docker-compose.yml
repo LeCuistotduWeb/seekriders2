@@ -28,29 +28,17 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: seekriders_phpmyadmin
-    restart: always
-    depends_on:
-      - mysql
+  node:
+    image: node:16-alpine3.12
+    volumes:
+      - .:/var/www
     ports:
-      - "5000:5000"
-    environment:
-      PMA_HOST: mysql
-#  frontend:
-#    command: bash -c 'npm i && npm run dev'
-#    container_name: seekriders_frontend
-#    build:
-#      context: ./frontend
-#    expose:
-#      - '3000'
-#    image: node
-#    ports:
-#      - '3000:3000'
-#    user: node
-#    volumes:
-#      - ../frontend:/home/node/app
-#    working_dir: /home/node/app
+      - "8080:8080"
+    working_dir: /var/www
+    command: ["yarn"]
+volumes:
+  dbdata:
